@@ -82,3 +82,24 @@ persp(x,y,fa,theta = 30, phi = 40)
 
 ## Indexing Data ####
 
+A = matrix(1:16,4,4)
+A
+A[2,3]
+A[c(1,3),c(2,4)] # rows 1 and 3 intersect with columns 2 and 4
+A[c(1:3),c(2:4)] #
+
+A[1:2,]
+A[1,]
+
+### Negative sign excludes
+
+A[-c(1,3),]
+A[-c(1,3),-c(1,3,4)]
+
+dim(A)
+
+## Loading Data ####
+
+Auto = read.table("Auto.data")
+#  fix(Auto) # X not working on Mac
+
