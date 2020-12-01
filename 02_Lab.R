@@ -103,3 +103,6 @@ dim(A)
 Auto = read.table("Auto.data")
 #  fix(Auto) # X not working on Mac
 
+Auto = read.table("Auto.data", header = T, na.strings = "?")
+
+Auto = read.csv("Auto.csv", header = T, na.strings = "?")
