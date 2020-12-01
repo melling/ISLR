@@ -106,3 +106,44 @@ Auto = read.table("Auto.data")
 Auto = read.table("Auto.data", header = T, na.strings = "?")
 
 Auto = read.csv("Auto.csv", header = T, na.strings = "?")
+dim(Auto)
+
+Auto[1:4,] # First four rows
+
+names(Auto) # column names
+
+## Additional Graphical and Numerical Summaries
+
+plot(Auto$cylinders, Auto$mpg)
+
+attach(Auto) # Now Auto dataframe is implied
+plot(cylinders, mpg)
+
+cylinders = as.factor(cylinders)
+
+# Boxplot ####
+# We now get a boxplot because x-axis is categorical
+plot(cylinders, mpg)
+plot(cylinders, mpg, col="red")
+plot(cylinders, mpg, col="red", varwidth=T)
+plot(cylinders, mpg, col="red", varwidth=T, horizontal=T) # Flip x and y axis
+plot(cylinders, mpg, col="red", varwidth=T, xlab="cylinders", ylab="MPG") 
+
+# histogram ####
+hist(mpg)
+hist(mpg, col=2) # 2 = red
+hist(mpg, col=2, breaks = 15)
+
+# pairs() scatterplot ####
+
+pairs(Auto) # ???
+pairs(~ mpg + displacement + horsepower + weight + acceleration, Auto)
+
+plot(horsepower,mpg)
+identify(horsepower,mpg,name) # Make graph interactive
+
+summary(Auto) # entire table
+
+summary(mpg) # One value
+
+
