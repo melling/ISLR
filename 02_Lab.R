@@ -43,3 +43,42 @@ x=rnorm(100)
 y=rnorm(100)
 
 plot(x,y, xlab = "x-axis", ylab = "y-axis", main = "Title")
+
+### Save chart as PDF ####
+
+pdf("Figure.pdf")
+plot(x,y,col="green")
+dev.off()
+
+### Sequences ####
+
+x = seq(1,10)
+x
+x = 1:10
+x
+x = seq(-pi,pi, length = 50)
+x
+
+### Contour Plot ####
+
+y=x
+f=outer(x,y,function(x,y) cos(y) / (1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels = 45, add = T)
+
+fa = (f-t(f))/2
+contour(x,y,fa,nlevels = 15)
+
+### Image() - heatmap ####
+image(x,y,fa)
+
+### Perspective Plots ####
+
+persp(x,y,fa)
+persp(x,y,fa,theta = 30)
+persp(x,y,fa,theta = 30, phi = 20)
+persp(x,y,fa,theta = 30, phi = 70)
+persp(x,y,fa,theta = 30, phi = 40)
+
+## Indexing Data ####
+
