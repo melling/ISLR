@@ -8,6 +8,9 @@ library(ISLR)
 names(Boston)
 ?Boston
 
+# mdev = median value of owner-occupied homes in \$1000s
+# lstate = lower status of the population (percent).
+
 lm.fit = lm(medv~lstat, data = Boston)
 
 attach(Boston)
@@ -46,4 +49,39 @@ plot(hatvalues(lm.fit))
 which.max(hatvalues(lm.fit)) # Largest leverage statistic
 
 ## Multiple Linear Regression ####
+
+lm.fit = lm(medv ~ lstat + age, data = Boston)
+summary(lm.fit)
+
+lm.fit = lm(medv ~ . , data = Boston) # Use all 13 variables
+summary(lm.fit)
+
+summary(lm.fit)$r.sq
+summary(lm.fit)$sigma
+
+# install.packages("car")
+library(car)
+vif(lm.fit) # Variance inflation factors
+
+lm.fit1 = lm(medv ~ . -age, data = Boston) # Use all 13 variables - age
+summary(lm.fit1)
+
+update(lm.fit, ~. -age) # Another way to remove age
+summary(lm.fit)
+
+
+## Interaction Terms ####
+
+summary(lm(medv ~ lstat * age, data = Boston))
+
+## Non-Linear Transformations of the Predictors
+
+lm.fit2 = lm(medv ~ lstat + I(lstat^2))
+summary(lm.fit2)
+
+lm.fit = lm(medv ~ lstat)
+anova(lm.fit, lm.fit2)
+
+par(mfrow = c(2,2)) # 4 plots in same picture
+plot(lm.fit2) # 4 plots
 
