@@ -56,3 +56,32 @@ head(Smarket.2005)
 
 glm.fit2 = glm(Direction ~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data = Smarket, family = binomial, subset = train)
 glm.probs2 = predict(glm.fit2, Smarket.2005, type = "response")
+
+# Now check prediction
+
+glm.pred = rep("Down", 252)
+glm.pred[glm.probs2 > .5] = "Up"
+table(glm.pred, Direction.2005)
+
+mean(glm.pred == Direction.2005)
+mean(glm.pred != Direction.2005) # Compute and test error rate
+
+### Remove Predictors ####
+
+# remove +Lag3+Lag4+Lag5+Volume
+glm.fit1 = glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) # Train Data
+glm.probs2 = predict(glm.fit1, Smarket.2005, type = "response")
+
+# Again check
+
+glm.pred = rep("Down", 252)
+glm.pred[glm.probs2 > .5] = "Up"
+table(glm.pred, Direction.2005)
+
+mean(glm.pred == Direction.2005)
+106 / (106 + 76)
+
+predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type = "response")
+
+## Linear Discriminant Analysis ####
+
