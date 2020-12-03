@@ -85,3 +85,39 @@ predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type 
 
 ## Linear Discriminant Analysis ####
 
+library(MASS)
+
+# Same format as glm: glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) - family
+lda.fit = lda(Direction ~Lag1+Lag2, data = Smarket, subset = train)
+lda.fit
+
+lda.pred = predict(lda.fit, Smarket.2005)
+names(lda.pred)
+
+lda.class = lda.pred$class
+table(lda.class,Direction.2005)
+
+mean(lda.class == Direction.2005)
+
+sum(lda.pred$posterior[,1] >=.5)
+sum(lda.pred$posterior[,1] <.5)
+
+sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probabily
+# 0 !!!
+
+## Quadratic Discriminant Analysis ####
+# Same format as lda()
+
+qda.fit = qda(Direction ~Lag1+Lag2, data = Smarket, subset = train)
+qda.fit
+
+qda.pred = predict(qda.fit, Smarket.2005)
+names(qda.pred)
+
+qda.class = qda.pred$class
+table(qda.class,Direction.2005)
+
+mean(qda.class == Direction.2005) # Accurate 60% of the time
+
+## K-Nearest Neighbors ####
+
