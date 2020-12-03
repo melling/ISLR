@@ -85,3 +85,31 @@ anova(lm.fit, lm.fit2)
 par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.fit2) # 4 plots
 
+### Polynomial Fit ####
+
+lm.fit5 = lm(medv ~ poly(lstat,5)) # 5th degree fit
+summary(lm.fit5)
+
+lm.fit_log = lm(medv ~ log(rm), data = Boston) # log transformation rooms
+summary(lm.fit_log)
+
+### Qualitative Predictors ####
+
+names(Carseats)
+
+lm.fit <- lm(Sales ~ .+Income:Advertising+Price:Age, data = Carseats)
+summary(lm.fit)
+
+attach(Carseats)
+
+contrasts(ShelveLoc) # Return coding for dummy variables
+
+?contrasts
+
+LoadLibrary=function() {
+  library(MASS)
+  library(ISLR)
+  print("Libraries loaded")
+}
+
+LoadLibrary()
