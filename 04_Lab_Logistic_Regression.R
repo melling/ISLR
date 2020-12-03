@@ -121,3 +121,34 @@ mean(qda.class == Direction.2005) # Accurate 60% of the time
 
 ## K-Nearest Neighbors ####
 
+#data(package="ISLR")
+# knn() requires 4 inputs
+# 1. matrix of predictors for training data: train.X
+# 2. matrix of predictors for test.X
+# 3. vector containing class labels for training observations: train.Direction
+# 4. value for K, number of nearest neighbors to be used by classifier
+
+library(class)
+
+train.X = cbind(Lag1, Lag2)[train,]
+test.X = cbind(Lag1, Lag2)[!train,]
+train.Direction = Direction[train]
+
+# Make predictions for dates in 2005
+
+# k=1
+set.seed(1)
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
+table(knn.pred,Direction.2005)
+
+(83+43)/252
+
+# k=3
+knn.pred = knn(train.X, test.X, train.Direction, k=3)
+table(knn.pred,Direction.2005)
+mean(knn.pred==Direction.2005)
+
+# QDA provides best results so far
+
+## Caravan Insurance Data ####
+
