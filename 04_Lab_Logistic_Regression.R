@@ -22,3 +22,37 @@ coef(glm.fit1)
 summary(glm.fit1)$coef
 summary(glm.fit1)$coef[,4] # Column 4
 
+# P(Y=1|X)
+glm.probs = predict(glm.fit1, type = "response")
+glm.probs[1:10]
+
+contrasts(Direction)
+
+### Confusion Matrix ####
+# Create prediction table
+
+glm.pred = rep("Down", 1250) 
+glm.pred[glm.probs > .5] = "Up"
+
+# Produce a confusion matrix
+# Diagonals indicate correct predictions. Off-diagonals indicate incorrect predictions.
+table(glm.pred, Direction) 
+
+# Determine how many correctly and incorrectly classified
+(507 + 145) / 1250 # Correct 52.16%
+
+mean(glm.pred == Direction)
+glm.pred
+
+train = (Year<2005)
+train[1:20]
+Smarket.2005 = Smarket[!train,]
+dim(Smarket.2005)
+Direction.2005 = Direction[!train]
+Smarket.2005[1:10,]
+head(Smarket.2005)
+
+### Fit Logistic Regression Model ####
+
+glm.fit2 = glm(Direction ~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data = Smarket, family = binomial, subset = train)
+glm.probs2 = predict(glm.fit2, Smarket.2005, type = "response")
