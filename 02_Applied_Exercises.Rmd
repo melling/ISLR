@@ -1,0 +1,56 @@
+---
+title: "ISLR Chapter 2 Applied Exercises"
+output: html_notebook
+---
+
+```{r, echo=FALSE}
+library(ISLR)
+
+```
+
+# attach(College)
+Question 8
+
+
+```{r}
+# 8a
+college = read.csv("College.csv")
+# 8b
+# fix()
+```
+
+Add row names
+```{r, results='hide'}
+rownames(college)=college[,1]
+```
+
+Remove first column
+```{r}
+# college[,-1]
+college=college[,-1]
+```
+
+Question 8c
+```{r}
+summary(college)
+
+```
+
+```{r}
+pairs(college[,1:10])
+```
+```{r}
+plot(College$Outstate, College$Private)
+```
+
+```{r}
+plot(College$Private, College$Outstate)
+```
+8c iv
+```{r}
+Elite=rep("No", nrow(college))
+Elite[College$Top10perc > 50] = "Yes"
+Elite = as.factor(Elite)
+summary(Elite)
+```
+
