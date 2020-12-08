@@ -8,3 +8,15 @@ http://www.StatLearning.com
 http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 
 [Videos](https://www.r-bloggers.com/2014/09/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/)
+
+Slides
+- [Chapter 1: Introduction ](https://web.stanford.edu/~hastie/MOOC-Slides/introduction.pdf)
+- [Chapter 2: Statistical Learning ](https://web.stanford.edu/~hastie/MOOC-Slides/statistical_learning.pdf)
+- [Chapter 3: Linear Regression ](https://web.stanford.edu/~hastie/MOOC-Slides/linear_regression.pdf)
+- [Chapter 4: Classification ](https://web.stanford.edu/~hastie/MOOC-Slides/classification.pdf)
+- [Chapter 5: Resampling Methods ](https://web.stanford.edu/~hastie/MOOC-Slides/cv_boot.pdf)
+- [Chapter 6: Linear Model Selection and Regularization ](https://web.stanford.edu/~hastie/MOOC-Slides/model_selection.pdf)
+- [Chapter 7: Moving Beyond Linearity ](https://web.stanford.edu/~hastie/MOOC-Slides/nonlinear.pdf)
+- [Chapter 8: Tree-Based Methods ](https://web.stanford.edu/~hastie/MOOC-Slides/trees.pdf)
+- [Chapter 9: Support Vector Machines ](https://web.stanford.edu/~hastie/MOOC-Slides/svm.pdf)
+- [Chapter 10: Unsupervised Learning](https://web.stanford.edu/~hastie/MOOC-Slides/unsupervised.pdf)
