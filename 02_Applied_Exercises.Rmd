@@ -5,7 +5,6 @@ output: html_notebook
 
 ```{r, echo=FALSE}
 library(ISLR)
-
 ```
 
 # attach(College)
@@ -37,14 +36,15 @@ summary(college)
 ```
 
 ```{r}
-pairs(college[,1:10])
+pairs(College[,1:10]) # [,1:10] college didn't work
 ```
 ```{r}
 plot(College$Outstate, College$Private)
 ```
 
 ```{r}
-plot(College$Private, College$Outstate)
+attach(college)
+plot(Private, Outstate)
 ```
 8c iv
 ```{r}
@@ -52,5 +52,120 @@ Elite=rep("No", nrow(college))
 Elite[College$Top10perc > 50] = "Yes"
 Elite = as.factor(Elite)
 summary(Elite)
+```
+
+```{r}
+```
+
+
+```{r}
+plot(college$Outstate, Elite)
+```
+
+```{r}
+plot(college$Elite, college$Outstate)
+```
+```{r}
+par(mfrow=c(2,2)) # 4 plots per picture
+attach(college)
+hist(PhD, breaks = 10, col = 3)
+hist(F.Undergrad, breaks = 10)
+hist(P.Undergrad, col=2, breaks = 15)
+hist(Outstate, col=2, breaks = 15)
+
+```
+
+```{r}
+
+pairs(~ PhD + F.Undergrad + P.Undergrad , college)
+```
+
+vi. Continue exploring...
+
+Question 9: Auto
+
+a. Which predictors are quantitative, and which are qualitative.
+
+b. range of each quantitative predictor
+
+```{r}
+View(Auto)
+```
+
+
+```{r}
+# attach(Auto)
+range(Auto$mpg)
+range(Auto$cylinders)
+range(Auto$displacement)
+range(Auto$weight)
+range(Auto$horsepower)
+range(Auto$acceleration)
+range(Auto$year)
+# range(order)
+```
+
+9c Mean standard deviation for each quantitative predictor
+
+```{r}
+sd(Auto$mpg)
+sd(Auto$cylinders)
+sd(Auto$displacement)
+sd(Auto$weight)
+sd(Auto$horsepower)
+sd(Auto$acceleration)
+sd(Auto$year)
+View(Auto)
+```
+
+Question 9d
+```{r}
+auto = Auto
+tenth = auto[10,]
+
+auto = auto[-c(10:85),]
+attach(auto)
+sd(mpg)
+sd(cylinders)
+sd(displacement)
+sd(weight)
+sd(horsepower)
+sd(acceleration)
+sd(year)
+```
+
+Question 10
+
+```{r}
+
+library(MASS)
+Boston
+```
+# rows and columns
+```{r}
+dim(Boston)
+```
+Question 10b
+```{r}
+pairs(Boston)
+```
+
+```{r}
+View(Boston)
+```
+
+```{r}
+pairs(~ crim + age, Boston)
+```
+
+```{r}
+help(Boston)
+pairs(~ crim + age + zn, Boston)
+```
+
+Question 10c
+
+```{r}
+
 ```
 
