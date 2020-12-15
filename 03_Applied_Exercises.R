@@ -69,8 +69,10 @@ par(mfrow = c(1,1))
 pairs(Auto) # All scatterplots
 
 # 9b ####
+#
 #View(Auto)
 cor(Auto[,-9]) # Skip name because it's qualitative
+#cor(Auto[,-c("name")]) # Skip name because it's qualitative
 #
 
 # 9c ####
@@ -81,16 +83,29 @@ summary(lm.fit)
 # 9c i.
 
 # p-value p(>|t|) - Choose < 0.05
+### *** means very significant 0.001
+###  ** means  significant: 0.01
 
 # 9c ii.
 
+## Anything with ** or ***, except for Intercept, of course
 
 # 9c iii.
 
-# 9d  lm Diagnotistic plots ####
+# 0.750773 means it increases by almost 1 (.75) mpg every year?
+# Every 4 years, we get 3 more miles per gallon
+
+# 9d  lm Diagnostic plots ####
+
 par(mfrow = c(2,2)) # 4 plots in same picture
-plot(lm.fit) # Diagnotistic plots
-### Why ***
+plot(lm.fit) # Diagnostic plots
+
+# Section 3.3.3 p93 Figure 3.9 Residuals vs Fitted
+
+## Residual plot suggests ? about Outliers?  Fig 3.12 p97
+
+### Observation 14 the Station Wagon has high leverage??
+
 
 # 9e Interaction Effects ####
 
