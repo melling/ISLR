@@ -2,7 +2,9 @@
 
 library(ISLR)
 
-# 8a
+# Question 8 ####
+
+# 8a ####
 lm.fit = lm(mpg~horsepower, data = Auto)
 
 lm.fit
@@ -10,7 +12,7 @@ summary(lm.fit)
 names(lm.fit)
 coef(lm.fit)
 
-# 8a) i. 
+# 8a) i. ####
 # Relationship between predictor and response?
 
 #              Estimate Std. Error t value Pr(>|t|)    
@@ -18,18 +20,18 @@ coef(lm.fit)
 
 # Answer: Small negative correlation, small p-value
 
-# 8a) ii.
+# 8a) ii. ####
 
 # Answer:
 # R-squared:  0.6059 is high implies strong correlation
 
 
 
-# 8a) iii.
+# 8a) iii. ####
 
 # Answer: Negative, because coefficient is negative
 
-# 8a) iv.
+# 8a) iv. ####
 
 predict(lm.fit, data.frame(horsepower = c(98)), interval = "prediction") 
 
@@ -47,7 +49,7 @@ predict(lm.fit, data.frame(horsepower = c(98)), interval = "confidence") # 95%
 
 # Answer: 23.97308 24.96108
 
-# 8b)
+# 8b ####
 
 plot(horsepower,mpg) # x,y
 abline(lm.fit, col=2) # Add Least Squares Regression Line
@@ -56,6 +58,61 @@ abline(lm.fit, col=2) # Add Least Squares Regression Line
 ## R^2 says we're missing 40% of variance
 ## Va
 
-# 8c
+# 8c - Diagnostic plots ####
 par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.fit) # 4 plots
+
+# Question 9 ####
+
+# 9a ####
+par(mfrow = c(1,1))
+pairs(Auto) # All scatterplots
+
+# 9b ####
+#View(Auto)
+cor(Auto[,-9]) # Skip name because it's qualitative
+#
+
+# 9c ####
+
+lm.fit <- lm(mpg ~ . -name, data = Auto) # Skip name because it's qualitative
+summary(lm.fit)
+
+# 9c i.
+
+# p-value p(>|t|) - Choose < 0.05
+
+# 9c ii.
+
+
+# 9c iii.
+
+# 9d  lm Diagnotistic plots ####
+par(mfrow = c(2,2)) # 4 plots in same picture
+plot(lm.fit) # Diagnotistic plots
+### Why ***
+
+# 9e Interaction Effects ####
+
+summary(lm(mpg ~ weight * year, data = Auto))
+
+summary(lm(mpg ~ displacement:weight, data = Auto))
+
+# 9f Variable Transformation ####
+
+lm.fit = lm(mpg ~ weight + I(weight^2))
+summary(lm.fit)
+
+lm.fit = lm(mpg ~ weight + log(weight))
+summary(lm.fit)
+
+lm.fit = lm(mpg ~ weight + sqrt(weight))
+summary(lm.fit)
+
+# Misc ####
+
+lm.fit = lm(mpg ~ . , data = Auto) # Use all  variables
+summary(lm.fit)
+
+par(mfrow = c(2,2)) # 4 plots in same picture
+
