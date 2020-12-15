@@ -1,5 +1,5 @@
 # ISLR
-Introduction to Statistical Learning
+Introduction to Statistical Learning: http://www.StatLearning.com
 
 Working through the book and the labs.
 
