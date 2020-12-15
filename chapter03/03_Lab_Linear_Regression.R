@@ -1,3 +1,6 @@
+setwd("../chapter03/")
+#getwd()
+
 library(MASS)
 library(ISLR)
 # install.packages("ISLR")

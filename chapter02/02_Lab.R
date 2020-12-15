@@ -1,3 +1,5 @@
+getwd()
+#setwd("../chapter02/")
 # http://faculty.marshall.usc.edu/gareth-james/ISL/bios.html
 
 ## Basic Commands ####
@@ -100,7 +102,7 @@ dim(A)
 
 ## Loading Data ####
 
-Auto = read.table("Auto.data")
+Auto = read.table("../input/Auto.data")
 #  fix(Auto) # X not working on Mac
 
 Auto = read.table("Auto.data", header = T, na.strings = "?")
