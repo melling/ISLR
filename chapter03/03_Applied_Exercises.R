@@ -124,10 +124,57 @@ summary(lm.fit)
 lm.fit = lm(mpg ~ weight + sqrt(weight))
 summary(lm.fit)
 
-# Misc ####
+# 10a ####
 
-lm.fit = lm(mpg ~ . , data = Auto) # Use all  variables
+lm.fit = lm(Sales ~ Price + Urban + US, data = Carseats)
 summary(lm.fit)
-
 par(mfrow = c(2,2)) # 4 plots in same picture
+plot(lm.fit)
 
+# 10b ####
+
+# Price - Large t-value
+# UrbanYes - qualitative
+# USYes - qualitative
+
+# 10c ####
+
+# Sales = Beta0 + Beta1 * Price - Beta2 * Urban + Beta3 * US 
+# Use dummy variables for qualitative
+
+# Beta2 = -1 if Urban, 0 otherwise - Negative?
+# Beta3 = 1 if US, 0 otherwise - Positive
+# Price Coefficient = -0.054459 negative effect
+
+
+# 10d ####
+
+# Which predictors reject null hypothesis?  Beta_j=0
+
+# Low p-values predictors: Price, USYes
+
+
+# 10e: Better Formula ####
+
+# ??
+# Sales = Beta0 + Beta1 * Price + Beta2 * US 
+
+lm.fit = lm(Sales ~ Price + US, data = Carseats)
+summary(lm.fit)
+par(mfrow = c(2,2)) # 4 plots in same picture
+plot(lm.fit)
+
+# 10f: Better Fit? ####
+
+# The two plot(lm.fit) Look almost the same
+
+##
+# 10g: 95% CI ####
+
+predict(lm.fit, data.frame(Price = c(50), US=c(1)), interval = "confidence") # 95%
+
+
+# 10h: Evidence for outliers ####
+
+# Section 3.3.3 Potential Problems: #4
+# Can tell outliers because they show up ...
