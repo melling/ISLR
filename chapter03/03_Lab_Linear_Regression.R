@@ -100,8 +100,13 @@ summary(lm.fit_log)
 
 names(Carseats)
 
+# https://stackoverflow.com/questions/40567421/asterisk-vs-colon-in-r-formulas
+
 lm.fit <- lm(Sales ~ .+Income:Advertising+Price:Age, data = Carseats)
 summary(lm.fit)
+
+# lm.fit <- lm(Sales ~ Income:Advertising+Price:Age, data = Carseats)
+# summary(lm.fit)
 
 attach(Carseats)
 

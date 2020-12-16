@@ -109,8 +109,10 @@ plot(lm.fit) # Diagnostic plots
 
 # 9e Interaction Effects ####
 
+## weight * year means weight, year, and weight:year (the interaction term)
 summary(lm(mpg ~ weight * year, data = Auto))
 
+## : means only interaction, no main effects (predictors that created the term e.g no displacement, weight)
 summary(lm(mpg ~ displacement:weight, data = Auto))
 
 # 9f Variable Transformation ####

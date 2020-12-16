@@ -41,7 +41,7 @@ plot(auto.mlr)
 # High Leverage Points: Based on the Residuals vs. Leverage graph, there is no observations that
 # provides a high leverage
 
-# (e)
+# (e) ####
 
 names(Auto)
 interact.fit = lm(mpg~.-name+horsepower*displacement, data=Auto)
@@ -54,7 +54,7 @@ inter.fit = lm(mpg~.-name+horsepower:origin+horsepower:weight+horsepower:displac
 summary(inter.fit)
 # Adding more interactions, decreases the significance of previous significant values
 
-# (f)
+# (f) ####
 summary(lm(mpg~.-name+log(acceleration), data=Auto))
 # log(acceleration) is still very significant but less significant than acceleration
 
@@ -66,6 +66,7 @@ summary(lm(mpg~.-name+I(horsepower^2), data=Auto))
 
 summary(lm(mpg~.-name+I(weight^2), data=Auto))
 # Squaring the weights doesnt change significance
-
+lm.fit = lm(mpg~.-name+I(cylinders^2), data=Auto)
+plot(lm.fit)
 summary(lm(mpg~.-name+I(cylinders^2), data=Auto))
 # Squaring the cylinders makes cylinders and horsepower significant variables
