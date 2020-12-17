@@ -223,7 +223,7 @@ summary(lm.fit)
 
 # 11d: Skipped ####
 
-# 11e ####
+# 11e: Skipped ####
 
 # 11f ####
 
