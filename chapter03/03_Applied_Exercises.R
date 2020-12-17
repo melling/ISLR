@@ -180,3 +180,50 @@ predict(lm.fit, data.frame(Price = c(50), US=c(1)), interval = "confidence") # 9
 
 # Section 3.3.3 Potential Problems: #4
 # Can tell outliers because they show up ...
+
+# 11 ####
+
+set.seed(1)
+x = rnorm(100)
+y = 2* x * rnorm(100)
+
+# 11a ####
+
+lm(y~x) # Wrong!!!
+
+# Intercept = -0.37901     x= -0.08298  
+
+# Tells us to use x+0 in question
+# More References:
+# - https://stackoverflow.com/questions/7333203/linear-regression-with-a-known-fixed-intercept-in-r
+# - https://rpubs.com/aaronsc32/regression-through-the-origin
+
+lm.fit = lm(y ~ x + 0) # Need to add x intercept
+summary(lm.fit)
+
+# x coefficient = -0.4508
+# p-value: 0.00508
+
+# p-value near 0, reject null hypothesis that B_1 = 0
+
+
+# 11b ####
+
+lm.fit = lm(x ~ y + 0) # Need to add x intercept
+summary(lm.fit)
+
+# Coefficients:
+#   Estimate Std. Error t value Pr(>|t|)   
+# y  -0.1699     0.0593  -2.866  0.00508 **
+
+# p-value near 0, reject null hypothesis that B_1 = 0
+
+# 11c ####
+
+
+# 11d: Skipped ####
+
+# 11e ####
+
+# 11f ####
+
