@@ -161,10 +161,10 @@ plot(lm.fit)
 # ??
 # Sales = Beta0 + Beta1 * Price + Beta2 * US 
 
-lm.fit = lm(Sales ~ Price + US, data = Carseats)
-summary(lm.fit)
+carseat.fit2 = lm(Sales ~ Price + US, data = Carseats)
+summary(carseat.fit2)
 par(mfrow = c(2,2)) # 4 plots in same picture
-plot(lm.fit)
+plot(carseat.fit2)
 
 # 10f: Better Fit? ####
 
@@ -173,13 +173,27 @@ plot(lm.fit)
 ##
 # 10g: 95% CI ####
 
-predict(lm.fit, data.frame(Price = c(50), US=c(1)), interval = "confidence") # 95%
+confint(carseat.fit2)
 
 
 # 10h: Evidence for outliers ####
 
 # Section 3.3.3 Potential Problems: #4
 # Can tell outliers because they show up ...
+
+# Average leverage = (p+1)/n 
+# (3+1)/400 = 0.0076
+# Values greater than (p+1)/n are high leverage
+dim(Carseats)
+# (Predictors, Price + 1) / number of rows
+(2+1)/dim(Carseats[1])
+
+(2+1)/400
+# Visualizing the statistics for leverage
+par(mfrow = c(2,2))
+plot(carseat.fit2)
+
+# +++++++++++++++++++++++++++++++++++++++++++
 
 # 11 ####
 
