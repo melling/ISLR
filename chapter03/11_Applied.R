@@ -35,3 +35,19 @@ summary(lm.fit.x.y)
 
 # (a) seems to have a higher standard error and coefficient than (b). However their
 # t-statistic and p-value are the same.
+
+# (d) ####
+
+
+
+# (e) ####
+
+# The derived equation for t-statistic shows that the x values and y values are only 
+# being mulitplied. Since multiplication has a cumulative property, switching the 
+# values for x and y will not effect the result.
+
+# (f) ####
+
+# Checking the t-statistic for both models and seeing that it is same for both
+summary(lm.fit.no.intercept)
+summary(lm.fit.x.y)
