@@ -161,10 +161,10 @@ plot(lm.fit)
 # ??
 # Sales = Beta0 + Beta1 * Price + Beta2 * US 
 
-lm.fit = lm(Sales ~ Price + US, data = Carseats)
-summary(lm.fit)
+carseat.fit2 = lm(Sales ~ Price + US, data = Carseats)
+summary(carseat.fit2)
 par(mfrow = c(2,2)) # 4 plots in same picture
-plot(lm.fit)
+plot(carseat.fit2)
 
 # 10f: Better Fit? ####
 
@@ -173,10 +173,71 @@ plot(lm.fit)
 ##
 # 10g: 95% CI ####
 
-predict(lm.fit, data.frame(Price = c(50), US=c(1)), interval = "confidence") # 95%
+confint(carseat.fit2)
 
 
 # 10h: Evidence for outliers ####
 
 # Section 3.3.3 Potential Problems: #4
 # Can tell outliers because they show up ...
+
+# Average leverage = (p+1)/n 
+# (3+1)/400 = 0.0076
+# Values greater than (p+1)/n are high leverage
+dim(Carseats)
+# (Predictors, Price + 1) / number of rows
+(2+1)/dim(Carseats[1])
+
+(2+1)/400
+# Visualizing the statistics for leverage
+par(mfrow = c(2,2))
+plot(carseat.fit2)
+
+# +++++++++++++++++++++++++++++++++++++++++++
+
+# 11 ####
+
+set.seed(1)
+x = rnorm(100)
+y = 2* x * rnorm(100)
+
+# 11a ####
+
+lm(y~x) # Wrong!!!
+
+# Intercept = -0.37901     x= -0.08298  
+
+# Tells us to use x+0 in question
+# More References:
+# - https://stackoverflow.com/questions/7333203/linear-regression-with-a-known-fixed-intercept-in-r
+# - https://rpubs.com/aaronsc32/regression-through-the-origin
+
+lm.fit = lm(y ~ x + 0) # Need to add x intercept
+summary(lm.fit)
+
+# x coefficient = -0.4508
+# p-value: 0.00508
+
+# p-value near 0, reject null hypothesis that B_1 = 0
+
+
+# 11b ####
+
+lm.fit = lm(x ~ y + 0) # Need to add x intercept
+summary(lm.fit)
+
+# Coefficients:
+#   Estimate Std. Error t value Pr(>|t|)   
+# y  -0.1699     0.0593  -2.866  0.00508 **
+
+# p-value near 0, reject null hypothesis that B_1 = 0
+
+# 11c ####
+
+
+# 11d: Skipped ####
+
+# 11e: Skipped ####
+
+# 11f ####
+
