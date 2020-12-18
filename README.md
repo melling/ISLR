@@ -7,7 +7,11 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 
 [Videos](https://www.r-bloggers.com/2014/09/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/)
 
-Slides
+- [Chapter 2 Solutions](chapter2)
+- [Chapter 3 Solutions](chapter3)
+
+## Course Slides for Videos
+
 - [Chapter 1: Introduction ](https://web.stanford.edu/~hastie/MOOC-Slides/introduction.pdf)
 - [Chapter 2: Statistical Learning ](https://web.stanford.edu/~hastie/MOOC-Slides/statistical_learning.pdf)
 - [Chapter 3: Linear Regression ](https://web.stanford.edu/~hastie/MOOC-Slides/linear_regression.pdf)
@@ -18,3 +22,18 @@ Slides
 - [Chapter 8: Tree-Based Methods ](https://web.stanford.edu/~hastie/MOOC-Slides/trees.pdf)
 - [Chapter 9: Support Vector Machines ](https://web.stanford.edu/~hastie/MOOC-Slides/svm.pdf)
 - [Chapter 10: Unsupervised Learning](https://web.stanford.edu/~hastie/MOOC-Slides/unsupervised.pdf)
+
+## Other Solutions
+
+- http://blog.princehonest.com/stat-learning/
+- 
+
+## Python Solutions
+
+https://www.franzoni.eu/machine-learning-a-sound-primer/
+
+
+## Julia Solutions
+
+https://github.com/tndoan/ISLR.jl
+
