@@ -232,12 +232,147 @@ summary(lm.fit)
 
 # p-value near 0, reject null hypothesis that B_1 = 0
 
-# 11c ####
+# 11c: Skipped ####
+
+# Q-a seems to have a higher standard error and coefficient than Qb but the t-statistic and p-value are the same.
 
 
 # 11d: Skipped ####
 
-# 11e: Skipped ####
+
+# 11e ####
+
+# Since multiplicative and commutative, switching x and y doesn't change the t-statistic
 
 # 11f ####
+# Should be the same t-statistic
+lm.fit = lm(y ~ x)
+summary(lm.fit) # t is -2.865
+
+lm.fit = lm(x ~ y)
+summary(lm.fit) # t is -2.865
+
+# 12a ####
+
+## Revisit ####
+
+# Under what circumstance is the coefficient estimate for the regression of X onto Y the same as the coefficient estimate for the regression of Y onto X?
+
+# When it's a 1-1 ratio.  Perfect linear relationship
+
+
+
+# 12b ####
+
+# Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is different from the coefficient estimate for the regression of Y onto X.
+
+# Non-Linear equation?
+
+set.seed(1)
+x = rnorm(100)
+y = 2 * x * rnorm(100)
+
+# 12c ####
+
+# Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is the same as the coefficient estimate for the regression of Y onto X
+
+set.seed(1)
+x = rnorm(100)
+y =  x
+
+# ++++++++++++++++++++++++++++++
+
+# 13a ####
+
+set.seed(1)
+x = rnorm(100)
+
+
+# 13b ####
+
+eps = rnorm(100, 0, sd = 0.25)
+
+
+# 13c ####
+
+y = -1 + 0.5*x + eps
+# lm.fit = lm(y ~ x)
+length(y)
+# summary(lm.fit)
+# Intercept = -1, Beta1 = 0.5
+
+# 13d ####
+
+par(mfrow = c(1,1))
+plot(x,y)
+
+# There's a linear relationship.  More??
+
+# 13e ####
+
+lm.fit = lm(y ~ x)
+coef(lm.fit)[1]
+coef(lm.fit)[2]
+
+# - 1.014996 is close?
+#  0.5478716 is off by ??
+
+# 13f ####
+
+abline(lm.fit, col=2)
+abline(-1, 0.5, lwd=3, col=3)
+legend(-1, c("model fit", "population line"), col=2:3, lwd=3)
+
+# 13g ####
+
+lm.fit2 = lm(y ~ x + I(x^2))
+summary(lm.fit2)
+abline(lm.fit2, col=4)
+
+# No, p-value on X^2 term is high
+
+# 13h ####
+
+
+set.seed(1)
+x = rnorm(100)
+
+eps = rnorm(100, 0, sd = 0.1) # Reduce variance 
+y = -1 + 0.5*x + eps
+plot(x,y)
+
+lm.fit = lm(y ~ x)
+coef(lm.fit)[1]
+coef(lm.fit)[2]
+summary(lm.fit)$r.squared
+confint(lm.fit)
+
+abline(lm.fit, col=2)
+abline(-1, 0.5, lwd=3, col=3)
+legend(-1, c("model fit", "population line"), col=2:3, lwd=3)
+
+
+# 13i ####
+
+set.seed(1)
+x = rnorm(100)
+
+eps = rnorm(100, 0, sd = 2.0) # Increase variance 
+y = -1 + 0.5*x + eps
+plot(x,y)
+
+lm.fit = lm(y ~ x)
+coef(lm.fit)[1]
+coef(lm.fit)[2]
+summary(lm.fit)$r.squared  # Terrible R^2
+confint(lm.fit)
+
+abline(lm.fit, col=2)
+abline(-1, 0.5, lwd=3, col=3)
+legend(-1, c("model fit", "population line"), col=2:3, lwd=3)
+
+# 13j ####
+
+# Run on each.  Noisier data produces wider CI
+confint(lm.fit)
 
