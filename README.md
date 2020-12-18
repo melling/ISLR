@@ -7,8 +7,8 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 
 [Videos](https://www.r-bloggers.com/2014/09/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/)
 
-- [Chapter 2 Solutions](chapter2)
-- [Chapter 3 Solutions](chapter3)
+- [Chapter 2 Solutions](chapter02)
+- [Chapter 3 Solutions](chapter03)
 
 ## Course Slides for Videos
 
