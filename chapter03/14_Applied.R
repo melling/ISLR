@@ -109,6 +109,7 @@ plot(hatvalues(lm.new.fit))
 ## Based on the graph above, the new data point has high leverage
 
 # PLotting the model
+par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.new.fit)
 
 ## Since the studentized residuals for new data is not greater than 3, we can say it 
