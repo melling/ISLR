@@ -58,6 +58,7 @@ plot(lm.medv)
 
 ### FIXME: for loop melling
 ## FIXME: melling
+### FIXME: 15d T
 
 x = c(coefficients(lm.zn)[2],
       coefficients(lm.indus)[2],
