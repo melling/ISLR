@@ -17,7 +17,7 @@ lm.function = function(predictor) {
 # }
 # lm.function(rm)
 
-# a ####
+# 15a ####
 
 # Creating a SLR model to predict crim using zn
 lm.zn = lm(crim ~ zn, data = Boston)
@@ -73,6 +73,8 @@ lm.ptratio = lm(crim ~ ptratio, data = Boston)
 summary(lm.ptratio)
 # Based on the p-value (2.94e-11), ptratio has a significant association with crim
 
+lm.black = lm(crim~black)
+
 # Creating a SLR model to predict crim using lstat
 lm.lstat = lm(crim ~ lstat, data = Boston)
 summary(lm.lstat)
@@ -95,18 +97,18 @@ plot(lm.ptratio)
 plot(lm.lstat)
 plot(lm.medv)
 
-# b ####
+# 15b ####
 
 # Fitting a multiple linear regression
-mlr.fit = lm(crim ~ ., data=Boston)
+lm.all = lm(crim ~ ., data=Boston)
 
 # Viewing the statistics for the MLR model
-summary(mlr.fit)
+summary(lm.all)
 
 # Based on the MLR, only zn, dis, rad, black, and medv have a significant association
 # with crim (p-value is below 0.05) which means we can reject the nuil hypothesis
 
-# c ####
+# 15c ####
 
 ### FIXME: for loop melling
 ## FIXME: melling
@@ -126,12 +128,14 @@ x = c(coefficients(lm.zn)[2],
       coefficients(lm.lstat)[2],
       coefficients(lm.medv)[2])
 y = coefficients(lm.all)[2:14]
+
+par(mfrow = c(1,1)) # 1 plot
 plot(x, y)
 
 # x$coeffients <-  c('Intercept', "RME")
 
 
-# d ####
+# 15d ####
 # Creating a SLR model to predict crim using zn
 lm.poly.zn = lm(crim ~ zn + I(zn^2) + I(zn^3), data = Boston)
 summary(lm.poly.zn)
