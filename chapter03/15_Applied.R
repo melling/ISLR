@@ -95,6 +95,19 @@ plot(lm.ptratio)
 plot(lm.lstat)
 plot(lm.medv)
 
+# b ####
+
+# Fitting a multiple linear regression
+mlr.fit = lm(crim ~ ., data=Boston)
+
+# Viewing the statistics for the MLR model
+summary(mlr.fit)
+
+# Based on the MLR, only zn, dis, rad, black, and medv have a significant association
+# with crim (p-value is below 0.05) which means we can reject the nuil hypothesis
+
+# c ####
+
 ### FIXME: for loop melling
 ## FIXME: melling
 ### FIXME: 15d T
@@ -116,16 +129,6 @@ y = coefficients(lm.all)[2:14]
 plot(x, y)
 
 # x$coeffients <-  c('Intercept', "RME")
-
-# b ####
-
-# Fitting a multiple linear regression
-mlr.fit = lm(crim ~ ., data=Boston)
-
-# Viewing the statistics for the MLR model
-summary(mlr.fit)
-
-# c ####
 
 
 # d ####
