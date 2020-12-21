@@ -132,4 +132,66 @@ plot(x, y)
 
 
 # d ####
+# Creating a SLR model to predict crim using zn
+lm.poly.zn = lm(crim ~ zn + I(zn^2) + I(zn^3), data = Boston)
+summary(lm.poly.zn)
+# Based on the p-values, zn does NOT have a non-linear association with crim
 
+# Plotting diagnostic plots
+par(mfrow = c(2,2))
+plot(lm.zn)
+
+# Creating a SLR model to predict crim using indus
+lm.poly.indus = lm(crim ~ indus + I(indus^2) + I(indus^3), data = Boston)
+summary(lm.poly.indus)
+# Based on the p-values, indus SHOWS that it has a non-linear association with crim
+
+# Creating a SLR model to predict crim using chas
+lm.poly.chas = lm(crim ~ chas + I(chas^2) + I(chas^3), data = Boston)
+summary(lm.poly.chas)
+# Since chas is a factor, squaring it does not affect it.
+
+# Creating a SLR model to predict crim using nox
+lm.poly.nox = lm(crim ~ nox + I(nox^2) + I(nox^3), data = Boston)
+summary(lm.poly.nox)
+# Based on the p-values, nox SHOWS that it has a non-linear association with crim
+
+# Creating a SLR model to predict crim using rm
+lm.poly.rm = lm(crim ~ rm + I(rm^2) + I(rm^3), data = Boston)
+summary(lm.poly.rm)
+# Based on the p-value, rm does NOT have a non-linear association with crim
+
+# Creating a SLR model to predict crim using age
+lm.poly.age = lm(crim ~ age + I(age^2) + I(age^3), data = Boston)
+summary(lm.poly.age)
+# Based on the p-values, age SHOWS a non-linear association with crim
+
+# Creating a SLR model to predict crim using dis
+lm.poly.dis = lm(crim ~ dis + I(dis^2) + I(dis^3), data = Boston)
+summary(lm.poly.dis)
+# Based on the p-values, dis SHOWS a non-linear association with crim
+
+# Creating a SLR model to predict crim using rad
+lm.poly.rad = lm(crim ~ rad + I(rad^2) + I(rad^3), data = Boston)
+summary(lm.poly.rad)
+# Based on the p-value, rad does NOT have a non-linear association with crim
+
+# Creating a SLR model to predict crim using tax
+lm.poly.tax = lm(crim ~ tax + I(tax^2) + I(tax^3), data = Boston)
+summary(lm.poly.tax)
+# Based on the p-value, tax does NOT have a non-linear association with crim
+
+# Creating a SLR model to predict crim using ptratio
+lm.poly.ptratio = lm(crim ~ ptratio + I(ptratio^2) + I(ptratio^3), data = Boston)
+summary(lm.poly.ptratio)
+# Based on the p-value, ptratio SHOWS a non-linear association with crim
+
+# Creating a SLR model to predict crim using lstat
+lm.poly.lstat = lm(crim ~ lstat + I(lstat^2) + I(lstat^3), data = Boston)
+summary(lm.poly.lstat)
+# Based on the p-value, lstat NOT have a non-linear association with crim
+
+# Creating a SLR model to predict crim using medv
+lm.poly.medv = lm(crim ~ medv + I(medv^2) + I(medv^3), data = Boston)
+summary(lm.poly.medv)
+# Based on the p-value, medv SHOWS a non-linear association with crim
