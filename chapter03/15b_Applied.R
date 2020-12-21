@@ -13,6 +13,7 @@ models <- lapply(varlist, function(x) {
 })
 models
 
+
 dim(models)
 ## look at the first element of the list, model 1
 for (i in nrow(models)) {
@@ -88,7 +89,7 @@ summary(mlr.fit)
 #   summary(lm(crim ~ v, data = Boston))
 # }
 #lm.function(rm)
-lm.zn = lm(crim ~ zn, data = Boston); lm.zn
+lm.zn = lm(crim ~ zn, data = Boston)
 lm.indus = lm(crim ~ indus, data = Boston)
 lm.chas = lm(crim ~ chas, data = Boston)
 lm.nox = lm(crim ~ nox, data = Boston)
@@ -106,6 +107,7 @@ summary(lm.zn)
 par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.zn)
 plot(lm.zn, Boston$zn)
+summary(lm.indus)
 summary(lm.indus)
 summary(lm.chas)
 summary(lm.nox)
