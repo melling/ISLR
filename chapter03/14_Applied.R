@@ -114,3 +114,4 @@ plot(lm.new.fit)
 
 ## Since the studentized residuals for new data is not greater than 3, we can say it 
 ## is not an outlier.
+
