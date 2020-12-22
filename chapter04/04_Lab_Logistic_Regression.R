@@ -25,6 +25,7 @@ summary(glm.fit1)$coef[,4] # Column 4
 # P(Y=1|X)
 glm.probs = predict(glm.fit1, type = "response")
 glm.probs[1:10]
+View(glm.probs)
 
 contrasts(Direction)
 
@@ -33,7 +34,7 @@ contrasts(Direction)
 
 glm.pred = rep("Down", 1250) 
 glm.pred[glm.probs > .5] = "Up"
-
+summary(glm.pred)
 # Produce a confusion matrix
 # Diagonals indicate correct predictions. Off-diagonals indicate incorrect predictions.
 table(glm.pred, Direction) 
