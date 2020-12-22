@@ -16,4 +16,15 @@ KNN does best for complicated decision boundaries
 
 ## Answers
 
+a) QDA on and Training because it will fit the data better, potentially overfitting
+
+LDA Test because of higher variance for QDA on Test data.
+
+b) QDA on both. Explain!!!!!!
+
+c) For Test data,
+
+QDA will improve more with more training data.
+
 d) FALSE It will overfit training data, have higher variance on test data
+
