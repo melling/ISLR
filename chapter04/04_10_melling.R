@@ -21,17 +21,17 @@ summary(glm.fit1)
 # 10c: Confusion Matrix ####
 
 glm.probs = predict(glm.fit1, type = "response")
-#View(glm.probs)
 contrasts(Weekly$Direction)
+summary(Weekly$Direction)
 
 ### Confusion Matrix ####
 # Create prediction table
 nrow(Weekly)
 glm.pred = rep("Down", nrow(Weekly)) 
 glm.pred[glm.probs > .5] = "Up"
-nrow(glm.pred)
+
 glm.pred
-typeof(glm.pred)
+
 summary(glm.pred)
 
 # Produce a confusion matrix
@@ -49,7 +49,7 @@ table(glm.pred, Weekly$Direction)
 430/1809
 48/1809
 (430 + 557)/1806
-mean(glm.pred == Weekly$Direction) ## Correct
+mean(glm.pred == Weekly$Direction) ## Correct 56%
 mean(glm.pred != Weekly$Direction) ## Incorrect
 
 # Saying Up 430 times when it shouldn't?
@@ -77,10 +77,6 @@ mean(glm.pred != Direction.2009) # Compute and test error rate
 ## Linear Discriminant Analysis ####
 
 library(MASS)
-#train
-# lda.fit1 = lda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
-#               data = Weekly, 
-#               subset = train)  # train boolean vector
 
 lda.fit1 = lda(Direction ~ Lag2,
                data = Weekly, 
@@ -90,8 +86,7 @@ lda.fit1
 summary(lda.fit1)    
 
 ## Need? test_data_weekly.2009
-#test_data_weekly.2009
-#lda.probs = predict(lda.fit1, type = "response") # This one?
+
 #lda.pred = predict(lda.fit1, test_data_weekly.2009, type = "response") # This one?
 lda.pred = predict(lda.fit1, test_data_weekly.2009) # This one!! Default type="response"?
 
@@ -101,13 +96,13 @@ lda.class = lda.pred$class
 # specificity vs Sensitivity
 
 table(lda.class, Direction.2009) # Confusion Matrix Predicted vs Truth
-
+Direction.2009
 mean(lda.class == Direction.2009) # Accurate 62% of the time
 
 sum(lda.pred$posterior[,1] >=.5) # Using column Down, Out of 104 in test data 75 are
 sum(lda.pred$posterior[,1] <.5)
 
-View(lda.pred$posterior)
+#View(lda.pred$posterior)
 head(lda.pred$posterior)
 sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 
@@ -137,37 +132,36 @@ mean(qda.class == Direction.2009) # Accurate 58% of the time
 ## K-Nearest Neighbors ####
 
 library(class)
-View(train)
+
+# Lab Example doesn't work
+
 # train.X = cbind(Lag2)[train,] # cbind??
 # test.X = cbind(Lag2)[!train,]
 
-train_knn = (Weekly$Year<2009)
+train.X = as.matrix(Weekly$Lag2[train])
+test.X = as.matrix(Weekly$Lag2[!train])
 
-train_knn.X = cbind(Weekly$Lag1, Weekly$Lag2)[train_knn,1]
-#train.X = Weekly$Lag2[train,1]
-View(train.X)
-test_knn.X = cbind(Weekly$Lag1, Weekly$Lag2)[!train_knn,1]
-#test.X = Weekly$Lag2[!train]
-View(test.X)
-train_knn.Direction = Weekly$Direction[train_knn]
+train.Direction = Weekly$Direction[train]
 
-summary(train_knn.Direction)
-length(train_knn.Direction)
-length(train_knn.X)
-length(test_knn.X)
+summary(Weekly$Direction[train])
+
+summary(train.Direction)
+length(train.Direction)
+length(train.X)
+length(test.X)
 set.seed(1)
-dim(train_knn.X)
-dim(test_knn.X)
-typeof(train)
-rm(knn.pred)
-knn.pred = knn(train_knn.X, test_knn.X, train_knn.Direction, k=1)
+dim(train.X)
+dim(test.X)
+
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
 table(knn.pred, Direction.2009)
 Direction.2009
-mean(knn.pred == Direction.2009)
+mean(knn.pred == Direction.2009) # 50% correct
 
 
 # 10h: Which of these methods appears to provide the best results on this data? ####
 
+# LDA accurate 62% of the time
 
 # 10i: ####
 
