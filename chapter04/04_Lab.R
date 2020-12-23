@@ -4,7 +4,7 @@
 library(ISLR)
 
 # Viewing the column names in Smarket
-names (Smarket)
+names(Smarket)
 
 # Viewing the dimensions of Smarket
 dim(Smarket)
@@ -104,3 +104,78 @@ table(glm.lag12.pred, Direction.2005)
 
 # Calculating test error rate
 mean(glm.lag12.pred != Direction.2005)
+
+#### 4.6.3 Linear Discriminant Analysis ####
+
+library(MASS)
+
+# Fitting a LDA on Smarket data
+lda.fit = lda(Direction ~ Lag1 + Lag2, data=Smarket, subset=train)
+lda.fit
+
+## pihat1 = 0.492 which means that 49.2% of training data corresponds to "Down"
+
+# Predicting values on test data
+lda.pred = predict(lda.fit, Smarket.2005)
+## Returns:
+## class -> LDA predictions
+## posterior -> matrix whose kth column contains the posterior probability that the 
+## corresponding observation belongs to the kth class
+## x -> contains the linear discriminants
+
+# Viewing the three elements returned by predict(LDA)
+names(lda.pred)
+
+# Creating a confusion matrix
+lda.class = lda.pred$class
+table(lda.class, Direction.2005)
+mean(lda.class == Direction.2005) # 0.5595
+
+sum(lda.pred$posterior[,1] >= .5)
+sum(lda.pred$posterior[,1] < .5)
+
+lda.pred$posterior[1:20,1]
+lda.class[1:20]
+
+#### 4.6.4 Quadratic Discriminant Analysis ####
+
+# Fitting QDA on Smarket
+qda.fit = qda(Direction ~ Lag1 + Lag2, data=Smarket, subset=train)
+qda.fit
+
+# Predicting test data using QDA
+qda.class = predict(qda.fit, Smarket.2005)$class
+table(qda.class, Direction.2005)
+mean(qda.class == Direction.2005) # 0.5992
+
+## Comments:
+## The QDA prediction is higher than LDA on TEST data which might suggest that the true
+## relationship of the response and predictors is a quadratic form
+
+#### 4.6.5 K-Nearest Neighbors ####
+
+# Importing libraries
+library(class)
+
+# Setting seed
+set.seed(1)
+
+# Binding Lag1 and Lag2 of Smarket data for training set
+train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
+# Creating response for training set
+train.Direction = Smarket$Direction[train]
+
+# Binding Lag1 and Lag2 of Smarket for test set
+test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
+
+# Fitting data using KNN model
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
+
+# Creating a confusion matrix
+table(knn.pred, Direction.2005)
+(83+43)/length(Direction.2005) # Percentage of correct predictions: 50%
+
+# Using KNN model with K=3
+knn3.pred = knn(train.X, test.X, train.Direction, k=3)
+table(knn3.pred, Direction.2005)
+(48+87)/length(Direction.2005) # Percentage of correct predictions: 53.6%
