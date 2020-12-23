@@ -25,7 +25,7 @@ summary(glm.fit1)$coef[,4] # Column 4
 # P(Y=1|X)
 glm.probs = predict(glm.fit1, type = "response")
 glm.probs[1:10]
-View(glm.probs)
+#View(glm.probs)
 
 contrasts(Direction)
 
@@ -162,3 +162,4 @@ mean(knn.pred == Direction.2005)
 
 ## Caravan Insurance Data ####
 
+detach(Smarket)
