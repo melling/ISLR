@@ -133,7 +133,11 @@ library(class)
 
 train.X = cbind(Lag1, Lag2)[train,]
 test.X = cbind(Lag1, Lag2)[!train,]
-train.Direction = Direction[train]
+train.Direction = Smarket$Direction[train]
+#train.Direction
+#Direction[train]
+summary(Direction)
+summary(Smarket$Direction)
 
 # Make predictions for dates in 2005
 
@@ -146,8 +150,8 @@ table(knn.pred,Direction.2005)
 
 # k=3
 knn.pred = knn(train.X, test.X, train.Direction, k=3)
-table(knn.pred,Direction.2005)
-mean(knn.pred==Direction.2005)
+table(knn.pred, Direction.2005)
+mean(knn.pred == Direction.2005)
 
 # QDA provides best results so far
 

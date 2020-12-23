@@ -3,11 +3,6 @@
 library(ISLR)
 library(tidyverse)
 
-#View(Weekly)
-
-# w2 = tibble(Weekly)
-# summary(w2)
-
 # 10a ####
 summary(Weekly)
 # attach(Weekly)
@@ -62,23 +57,83 @@ mean(glm.pred != Weekly$Direction) ## Incorrect
 # 10d: ####
 summary(Weekly$Year)
 train = (Weekly$Year<2009)
-weekly.2009 = Weekly[!train,]
+test_data_weekly.2009 = Weekly[!train,]
 
 Direction.2009 = Weekly$Direction[!train]
 
 glm.fit1 = glm(Direction ~Lag2, data = Weekly, family = binomial, subset = train) # Train Data
-glm.probs2 = predict(glm.fit1, weekly.2009, type = "response")
+glm.probs2 = predict(glm.fit1, test_data_weekly.2009, type = "response")
 
-glm.pred = rep("Down", nrow(weekly.2009))
+glm.pred = rep("Down", nrow(test_data_weekly.2009))
 glm.pred[glm.probs2 > .5] = "Up"
 table(glm.pred, Direction.2009)
 
 mean(glm.pred == Direction.2009) # % Correct Predictions 
 mean(glm.pred != Direction.2009) # Compute and test error rate
 
-# 10e: ####
+# 10e: LDA ####
 
-# 10f: ####
+## Linear Discriminant Analysis ####
+
+library(MASS)
+#train
+lda.fit1 = lda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+               data = Weekly, 
+               subset = train)  # train boolean vector
+lda.fit1
+summary(lda.fit1)    
+
+## Need? test_data_weekly.2009
+test_data_weekly.2009
+lda.probs = predict(lda.fit1, type = "response") # This one?
+lda.probs = predict(lda.fit1, test_data_weekly.2009, type = "response") # This one?
+
+lda.probs
+### Confusion Matrix ####
+# Create prediction table
+
+lda.pred = rep("Down", nrow(Weekly)) 
+lda.pred
+
+lda.pred[lda.probs > .5] = "Up"
+nrow(lda.pred)
+lda.pred
+
+summary(lda.pred)
+
+# 10f: QDA ####
+
+qda.fit1 = qda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+               data = Weekly, 
+               subset = train)  # train boolean vector
+qda.fit1
+summary(qda.fit1)    
+
+# 10g: KNN ####
+
+## K-Nearest Neighbors ####
+
+library(class)
+
+train.X = cbind(Lag1, Lag2)[train,]
+test.X = cbind(Lag1, Lag2)[!train,]
+
+train.X = cbind(Lag1, Lag2)[train,]
+test.X = cbind(Lag1, Lag2)[!train,]
+train.Direction = Weekly$Direction[train]
+train.Direction
+
+set.seed(1)
+
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
+table(knn.pred, Direction.2009)
+Direction.2009
+mean(knn.pred == Direction.2009)
 
 
-# 10g: ####
+# 10h: Which of these methods appears to provide the best results on this data? ####
+
+
+# 10i: ####
+
+
