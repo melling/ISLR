@@ -96,14 +96,14 @@ lda.pred = predict(lda.fit, Smarket.2005)
 names(lda.pred)
 
 lda.class = lda.pred$class
-table(lda.class,Direction.2005)
+table(lda.class, Direction.2005)
 
 mean(lda.class == Direction.2005)
 
 sum(lda.pred$posterior[,1] >=.5)
 sum(lda.pred$posterior[,1] <.5)
 
-sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probabily
+sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 # 0 !!!
 
 ## Quadratic Discriminant Analysis ####
@@ -132,10 +132,15 @@ mean(qda.class == Direction.2005) # Accurate 60% of the time
 library(class)
 
 train.X = cbind(Lag1, Lag2)[train,]
+#View(train)
+#train.X = cbind(Lag2)[train,]
+
+#View(train.X)
 test.X = cbind(Lag1, Lag2)[!train,]
 train.Direction = Smarket$Direction[train]
 #train.Direction
 #Direction[train]
+dim(train.X)
 summary(Direction)
 summary(Smarket$Direction)
 

@@ -5,7 +5,7 @@ library(tidyverse)
 
 # 10a ####
 summary(Weekly)
-# attach(Weekly)
+
 pairs(Weekly)
 
 # 10b: Logistic Regression ####
@@ -57,9 +57,10 @@ mean(glm.pred != Weekly$Direction) ## Incorrect
 # 10d: ####
 summary(Weekly$Year)
 train = (Weekly$Year<2009)
+
 test_data_weekly.2009 = Weekly[!train,]
 
-Direction.2009 = Weekly$Direction[!train]
+Direction.2009 = Weekly$Direction[!train]  # The Y's, the Response
 
 glm.fit1 = glm(Direction ~Lag2, data = Weekly, family = binomial, subset = train) # Train Data
 glm.probs2 = predict(glm.fit1, test_data_weekly.2009, type = "response")
@@ -77,55 +78,89 @@ mean(glm.pred != Direction.2009) # Compute and test error rate
 
 library(MASS)
 #train
-lda.fit1 = lda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+# lda.fit1 = lda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+#               data = Weekly, 
+#               subset = train)  # train boolean vector
+
+lda.fit1 = lda(Direction ~ Lag2,
                data = Weekly, 
                subset = train)  # train boolean vector
+
 lda.fit1
 summary(lda.fit1)    
 
 ## Need? test_data_weekly.2009
-test_data_weekly.2009
-lda.probs = predict(lda.fit1, type = "response") # This one?
-lda.probs = predict(lda.fit1, test_data_weekly.2009, type = "response") # This one?
+#test_data_weekly.2009
+#lda.probs = predict(lda.fit1, type = "response") # This one?
+#lda.pred = predict(lda.fit1, test_data_weekly.2009, type = "response") # This one?
+lda.pred = predict(lda.fit1, test_data_weekly.2009) # This one!! Default type="response"?
 
-lda.probs
-### Confusion Matrix ####
-# Create prediction table
+summary(lda.pred) # class, posterior, x - See Lab
 
-lda.pred = rep("Down", nrow(Weekly)) 
-lda.pred
+lda.class = lda.pred$class
+# specificity vs Sensitivity
 
-lda.pred[lda.probs > .5] = "Up"
-nrow(lda.pred)
-lda.pred
+table(lda.class, Direction.2009) # Confusion Matrix Predicted vs Truth
 
-summary(lda.pred)
+mean(lda.class == Direction.2009) # Accurate 62% of the time
+
+sum(lda.pred$posterior[,1] >=.5) # Using column Down, Out of 104 in test data 75 are
+sum(lda.pred$posterior[,1] <.5)
+
+View(lda.pred$posterior)
+head(lda.pred$posterior)
+sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 
 # 10f: QDA ####
 
-qda.fit1 = qda(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+## Step 1: Train the Model
+
+qda.fit = qda(Direction ~ Lag2,
                data = Weekly, 
                subset = train)  # train boolean vector
-qda.fit1
-summary(qda.fit1)    
+qda.fit
+summary(qda.fit)    
+
+## Step 2: Use Trained model to predict Test Data
+qda.pred = predict(qda.fit, test_data_weekly.2009)
+
+## Step 3: Evaluate the fit of our Test Data
+
+qda.class = qda.pred$class
+table(qda.class, Direction.2009) # Confusion Matrix
+
+mean(qda.class == Direction.2009) # Accurate 58% of the time
+
 
 # 10g: KNN ####
 
 ## K-Nearest Neighbors ####
 
 library(class)
+View(train)
+# train.X = cbind(Lag2)[train,] # cbind??
+# test.X = cbind(Lag2)[!train,]
 
-train.X = cbind(Lag1, Lag2)[train,]
-test.X = cbind(Lag1, Lag2)[!train,]
+train_knn = (Weekly$Year<2009)
 
-train.X = cbind(Lag1, Lag2)[train,]
-test.X = cbind(Lag1, Lag2)[!train,]
-train.Direction = Weekly$Direction[train]
-train.Direction
+train_knn.X = cbind(Weekly$Lag1, Weekly$Lag2)[train_knn,1]
+#train.X = Weekly$Lag2[train,1]
+View(train.X)
+test_knn.X = cbind(Weekly$Lag1, Weekly$Lag2)[!train_knn,1]
+#test.X = Weekly$Lag2[!train]
+View(test.X)
+train_knn.Direction = Weekly$Direction[train_knn]
 
+summary(train_knn.Direction)
+length(train_knn.Direction)
+length(train_knn.X)
+length(test_knn.X)
 set.seed(1)
-
-knn.pred = knn(train.X, test.X, train.Direction, k=1)
+dim(train_knn.X)
+dim(test_knn.X)
+typeof(train)
+rm(knn.pred)
+knn.pred = knn(train_knn.X, test_knn.X, train_knn.Direction, k=1)
 table(knn.pred, Direction.2009)
 Direction.2009
 mean(knn.pred == Direction.2009)
