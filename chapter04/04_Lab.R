@@ -179,3 +179,99 @@ table(knn.pred, Direction.2005)
 knn3.pred = knn(train.X, test.X, train.Direction, k=3)
 table(knn3.pred, Direction.2005)
 (48+87)/length(Direction.2005) # Percentage of correct predictions: 53.6%
+
+#### 4.6.6 An Application to Caravan Insurance Data ####
+
+# Viewing the dimensions of dataset
+dim(Caravan)
+
+# Viewing the summary of the response variable, Purchase
+summary(Caravan$Purchase)
+
+# Checking the number of Yes over total
+348/5882 # 0.05912
+
+# Standardizing data, except the response variable, to be on a comparable scale
+# standardizing : std = 1 and mean = 0
+standardized.X = scale(Caravan[,-86])
+
+# Variance of column 1 and 2 before standardizing
+var(Caravan[,1]) # 165
+var(Caravan[,2]) # 0.164
+
+# Variance after standardizing
+var(standardized.X[,1]) # 1
+var(standardized.X[,1]) # 1
+
+# Splitting data into train and test sets
+# creating boolean for test data
+test = 1:1000
+
+# Getting train data (predictors and response)
+train.X = standardized.X[-test,]
+train.Y = Caravan$Purchase[-test]
+
+# Getting test data
+test.X = standardized.X[test,]
+test.Y = Caravan$Purchase[test]
+
+# Setting the seed for KNN
+set.seed(1)
+
+# Fitting data using KNN with k=1
+knn.pred = knn(train.X, test.X, train.Y, k=1)
+
+# Checking accuracy
+mean(test.Y != knn.pred) # 0.114
+
+# Viewing how many test data is 
+mean(test.Y != "No") # 0.059
+
+## Comments:
+## If people randomly guess who purchases insurance, there will be a 6% success rate
+
+# Creating confusion matrix
+table(knn.pred, test.Y)
+
+## Comments:
+## Out of the 77 people KNN predicting will buy insurance, 9 people (11.7%) will 
+## purchase insurance. 
+
+# Fitting data using KNN with k=3
+knn.3.pred = knn(train.X, test.X, train.Y, k=3)
+
+# Creating confusion matrix
+table(knn.3.pred, test.Y)
+
+# Percent of times KNN predicting 'Yes' correctly
+5/26 # 19.2%
+
+# Fitting data using KNN with k=5
+knn.5.fit = knn(train.X, test.X, train.Y, k=5)
+
+# Creating confusion matrix
+table(knn.5.fit, test.Y)
+
+# Percent of times KNN predicting 'Yes' correctly
+4/15 # 26.7%
+
+# Fitting the data using Logistic Regression
+glm.fit = glm(Purchase ~ ., data=Caravan ,family=binomial, subset=-test)
+
+# Calculating the probabilities of Purchase
+glm.probs = predict(glm.fit, Caravan[test,], type='response')
+
+# Creating predictions using threshold of 0.5
+# Creating a placeholder vector of "No" 
+glm.pred = rep("No", length(test)) 
+
+# Using threshold to change "No" to "Yes"
+glm.pred[glm.probs > .5] = "Yes"
+
+# Creating a confusion matrix
+table(glm.pred, test.Y)
+
+# Changing threshold from 0.5 to 0.25
+glm.pred.25 = rep("No", length(test))
+glm.pred.25[glm.probs > 0.25] = "Yes"
+table(glm.pred.25, test.Y)
