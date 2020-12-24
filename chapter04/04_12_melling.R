@@ -67,7 +67,7 @@ plot(x,y, log = "xy")
 
 
 PlotPower = function(x, a) {
-  plot(x, Power(x, a), xlab = "PlotPower")
+  plot(x, Power3(x, a), xlab = "PlotPower")
   
 }
 
