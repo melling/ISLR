@@ -1,3 +1,5 @@
+#### Applied 10 ####
+
 library(ISLR)
 
 #### 10(a) ####
@@ -53,7 +55,7 @@ train = (Weekly$Year < 2009)
 Weekly.2009 = Weekly[!train, ]
 
 # Extracting the responses from the test data
-Direction.2009 = Weekly$Year[!train]
+Direction.2009 = Weekly$Direction[!train]
 
 # Fitting the model using only Lag2 (the only significant coefficient)
 lr.lag2.fit = glm(Direction ~ Lag2, data=Weekly, family=binomial, subset=train)
@@ -69,3 +71,70 @@ table(lr.lag2.preds, Direction.2009) # Confusion matrix of predictions and actua
 # Calculating percentage of correct predictions
 (8+46)/(nrow(Weekly.2009)) # 51.9%
 
+#### 10(e) ####
+
+library(MASS)
+
+# Fitting a LDA model on train data
+lda.fit = lda(Direction ~ Lag2, data=Weekly, subset=train)
+
+# Viewing the summary of LDA fit
+lda.fit
+
+# Predicting the values for test data
+lda.pred = predict(lda.fit, Weekly.2009)
+
+# Creating a confusion matrix
+lda.class = lda.pred$class
+table(lda.class, Direction.2009)
+
+# Calculating the percentage correct predictions
+mean(lda.class == Direction.2009) # 62.5%
+
+#### 10(f) ####
+
+# Fitting a QDA model on train data
+qda.fit = qda(Direction ~ Lag2, data=Weekly, subset=train)
+
+# Viewing the summary of LDA fit
+lda.fit
+
+# Predicting the values for test data
+qda.pred = predict(qda.fit, Weekly.2009)
+
+# Creating a confusion matrix
+qda.class = qda.pred$class
+table(qda.class, Direction.2009)
+
+# Calculating the percentage correct predictions
+mean(qda.class == Direction.2009) # 58.6%
+
+#### 10(g) ####
+
+# Importing libraries
+library(class)
+
+# Setting seed
+set.seed(1)
+
+# Extracting Lag2 of Weekly data for training set
+train.X = as.matrix(Weekly$Lag2[train])
+# Creating response for training set
+train.Direction = as.matrix(Weekly$Direction[train])
+
+# Extracting Lag2 of Weekly for test set
+test.X = as.matrix(Weekly$Lag2[!train])
+
+# Fitting data using KNN model
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
+
+# Creating a confusion matrix
+table(knn.pred, Direction.2009)
+
+# Calculation percent correct
+mean(knn.pred == Direction.2009) # 50%
+
+#### 10(h) ####
+
+## The LDA was the best performing modelwith an accuracy of 62.5%. Based on this 
+## the true relationship might be more linear.
