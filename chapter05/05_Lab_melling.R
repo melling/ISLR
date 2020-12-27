@@ -76,4 +76,33 @@ for (i in 1:10) {
   cv.error[i]=cv.glm(Auto,glm.fit, K = 10)$delta[1]
 }
 cv.error
+
+# 5.3.4 The Bootstrap ####
+
+# Formula (5.7)
+
+alpha.fn=function(data,index) {
+  X=data$X[index]
+  Y=data$Y[index]
+  return((var(Y)-cov(X,Y))/(var(X)+var(Y)-2*cov(X,Y))) 
+}
+
+#View(Portfolio)
+
+# Portfolio data
+alpha.fn(Portfolio, 1:100) # 0.5758321
+
+
+set.seed(1)
+alpha.fn(Portfolio,sample(100,100,replace=T)) # 0.7368375 WRONG!
+# 0.596
+
+boot(Portfolio, alpha.fn, R=1000)
+
+# Estimating the Accuracy of a Linear Regression Model ####
+
+boot.fn=function(data,index)
+  return(coef(lm(mpg∼horsepower ,data=data,subset=index))) > boot.fn(Auto ,1:392)
+
+
 detach(Auto)
