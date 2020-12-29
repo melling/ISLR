@@ -48,8 +48,7 @@ coef(glm.fit) # Same as lm.fit
 lm.fit=lm(mpg~horsepower ,data=Auto)
 coef(lm.fit)
 
-library(boot)
-
+library(boot) # cv.glm()
 
 glm.fit=glm(mpg~horsepower ,data=Auto)
 coef(glm.fit)
@@ -101,7 +100,7 @@ boot(Portfolio, alpha.fn, R=1000)
 
 # Estimating the Accuracy of a Linear Regression Model ####
 
-boot.fn=function(data,index) return(coef(lm(mpg~horsepower ,data=data,subset=index)))
+boot.fn=function(data,index) return(coef(lm(mpg~horsepower, data=data,subset=index)))
 
 boot.fn(Auto ,1:392)
 
@@ -125,7 +124,6 @@ set.seed(1)
 boot(Auto, boot.fn, 1000)
 
 summary(lm(mpg~horsepower+I(horsepower^2),data=Auto))$coef
-
 
 #
 

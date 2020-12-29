@@ -1,0 +1,46 @@
+---
+title: "Measures of Central Tendency"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Mean
+
+Here's a list of 7 number [6,2,3,3,4,5,1]
+
+To calculate the mean (average), we add the numbers then divide by 7, the number of values in our list.
+$\sum_{i=1}^{n} x_i$
+
+```{r}
+average = (6 + 2 + 3 + 3 + 4 + 5 + 1)/7
+average = 24/7
+average = 3.4285
+```
+
+
+## Median
+
+[6,2,3,3,4,5,1]
+Sort the list [1,2,3,3,4,5,6]
+
+The fourth number, the second 3 is the halfway point, so that's the median.
+
+## The Mode
+
+The mode is the number in the list that occurs the most often
+In our list, every number occurs only once, except for 3, which occurs twice.  That makes 3 the mode.
+
+```{r}
+x <- c(1,2,3,3,4,5,6)
+mean(x)
+mode
+median(x)
+table(x)
+```
+The Math
+
+$\mu = \frac{1}{N}\sum_{i=1}^{n} x_i$
+
