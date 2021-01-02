@@ -64,3 +64,54 @@ coef(regfit.full ,6)
 
 ## Forward and Backward Stepwise Selection
 
+```{r}
+regfit.fwd=regsubsets(Salary~., data=Hitters,nvmax=19, method ="forward")
+summary(regfit.fwd)
+regfit.bwd=regsubsets(Salary~., data=Hitters,nvmax=19, method ="backward")
+summary(regfit.bwd)
+```
+
+```{r}
+coef(regfit.full ,7)
+coef(regfit.fwd ,7)
+coef(regfit.bwd ,7)
+```
+
+## Choosing Among Models Using the Validation Set Approach and Cross-Validation
+
+```{r}
+set.seed(1)
+train=sample(c(TRUE,FALSE), nrow(Hitters), rep=TRUE)
+test =(! train )
+```
+
+```{r}
+regfit.best=regsubsets(Salary~.,data=Hitters[train,], nvmax =19)
+test.mat=model.matrix(Salary~.,data=Hitters[test,])
+```
+
+```{r}
+val.errors=rep(NA,19)
+for(i in 1:19) {
+  coefi=coef(regfit.best,id=i)
+  pred=test.mat[,names(coefi)]%*%coefi
+  val.errors[i]=mean((Hitters$Salary[test]-pred)^2) 
+}
+val.errors
+```
+
+```{r}
+which.min(val.errors)
+coef(regfit.best,10)
+```
+
+```{r}
+predict.regsubsets = function (object, newdata, id,...) {
+  form=as.formula(object$call [[2]])
+  mat=model.matrix(form,newdata)
+  coefi=coef(object ,id=id)
+  xvars=names(coefi)
+  mat[,xvars]%*%coefi
+}
+```
+
