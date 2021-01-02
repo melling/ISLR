@@ -1,0 +1,66 @@
+# Chapter 6 Lab
+
+## Best Subset Selection
+
+```{r}
+library(ISLR)
+#fix(Hitters)
+names(Hitters)
+```
+
+```{r}
+dim(Hitters)
+sum(is.na(Hitters$Salary))
+```
+```{r}
+Hitters=na.omit(Hitters)
+dim(Hitters)
+sum(is.na(Hitters))
+```
+
+```{r}
+library(leaps)
+regfit.full=regsubsets(Salary~.,Hitters)
+summary(regfit.full)
+```
+```{r}
+regfit.full=regsubsets(Hitters$Salary~., data=Hitters,nvmax=19)
+reg.summary=summary(regfit.full) # All 19
+names(reg.summary)
+```
+
+```{r}
+reg.summary$rsq
+```
+
+```{r}
+par(mfrow=c(2,2))
+plot(reg.summary$rss ,xlab="Number of Variables ",ylab="RSS", type="l")
+plot(reg.summary$adjr2 ,xlab="Number of Variables ", ylab="Adjusted RSq",type="l")
+which.max(reg.summary$adjr2)
+points(11,reg.summary$adjr2[11], col="red",cex=2,pch=20)
+```
+
+
+```{r}
+plot(reg.summary$cp ,xlab="Number of Variables ", ylab="Cp", type='l')
+which.min(reg.summary$cp ) # [1] 10
+points(10,reg.summary$cp [10],col="red",cex=2,pch=20)
+which.min(reg.summary$bic ) #[1] 6
+plot(reg.summary$bic ,xlab="Number of Variables ",ylab="BIC", type='l')
+points(6,reg.summary$bic [6],col="red",cex=2,pch=20)
+```
+
+```{r}
+plot(regfit.full,scale="r2")
+plot(regfit.full,scale="adjr2")
+plot(regfit.full,scale="Cp")
+plot(regfit.full,scale="bic")
+```
+
+```{r}
+coef(regfit.full ,6)
+```
+
+## Forward and Backward Stepwise Selection
+
