@@ -19,6 +19,11 @@ sum(is.na(Hitters))
 ```
 
 ```{r}
+2+2
+5*10
+```
+
+```{r}
 library(leaps)
 regfit.full=regsubsets(Salary~.,Hitters)
 summary(regfit.full)
@@ -26,7 +31,11 @@ summary(regfit.full)
 ```{r}
 regfit.full=regsubsets(Hitters$Salary~., data=Hitters,nvmax=19)
 reg.summary=summary(regfit.full) # All 19
+reg.summary
+```
+```{r}
 names(reg.summary)
+
 ```
 
 ```{r}
@@ -81,7 +90,7 @@ coef(regfit.bwd ,7)
 
 ```{r}
 set.seed(1)
-train=sample(c(TRUE,FALSE), nrow(Hitters), rep=TRUE)
+train=sample(c(TRUE,FALSE), nrow(Hitters), replace=TRUE)
 test =(! train )
 ```
 

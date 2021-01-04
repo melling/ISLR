@@ -126,7 +126,7 @@ coef(regfit.best, which.min(val.errors))
 
 # Function for predicting regsubset models
 predict.regsubsets = function(object, newdata, id, ...) {
-  form = as.formula(object$acll[[2]])
+  form = as.formula(object$call[[2]])
   mat = model.matrix(form, newdata)
   coefi = coef(object, id=id)
   xvars = names(coefi)
