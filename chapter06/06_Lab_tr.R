@@ -94,7 +94,7 @@ set.seed(1)
 train = sample(c(TRUE, FALSE), nrow(Hitters), rep=TRUE)
 test = (!train)
 
-# Plotting best subset selection on train data
+# Fitting best subset selection on train data
 regfit.best = regsubsets(Salary ~ ., data=Hitters[train,], nvmax=19)
 
 # Computing the validation set error for best model of each model size
@@ -121,7 +121,7 @@ for (i in 1:19) {
 ## Viewing the errors
 val.errors
 
-# Viewing the coeficients of the best model
+# Viewing the coeficients of the best model (minimum error)
 coef(regfit.best, which.min(val.errors))
 
 # Function for predicting regsubset models
@@ -136,4 +136,30 @@ predict.regsubsets = function(object, newdata, id, ...) {
 # Applying best subset selection on the entire dataset selecting the best ten-variable 
 # model (determined in the last few steps)
 regfit.best = regsubsets(Salary ~ ., data=Hitters, nvmax=19)
-coef(regfit.best, 10)
+coef(regfit.best, which.min(val.errors))
+
+# Using K-Fold Cross Validation 
+
+## Setting folds to 10
+k = 10
+
+## Setting seed
+set.seed(1)
+
+## Sampling data based on the the number of folds
+folds = sample(1:k, nrow(Hitters), replace=TRUE)
+
+## Placeholder for errors for K-Fold test errors
+cv.errors = matrix(NA, k, 19, dimnames=list(NULL, paste(1:19)))
+
+## # Produces test MSE for i-th cv fold for the best j-variable model
+for (j in 1:k) {
+  ### Fitting best subset selection on all folds except for j
+  best.fit = regsubsets(Salary ~ ., data=Hitters[folds!=j, ], nvmax=19)
+  
+  ### Fitting the model on the jth fold
+  for (i in 1:19) {
+    # pred = predict(best.fit, Hitters[folds==j,], id=i)
+    # cv.errors[j, i] = mean((Hitters$Salary[folds==j] = pred)^2)
+  }
+}
