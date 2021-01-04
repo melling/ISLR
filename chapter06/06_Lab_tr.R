@@ -91,7 +91,7 @@ coef(regfit.bwd, 7)
 
 # Creating train and test vectors that randomly have True and False
 set.seed(1)
-train = sample(c(TRUE, FALSE), nrow(Hitters), rep=TRUE)
+train = sample(c(TRUE, FALSE), nrow(Hitters), replace = TRUE)
 test = (!train)
 
 # Fitting best subset selection on train data
@@ -159,7 +159,7 @@ for (j in 1:k) {
   
   ### Fitting the model on the jth fold
   for (i in 1:19) {
-    # pred = predict(best.fit, Hitters[folds==j,], id=i)
+    pred = predict(best.fit, Hitters[folds==j,], id=i)
     # cv.errors[j, i] = mean((Hitters$Salary[folds==j] = pred)^2)
   }
 }
