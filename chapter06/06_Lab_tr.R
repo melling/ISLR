@@ -89,3 +89,51 @@ coef(regfit.bwd, 7)
 
 #### 6.5.3 Choosing Among Models Using the Validation Approachs ####
 
+# Creating train and test vectors that randomly have True and False
+set.seed(1)
+train = sample(c(TRUE, FALSE), nrow(Hitters), rep=TRUE)
+test = (!train)
+
+# Plotting best subset selection on train data
+regfit.best = regsubsets(Salary ~ ., data=Hitters[train,], nvmax=19)
+
+# Computing the validation set error for best model of each model size
+
+## Creating a matrix
+test.mat = model.matrix(Salary ~ ., data=Hitters[test,])
+
+## Creating a vector placeholder for validation errors
+val.errors = rep(NA, 19)
+
+## Looping through each model size 
+for (i in 1:19) {
+  
+  ### Extracting the coefficients of the best model of model size i
+  coefi = coef(regfit.best, id=i)
+  
+  ### Multiplting coeficient estimates with the appropriate columns in test model matrix
+  pred = test.mat[, names(coefi)]%*%coefi
+  
+  ### Computing the test MSE and storing them in val.errors
+  val.errors[i] = mean((Hitters$Salary[test] - pred)^2)
+}
+
+## Viewing the errors
+val.errors
+
+# Viewing the coeficients of the best model
+coef(regfit.best, which.min(val.errors))
+
+# Function for predicting regsubset models
+predict.regsubsets = function(object, newdata, id, ...) {
+  form = as.formula(object$acll[[2]])
+  mat = model.matrix(form, newdata)
+  coefi = coef(object, id=id)
+  xvars = names(coefi)
+  mat[, xvars]%*%coefi
+}
+
+# Applying best subset selection on the entire dataset selecting the best ten-variable 
+# model (determined in the last few steps)
+regfit.best = regsubsets(Salary ~ ., data=Hitters, nvmax=19)
+coef(regfit.best, 10)
