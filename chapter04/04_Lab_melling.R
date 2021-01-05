@@ -12,7 +12,7 @@ cor(Smarket[,-9]) # Skip col 9 because it's qualitative
 
 attach(Smarket)
 #detach(Smarket)
-plot(Volume)
+plot(Smarket$Volume)
 
 ### Logistic Regression p156 ####
 
@@ -64,7 +64,7 @@ glm.probs2 = predict(glm.fit2, Smarket.2005, type = "response")
 
 # Now check prediction
 
-glm.pred = rep("Down", 252)
+glm.pred = rep("Down", 252) # nrow(Smarket.2005)
 glm.pred[glm.probs2 > .5] = "Up"
 table(glm.pred, Direction.2005)
 
@@ -76,7 +76,7 @@ mean(glm.pred != Direction.2005) # Compute and test error rate
 # remove +Lag3+Lag4+Lag5+Volume
 glm.fit1 = glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) # Train Data
 glm.probs2 = predict(glm.fit1, Smarket.2005, type = "response")
-
+Smarket.2005
 # Again check
 
 glm.pred = rep("Down", 252)
@@ -89,7 +89,7 @@ mean(glm.pred == Direction.2005)
 predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type = "response")
 
 ## Linear Discriminant Analysis ####
-
+# p161
 library(MASS)
 
 # Same format as glm: glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) - family
@@ -111,6 +111,7 @@ sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 # 0 !!!
 
 ## Quadratic Discriminant Analysis ####
+# p163
 # Same format as lda()
 
 qda.fit = qda(Direction ~Lag1+Lag2, data = Smarket, subset = train)
@@ -125,7 +126,7 @@ table(qda.class,Direction.2005)
 mean(qda.class == Direction.2005) # Accurate 60% of the time
 
 ## K-Nearest Neighbors ####
-
+# p163
 #data(package="ISLR")
 # knn() requires 4 inputs
 # 1. matrix of predictors for training data: train.X
@@ -167,8 +168,7 @@ detach(Smarket) # Cleanup so we don't have bad references to wrong table
 # QDA provides best results so far
 
 ## Caravan Insurance Data ####
-
-dim(Caravan)
+# p165
 
 dim(Caravan)
 #View(Caravan)
