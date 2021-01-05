@@ -47,13 +47,17 @@ table(glm.pred, Smarket$Direction)
 (507 + 145) / 1250 # Correct 52.16%
 
 mean(glm.pred == Smarket$Direction)
-glm.pred
+head(glm.pred)
+head(Smarket$Direction)
 
+## Now Predict ####
+# p159
 train = (Smarket$Year<2005)
-train[1:20]
+
 Smarket.2005 = Smarket[!train,]
 dim(Smarket.2005)
-Direction.2005 = Smarket$Direction[!train]
+Direction.2005 = Smarket$Direction[!train] # Vector
+
 Smarket.2005[1:10,]
 head(Smarket.2005)
 
