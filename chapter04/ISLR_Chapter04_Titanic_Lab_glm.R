@@ -1,13 +1,14 @@
 # ISLR Chapter 4 Lab Modified to solve Kaggle Titanic Project
 # GLM Solution
-# Kaggle Score: 0.76555
+# Kaggle Score: Survived ~ Sex + Pclass + SibSp + Parch => 0.77511
+# Kaggle Score: Survived ~ Sex + Pclass => 0.76555
 
 titanic=read.csv("input/titanic_train.csv")
 titanic_test=read.csv("input/titanic_test.csv")
 
 ### Logistic Regression ####
 
-glm.fit1 = glm(Survived ~ Sex + Pclass, data = titanic, family = binomial)  # binomial for logistic regression
+glm.fit1 = glm(Survived ~ Sex + Pclass + SibSp + Parch, data = titanic, family = binomial)  # binomial for logistic regression
 summary(glm.fit1)              
 
 coef(glm.fit1)
@@ -20,8 +21,8 @@ glm.probs = predict(glm.fit1, type = "response") # Uses training data by default
 
 #Titanic_Validation = titanic[!train,]
 
-glm.pred = rep("No", nrow(titanic))
-glm.pred[glm.probs > .5] = "Yes"
+glm.pred = rep(0, nrow(titanic))
+glm.pred[glm.probs > .5] = 1
 summary(glm.pred)
 
 table(glm.pred, titanic$Survived)
@@ -56,7 +57,7 @@ out <- data.frame(
   row.names=NULL)
 
 ## Output File ####
-getwd()
+#getwd()
 print("Writing output")
 write.csv(x=out,
           file='islr_ch4_glm.csv',
