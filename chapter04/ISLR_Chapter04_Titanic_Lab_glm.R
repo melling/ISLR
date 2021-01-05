@@ -1,4 +1,6 @@
-#library(tidyverse)
+# ISLR Chapter 4 Lab Modified to solve Kaggle Titanic Project
+# GLM Solution
+# Kaggle Score: 0.76555
 
 titanic=read.csv("input/titanic_train.csv")
 titanic_test=read.csv("input/titanic_test.csv")
