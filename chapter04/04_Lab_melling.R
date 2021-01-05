@@ -1,3 +1,4 @@
+## Chapter 4 Lab p 155
 library(ISLR)
 
 ### Stock Market Data ####
@@ -10,9 +11,10 @@ summary(Smarket)
 cor(Smarket[,-9]) # Skip col 9 because it's qualitative
 
 attach(Smarket)
+#detach(Smarket)
 plot(Volume)
 
-### Logistic Regression ####
+### Logistic Regression p156 ####
 
 glm.fit1 = glm(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data = Smarket, family = binomial)  # binomial for logistic regression
 summary(glm.fit1)              
@@ -22,34 +24,36 @@ coef(glm.fit1)
 summary(glm.fit1)$coef
 summary(glm.fit1)$coef[,4] # Column 4
 
+# p157
 # P(Y=1|X)
+# If no data set is supplied to the predict() function, then the probabilities are computed for the training data that was used to fit the logistic regression mode
 glm.probs = predict(glm.fit1, type = "response")
 glm.probs[1:10]
 #View(glm.probs)
 
-contrasts(Direction)
+contrasts(Smarket$Direction)
 
 ### Confusion Matrix ####
 # Create prediction table
-
+glm.probs
 glm.pred = rep("Down", 1250) 
 glm.pred[glm.probs > .5] = "Up"
 summary(glm.pred)
 # Produce a confusion matrix
 # Diagonals indicate correct predictions. Off-diagonals indicate incorrect predictions.
-table(glm.pred, Direction) 
+table(glm.pred, Smarket$Direction)
 
 # Determine how many correctly and incorrectly classified
 (507 + 145) / 1250 # Correct 52.16%
 
-mean(glm.pred == Direction)
+mean(glm.pred == Smarket$Direction)
 glm.pred
 
-train = (Year<2005)
+train = (Smarket$Year<2005)
 train[1:20]
 Smarket.2005 = Smarket[!train,]
 dim(Smarket.2005)
-Direction.2005 = Direction[!train]
+Direction.2005 = Smarket$Direction[!train]
 Smarket.2005[1:10,]
 head(Smarket.2005)
 
@@ -131,17 +135,17 @@ mean(qda.class == Direction.2005) # Accurate 60% of the time
 
 library(class)
 
-train.X = cbind(Lag1, Lag2)[train,]
+train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
 #View(train)
 #train.X = cbind(Lag2)[train,]
 
 #View(train.X)
-test.X = cbind(Lag1, Lag2)[!train,]
+test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
 train.Direction = Smarket$Direction[train]
 #train.Direction
 #Direction[train]
 dim(train.X)
-summary(Direction)
+summary(Smarket$Direction)
 summary(Smarket$Direction)
 
 # Make predictions for dates in 2005
@@ -169,7 +173,7 @@ dim(Caravan)
 dim(Caravan)
 #View(Caravan)
 attach(Caravan)
-summary(Purchase)
+summary(Caravan$Purchase)
 348/5822 # 6% purchased Caravan insurance
 
 # Salary and age are on different scales
@@ -193,8 +197,8 @@ train.X=standardized.X[-test ,] # Exclude first 1000 rows
 
 test.X=standardized.X[test ,]
 
-train.Y=Purchase [-test]
-test.Y=Purchase [test]
+train.Y=Caravan$Purchase [-test]
+test.Y=Caravan$Purchase [test]
 
 # Predict
 set.seed(1)
