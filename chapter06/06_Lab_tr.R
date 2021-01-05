@@ -91,7 +91,7 @@ coef(regfit.bwd, 7)
 
 # Creating train and test vectors that randomly have True and False
 set.seed(1)
-train = sample(c(TRUE, FALSE), nrow(Hitters), replace = TRUE)
+train = sample(c(TRUE, FALSE), nrow(Hitters), rep=TRUE)
 test = (!train)
 
 # Fitting best subset selection on train data
@@ -130,7 +130,7 @@ predict.regsubsets = function(object, newdata, id, ...) {
   mat = model.matrix(form, newdata)
   coefi = coef(object, id=id)
   xvars = names(coefi)
-  mat[, xvars]%*%coefi
+  mat[ ,xvars]%*%coefi
 }
 
 # Applying best subset selection on the entire dataset selecting the best ten-variable 
@@ -155,11 +155,26 @@ cv.errors = matrix(NA, k, 19, dimnames=list(NULL, paste(1:19)))
 ## # Produces test MSE for i-th cv fold for the best j-variable model
 for (j in 1:k) {
   ### Fitting best subset selection on all folds except for j
-  best.fit = regsubsets(Salary ~ ., data=Hitters[folds!=j, ], nvmax=19)
+  best.fit = regsubsets(Salary ~ ., data=Hitters[folds!=j,], nvmax=19)
   
   ### Fitting the model on the jth fold
   for (i in 1:19) {
     pred = predict(best.fit, Hitters[folds==j,], id=i)
-    # cv.errors[j, i] = mean((Hitters$Salary[folds==j] = pred)^2)
+    cv.errors[j, i] = mean((Hitters$Salary[folds==j] - pred)^2)
   }
 }
+
+## Comments: (i,j)th element of matrix corresponds to the test MSE for the i-th cross
+## validation fold for the best j-variable model
+
+# Averaging over columns to obtain cross-validation error for j-variable model
+mean.cv.errors = apply(cv.errors, 2, mean)
+mean.cv.errors
+
+# Plotting the mean.cv.errors
+par(mfrow=c(1,1))
+plot(mean.cv.errors, type='b') # best number of variable is 10
+
+# Perform best subset selection on full data set
+reg.best = regsubsets(Salary ~ ., data=Hitters, nvmax=19)
+coef(reg.best, 11)
