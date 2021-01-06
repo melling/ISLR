@@ -164,6 +164,8 @@ for (j in 1:k) {
   }
 }
 
+cv.errors
+
 ## Comments: (i,j)th element of matrix corresponds to the test MSE for the i-th cross
 ## validation fold for the best j-variable model
 
@@ -177,4 +179,4 @@ plot(mean.cv.errors, type='b') # best number of variable is 10
 
 # Perform best subset selection on full data set
 reg.best = regsubsets(Salary ~ ., data=Hitters, nvmax=19)
-coef(reg.best, 11)
+coef(reg.best, 10)
