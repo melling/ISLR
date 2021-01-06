@@ -1,3 +1,6 @@
+# Chapter 3 Lab
+# p100
+
 setwd("../chapter03/")
 #getwd()
 
@@ -52,7 +55,7 @@ plot(hatvalues(lm.fit))
 which.max(hatvalues(lm.fit)) # Largest leverage statistic
 
 ## Multiple Linear Regression ####
-
+# p113
 lm.fit = lm(medv ~ lstat + age, data = Boston)
 summary(lm.fit)
 
@@ -74,7 +77,7 @@ summary(lm.fit)
 
 
 ## Interaction Terms ####
-
+# p115
 summary(lm(medv ~ lstat * age, data = Boston))
 
 ## Non-Linear Transformations of the Predictors
@@ -97,6 +100,7 @@ lm.fit_log = lm(medv ~ log(rm), data = Boston) # log transformation rooms
 summary(lm.fit_log)
 
 ### Qualitative Predictors ####
+# p117
 
 names(Carseats)
 
@@ -113,6 +117,9 @@ attach(Carseats)
 contrasts(ShelveLoc) # Return coding for dummy variables
 
 ?contrasts
+
+## Writing Functions ####
+# p119
 
 LoadLibrary=function() {
   library(MASS)
