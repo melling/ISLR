@@ -1,6 +1,6 @@
 # Chapter 6 Lab
 
-## Best Subset Selection
+## Best Subset Selection p244
 
 ```{r}
 library(ISLR)
@@ -16,11 +16,6 @@ sum(is.na(Hitters$Salary))
 Hitters=na.omit(Hitters)
 dim(Hitters)
 sum(is.na(Hitters))
-```
-
-```{r}
-2+2
-5*10
 ```
 
 ```{r}
@@ -115,6 +110,7 @@ coef(regfit.best,10)
 ```
 
 ```{r}
+# p249
 predict.regsubsets = function (object, newdata, id,...) {
   form=as.formula(object$call [[2]])
   mat=model.matrix(form,newdata)
@@ -124,3 +120,40 @@ predict.regsubsets = function (object, newdata, id,...) {
 }
 ```
 
+```{r}
+regfit.best=regsubsets(Salary~.,data=Hitters ,nvmax=19)
+coef(regfit.best ,10)
+```
+```{r}
+# p250
+k=10
+set.seed (1)
+folds=sample(1:k,nrow(Hitters),replace=TRUE)
+cv.errors=matrix(NA,k,19, dimnames=list(NULL, paste(1:19)))
+```
+
+```{r}
+for(j in 1:k){
+  best.fit=regsubsets(Salary ~. , data = Hitters[ folds != j, ], nvmax=19) 
+  
+  for(i in 1:19){                    
+    pred=predict(best.fit,Hitters[folds==j,],id=i) 
+    cv.errors[j,i]=mean((Hitters$Salary[folds==j]-pred)^2)
+
+  }
+}
+mean.cv.errors=apply(cv.errors ,2,mean)
+mean.cv.errors
+```
+```{r}
+par(mfrow=c(1,1))
+plot(mean.cv.errors ,type='b')
+```
+
+```{r}
+reg.best=regsubsets (Salary~.,data=Hitters , nvmax=19)
+coef(reg.best ,11)
+```
+
+
+## 6.6 Lab 2: Ridge Regression and the Lasso - pg 251 ####
