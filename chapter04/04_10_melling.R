@@ -1,5 +1,5 @@
 # Chapter 4, Question 10
-
+# p171
 library(ISLR)
 library(tidyverse)
 

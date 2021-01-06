@@ -1,5 +1,5 @@
 # Chapter 4, Exercise 6
-
+# p170
 # See page 134-135
 
 # Use the Logistic Regression Formula Y=e^x/(1+e^x)  x = b0 + b1*x1 + b2*x2

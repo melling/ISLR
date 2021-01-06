@@ -1,4 +1,5 @@
-
+# Chapter 4 Question 5
+# p169
 # Notes
 
 LDA has a linear decision boundary. p 151

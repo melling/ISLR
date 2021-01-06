@@ -1,3 +1,5 @@
+# Chapter 4 Question 7
+# p170
 ## Hint: See Question 2
 
 Y = Did company pay dividend

@@ -1,4 +1,5 @@
-# Chapter 4 Q13
+# Chapter 4 Question 13
+# p173
 
 library(ISLR)
 
