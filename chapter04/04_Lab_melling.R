@@ -141,16 +141,13 @@ mean(qda.class == Direction.2005) # Accurate 60% of the time
 library(class)
 
 train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
-#View(train)
-#train.X = cbind(Lag2)[train,]
 
 #View(train.X)
-test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
+test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,] # ! wrong??
 train.Direction = Smarket$Direction[train]
 #train.Direction
 #Direction[train]
 dim(train.X)
-summary(Smarket$Direction)
 summary(Smarket$Direction)
 
 # Make predictions for dates in 2005
