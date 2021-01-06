@@ -63,3 +63,16 @@ write.csv(x=out,
           file='islr_ch4_glm.csv',
           row.names=FALSE,
           quote=FALSE)
+
+
+## Linear Discriminant Analysis ####
+
+# train = train = sample()
+# 
+# lda.fit = lda(Survived ~Lag1+Lag2, data = titanic, subset = train)
+# lda.fit
+# 
+# lda.pred = predict(lda.fit, tit)
+# names(lda.pred)
+
+## 
