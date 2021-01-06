@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## 6.6 Lab 2: Ridge Regression and the Lasso - pg 251 ####
 
 
-```{r cars}
+```{r}
 library(ISLR)
 Hitters=na.omit(Hitters) # Need this line
 
@@ -104,5 +104,21 @@ ridge.pred=predict(ridge.mod,s=bestlam ,newx=x[test,]) mean((ridge.pred-y.test)^
 ```{r}
 out=glmnet(x,y,alpha=0)
 predict(out,type="coefficients",s=bestlam)[1:20,]
+```
+## The Lasso
+# p255
+
+```{r}
+lasso.mod=glmnet(x[train ,],y[train],alpha=1,lambda=grid)
+plot(lasso.mod)
+```
+
+```{r}
+set.seed(1)
+cv.out=cv.glmnet(x[train ,],y[train],alpha=1)
+plot(cv.out)
+bestlam=cv.out$lambda.min
+lasso.pred=predict(lasso.mod, s=bestlam, newx=x[test,])
+mean((lasso.pred-y.test)^2)
 ```
 
