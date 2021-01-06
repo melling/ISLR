@@ -1,6 +1,7 @@
 # Chapter 6 Lab
+# p244
 
-## Best Subset Selection p244
+## Best Subset Selection 
 
 ```{r}
 library(ISLR)
@@ -154,6 +155,3 @@ plot(mean.cv.errors ,type='b')
 reg.best=regsubsets (Salary~.,data=Hitters , nvmax=19)
 coef(reg.best ,11)
 ```
-
-
-## 6.6 Lab 2: Ridge Regression and the Lasso - pg 251 ####
