@@ -1,0 +1,91 @@
+---
+title: "06_Lab03_melling"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Principal Components Regress
+## PCR and PLS Regression
+
+# p256
+Setup from earlier part of lab
+```{r}
+library(pls)
+library(ISLR)
+Hitters=na.omit(Hitters) # Need this line
+
+x=model.matrix(Salary~.,Hitters)[,-1] # -1 Removes Intercept, column 1 created by model.matrix
+y=Hitters$Salary
+```
+
+```{r}
+set.seed(2)
+pcr.fit=pcr(Salary~., data=Hitters ,scale=TRUE, validation ="CV")
+```
+
+```{r}
+summary(pcr.fit)
+```
+
+```{r}
+validationplot(pcr.fit,val.type="MSEP")
+```
+
+Copied from second lab
+```{r}
+#set.seed(1)
+#train=sample(c(TRUE,FALSE), nrow(Hitters), replace=TRUE)
+#test =(! train )
+```
+
+```{r}
+# p253
+set.seed(1)
+train=sample(1:nrow(x), nrow(x)/2)
+test=(-train)
+y.test=y[test]
+```
+
+```{r}
+#set.seed(1)
+# p257
+pcr.fit=pcr(Salary~., data=Hitters,subset=train,scale=TRUE, validation ="CV")
+validationplot(pcr.fit,val.type="MSEP")
+```
+
+```{r}
+pcr.pred=predict(pcr.fit,x[test,],ncomp=7)
+mean((pcr.pred-y.test)^2)
+```
+
+```{r}
+pcr.fit=pcr(y~x,scale=TRUE,ncomp=7)
+summary(pcr.fit)
+```
+
+## Partial Least Squares
+# p258
+```{r}
+set.seed(1)
+pls.fit=plsr(Salary~.,data=Hitters ,subset=train,scale=TRUE, validation ="CV")
+summary(pls.fit)
+```
+
+```{r}
+validationplot(pls.fit,val.type="MSEP")
+```
+
+```{r}
+pls.pred=predict(pls.fit,x[test,],ncomp=2)
+mean((pls.pred-y.test)^2)
+```
+
+```{r}
+
+pls.fit=plsr(Salary~., data=Hitters ,scale=TRUE,ncomp=2)
+summary(pls.fit)
+```
+

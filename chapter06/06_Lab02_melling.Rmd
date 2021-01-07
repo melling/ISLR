@@ -14,35 +14,40 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ISLR)
 Hitters=na.omit(Hitters) # Need this line
 
-x=model.matrix(Salary~.,Hitters)[,-1]
+x=model.matrix(Salary~.,Hitters)[,-1] # -1 Removes Intercept, column 1 created by model.matrix
 y=Hitters$Salary
 ```
 
 ```{r}
 #install.packages("glmnet")
 library(glmnet)
-grid=10^seq(10,-2,length=100)
-ridge.mod=glmnet(x,y,alpha=0,lambda=grid)
+grid=10^seq(10,-2,length=100) # λ = 1010 to λ = 10^−2
+ridge.mod=glmnet(x,y,alpha=0,lambda=grid) # alpha=0 means ridge, alpha=1 means Lasso
+```
+
+```{r}
+#coef(ridge.mod)
+2+2
 ```
 
 ```{r}
 dim(coef(ridge.mod))
 ```
-
+### p252
 ```{r}
-ridge.mod$lambda [50]
+ridge.mod$lambda[50] # Large lambda implies small coefficients
 ```
 
 ```{r}
 coef(ridge.mod)[,50]
 ```
 ```{r}
-sqrt(sum(coef(ridge.mod)[-1,50]^2))
+sqrt(sum(coef(ridge.mod)[-1,50]^2)) # l2 norm
 ```
 
 ```{r}
 # p252
-ridge.mod$lambda [60]
+ridge.mod$lambda [60] # Small lambda implies larger coefficients
 ```
 ```{r}
 coef(ridge.mod)[,60]
@@ -51,7 +56,7 @@ coef(ridge.mod)[,60]
 sqrt(sum(coef(ridge.mod)[-1,60]^2))
 ```
 
-We can use the predict() function for a number of purposes. For instance, we can obtain the ridge regression coefficients for a new value of λ, say 5
+We can use the predict() function for a number of purposes. For instance, we can obtain the ridge regression coefficients for a new value of λ, say 50
 ```{r}
 predict(ridge.mod,s=50,type="coefficients")[1:20,]
 ```
@@ -76,6 +81,8 @@ WRONG ANSWER: 193253
 mean((mean(y[train])-y.test)^2)
 ```
 WRONG
+s is the sum value that the l2 norm must be less than?
+See page 220 in the book for the constraint equation
 ```{r}
 ridge.pred=predict(ridge.mod,s=1e10,newx=x[test,])
 mean((ridge.pred-y.test)^2)
