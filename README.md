@@ -29,7 +29,7 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 ## Other Solutions
 
 - http://blog.princehonest.com/stat-learning/
-- 
+- https://github.com/ppaquay/IntroStatLearning
 
 ## Python Solutions
 
