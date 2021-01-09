@@ -195,3 +195,60 @@ predict(best.model, s=best.lambda, type="coefficients")
 
 'Based on the model, X, X^2, X^3 are very significant and X^4, X^5, and X^10 are also included with 
 little significance.'
+
+#### 8(f) ####
+
+# Setting a value for beta7
+beta7 = 7
+
+# Setting up the formula
+Y7 = beta0 + beta7*X^7 + e
+
+# Creating a dataframe of X and Y7
+df7 = data.frame(X, Y7)
+
+# Ploting the data
+plot(df7$X, df7$Y7)
+
+# Fitting a best subset selection
+bss.7 = regsubsets(Y7 ~ poly(X, 10, raw=T), data=df7, nvmax=10)
+
+# Viewing the summary of the fit
+bss.7.summary = summary(bss.7)
+bss.7.summary
+
+# Plotting the adjusted R^2 statistic
+plot(bss.7, scale="adjr2")
+
+# Plotting the BIC statistic
+plot(bss.7, scale="bic")
+
+## Comments: The best subset eelection is the predictor: X^7
+
+# Viewing the coefficients of the predictors
+coefficients(bss.7, 1)
+
+# Fitting data using lasso
+
+'We need to fit the data using lasso and determine the best lambda, once we determine 
+the best lambda we preidct the reponse value using the best lambda.'
+x = model.matrix(Y7 ~ poly(X, 10, raw=T), data=df7)[,-1]
+y = df7$Y7
+
+set.seed(1)
+
+# Creating a boolean vector for train data
+train = sample(1:length(x), length(x)/2)
+
+# Created a test vector by choosing indicies that are not part of train
+test = (-train)
+
+lasso7.fit = cv.glmnet(x, y, alpha=1)
+plot(lasso.fit)
+best.lambda = lasso.fit$lambda.min
+
+best.lambda.lasso = glmnet(x, y, alpha=1)
+predict(best.lambda.lasso, s=best.lambda, type="coefficients")
+
+## Comments: Both models predicted accurately that a 1-variable model consisting of X^7 is 
+## the best. However BSS had a better estimate for the coefficients than Lasso. 
