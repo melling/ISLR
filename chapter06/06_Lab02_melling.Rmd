@@ -100,7 +100,7 @@ predict(ridge.mod,s=0,exact=T,type="coefficients")[1:20,]
 
 ```{r}
 set.seed(1)
-cv.out=cv.glmnet(x[train ,],y[train],alpha=0)
+cv.out=cv.glmnet(x[train,],y[train],alpha=0)
 plot(cv.out)
 bestlam=cv.out$lambda.min
 bestlam
