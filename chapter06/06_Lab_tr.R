@@ -67,7 +67,7 @@ plot(regfit.full, scale="adjr2")
 plot(regfit.full, scale="Cp")
 plot(regfit.full, scale="bic")
 
-## Comments: Black square represents a varaible selected in the optimal model
+## Comments: Black square represents a variable selected in the optimal model
 
 # Viewing the coefficient estimates
 coef(regfit.full, 6)
