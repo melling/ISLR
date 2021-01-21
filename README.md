@@ -12,6 +12,10 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 - [Chapter 4 Solutions](chapter04)
 - [Chapter 5 Solutions](chapter05)
 - [Chapter 6 Solutions](chapter06)
+- [Chapter 7 Solutions](chapter07)
+- [Chapter 8 Solutions](chapter08)
+- [Chapter 9 Solutions](chapter09)
+- [Chapter 10 Solutions](chapter10)
 
 ## Course Slides for Videos
 
