@@ -30,6 +30,8 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 
 - http://blog.princehonest.com/stat-learning/
 - https://github.com/ppaquay/IntroStatLearning
+- https://github.com/jilmun/ISLR
+
 
 ## Python Solutions
 
