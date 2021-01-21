@@ -172,3 +172,12 @@ lines(age.grid, predict(fit2,data.frame(age=age.grid)),
       col="blue", lwd=2)
 legend("topright", legend=c("Span=0.2", "Span=0.5"),
        col=c("red", "blue"), lty=1, lwd = 2, cex=.8)
+
+## GAMs ####
+# p294
+
+#install.packages("akima")
+#install.packages("gam")
+
+library(gam)
+library(akima)
