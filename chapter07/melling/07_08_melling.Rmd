@@ -1,0 +1,95 @@
+---
+title: "Chapter 7 Q8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Chapter 7 Question 7
+
+p299
+
+```{r include=FALSE}
+library(tidyverse) 
+library(ISLR)
+```
+
+```{r}
+glimpse(Auto)
+```
+
+```{r}
+library(skimr)
+skim(Auto)
+```
+
+
+```{r echo=FALSE}
+attach(Auto) 
+pairs(Auto)
+```
+
+```{r}
+names(Auto)
+```
+
+### Cylinders vs MPG
+```{r}
+g1 <- ggplot(Auto, aes(x = cylinders, y = mpg, group = cylinders)) + geom_boxplot() + theme(legend.position = "none")
+g1
+```
+
+### Displacement vs MPG
+```{r}
+ggplot(Auto, aes(x = displacement, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+### Horsepower vs MPG
+
+```{r}
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+### Weight vs MPG
+
+```{r}
+ggplot(Auto, aes(x = weight, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+
+### Acceleration vs MPG
+
+```{r}
+ggplot(Auto, aes(x = acceleration, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+### Year vs MPG
+
+```{r}
+ggplot(Auto, aes(x = year, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "loess")
+```
+
+### Origin vs MPG
+
+```{r}
+ggplot(Auto, aes(x = origin, y = mpg, group=origin)) +
+  geom_boxplot()# + theme(legend.position = "none")
+```
+
+Python Code
+```{python}
+print(f"Python Code: {2+2}")
+```
+
