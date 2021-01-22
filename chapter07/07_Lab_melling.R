@@ -7,10 +7,8 @@ library(MASS)
 library(splines)
 
 
-
 #### Lab: Non-linear Modeling ####
 
-library(ISLR)
 
 #### 7.8.1 Polynomial Regression and Step Functions ####
 
