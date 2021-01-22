@@ -251,7 +251,7 @@ p294
 
 ```{r}
 gam1=lm(wage~ns(year,4)+ns(age,5) + education, data=Wage)
-plot.gam(gam1, se=TRUE, col="red")
+#plot.gam(gam1, se=TRUE, col="red")
 ```
 
 ```{r}
@@ -305,7 +305,7 @@ plot(gam.lr,se=T,col="green")
 ```
 p297
 ```{r}
-table(education ,I(wage >250))
+table(education, I(wage >250))
 ```
 
 ```{r}
