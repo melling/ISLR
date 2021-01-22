@@ -5,6 +5,12 @@ editor_options:
     wrap: 72
 ---
 
+## References
+
+- https://altaf-ali.github.io/ISLR/chapter7/lab.html
+- https://rpubs.com/ACC839303568/islrchapter7
+- http://rstudio-pubs-static.s3.amazonaws.com/392774_2edb19baf348483c8f27e4b8933f0542.html
+
 ```{r}
 library(ISLR)
 library(MASS)
@@ -264,8 +270,8 @@ plot(gam.m3, se=TRUE,col="blue")
 ```
 
 ```{r}
-library(gam)
-plot.gam(gam1, se=TRUE, col="red")
+#library(gam)
+#plot.gam(gam1, se=TRUE, col="red")
 ```
 
 ```{r}
@@ -284,7 +290,7 @@ preds=predict(gam.m2,newdata=Wage)
 
 ```{r}
 gam.lo=gam(wage~s(year,df=4)+lo(age,span=0.7)+education, data=Wage)
-plot.gam(gam.lo, se=TRUE, col="green")
+#plot.gam(gam.lo, se=TRUE, col="green")
 ```
 
 ```{r}

@@ -38,4 +38,15 @@ summary(jobclass.fit)
 #anova(fit1,fit2,fit3)
 #cut(Wage$jobclass, 4)
 
-## GAM 
+## Splines
+
+# Can't do splines with categorical variables
+
+## GAM - Generalize Additive Models
+library(gam)
+#attach(Wage)
+fit = gam(wage ~ age + maritl + jobclass , data = Wage)
+fit = gam(wage ~ maritl + jobclass + s(age,4), data = Wage)
+deviance(fit)
+
+#gam.m3=gam(wage∼s(year ,4)+s(age ,5)+education ,data=Wage)
