@@ -16,6 +16,8 @@ ggplot(Wage, aes(x = maritl, y = wage, fill = maritl)) +
   geom_boxplot() + 
   theme(legend.position = "none")
 
-jobclass.fit = lm(wage~I(jobclass), data = Wage)
+jobclass.fit = lm(wage ~ jobclass + cut(age,4), data = Wage)
+plot(jobclass.fit)
+summary(jobclass.fit)
 #anova(fit1,fit2,fit3)
 #cut(Wage$jobclass, 4)
