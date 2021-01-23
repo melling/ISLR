@@ -39,7 +39,7 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 - https://laptrinhx.com/solutions-to-labs-and-excercises-from-an-introduction-to-statistical-learning-as-jupyter-notebooks-1723363054/
 - https://altaf-ali.github.io/ISLR/index.html
 - https://github.com/asadoughi/stat-learning/
-
+- https://waxworksmath.com/Authors/G_M/James/james.html
 
 ## Python Solutions
 
