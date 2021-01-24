@@ -53,6 +53,11 @@ Our solutions:
 
 - https://github.com/tndoan/ISLR.jl
 
+# Machine Learning Articles
+
+- [The Matrix Calculus You Need For Deep Learning](https://explained.ai/matrix-calculus/index.html)
+- [Deriving convolution from first principles](https://towardsdatascience.com/deriving-convolution-from-first-principles-4ff124888028)
+
 # Other Math Introductory Books
 
 - http://joshua.smcvt.edu/linearalgebra/
