@@ -51,5 +51,11 @@ Our solutions:
 
 ## Julia Solutions
 
-https://github.com/tndoan/ISLR.jl
+- https://github.com/tndoan/ISLR.jl
 
+# Other Math Introductory Books
+
+- http://joshua.smcvt.edu/linearalgebra/
+- http://vmls-book.stanford.edu/
+   - https://ses.library.usyd.edu.au/handle/2123/21370
+- https://projects.iq.harvard.edu/stat110/home
