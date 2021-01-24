@@ -43,8 +43,9 @@ Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
 
 ## Python Solutions
 
-https://www.franzoni.eu/machine-learning-a-sound-primer/
-
+- https://github.com/tdpetrou/Machine-Learning-Books-With-Python/tree/master/Introduction%20to%20Statistical%20Learning
+- https://www.franzoni.eu/machine-learning-a-sound-primer/
+- https://github.com/JWarmenhoven/ISLR-python
 
 ## Julia Solutions
 
