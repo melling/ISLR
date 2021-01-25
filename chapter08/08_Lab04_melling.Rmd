@@ -1,0 +1,41 @@
+---
+title: "Chapter 08 Lab - Boosting"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(MASS)
+library(gbm)
+set.seed(1)
+train = sample(1:nrow(Boston), nrow(Boston)/2)
+
+boost.boston=gbm(medv ~ ., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4)
+summary(boost.boston)
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(boost.boston, i="rm") 
+plot(boost.boston, i="lstat")
+```
+
+```{r}
+yhat.boost=predict(boost.boston,newdata=Boston[-train,], n.trees=5000)
+mean((yhat.boost - boston.test)^2)
+```
+
+
+In this case, using λ = 0.2 leads to a slightly lower test MSE than λ = 0.00
+
+```{r}
+boost.boston=gbm(medv ~ .,data=Boston[train,],distribution="gaussian", n.trees=5000, interaction.depth=4, shrinkage =0.2, verbose=F)
+
+yhat.boost=predict(boost.boston, newdata=Boston[-train,], n.trees=5000)
+mean((yhat.boost - boston.test)^2)
+```
+

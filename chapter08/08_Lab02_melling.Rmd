@@ -1,0 +1,56 @@
+---
+title: "ISRL Chapter 8 Lab 2 - Fitting Regression Trees"
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 8.3.2 Fitting Regression Trees
+p327
+
+```{r}
+library(tree)
+library(MASS)
+set.seed(1)
+train = sample(1:nrow(Boston), nrow(Boston)/2)
+tree.boston=tree(medv ~ ., Boston, subset=train)
+summary(tree.boston)
+```
+
+https://stackoverflow.com/questions/7154133/plot-new-has-not-been-called-yet
+
+```{r}
+{
+plot(tree.boston)
+text(tree.boston,pretty=0) # plot.new error
+}
+```
+
+```{r}
+cv.boston=cv.tree(tree.boston)
+plot(cv.boston$size, cv.boston$dev, type='b')
+```
+
+### prune.tree
+
+```{r}
+prune.boston=prune.tree(tree.boston, best=5)
+
+{plot(prune.boston)
+text(prune.boston, pretty=0)
+}
+```
+
+```{r}
+yhat=predict(tree.boston, newdata=Boston[-train ,])
+boston.test=Boston[-train, "medv"]
+{plot(yhat,boston.test)
+abline (0 ,1)
+}
+mean((yhat-boston.test)^2)
+ 
+```
+
