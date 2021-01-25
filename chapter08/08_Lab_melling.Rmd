@@ -1,0 +1,123 @@
+---
+title: "ISRL Chapter 8 Lab"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Chapter 8 p323 (g441)
+
+```{r}
+library(tree)
+library(ISLR)
+#attach(Carseats)
+
+#View(Carseats)
+```
+
+Create a Classification variable
+```{r}
+#High=ifelse(Sales <=8, "No", "Yes")
+High=as.factor(ifelse(Carseats$Sales <=8, "No", "Yes"))
+
+Carseats = data.frame(Carseats, High)
+attach(Carseats)
+
+```
+
+```{r}
+tree.carseats = tree(High ~ . -Sales, Carseats)
+summary(tree.carseats)
+```
+p325
+
+[plot.new error](https://stackoverflow.com/questions/40938561/plot-new-has-not-been-called-yet-error-in-rmarkdown-rstudio-1-0-44)
+
+```{r}
+{
+plot(tree.carseats)
+text(tree.carseats, pretty=0)
+}
+```
+```{r}
+tree.carseats
+```
+
+p326
+
+We must estimate the test error rather than simply computing the training error. We split the observations into a training set and a test set, build the tree using the training set, and evaluate its performance on the test data. The predict() function can be used for this purpose. In the case of a classification tree, the argument type="class" instructs R to return the actual class prediction. This approach leads to correct predictions for around 71.5 % of the locations in the test data set.
+```{r}
+set.seed(2)
+train=sample(1:nrow(Carseats), 200)
+Carseats.test=Carseats[-train ,]
+High.test=High[-train]
+tree.carseats=tree(High~.-Sales, Carseats, subset=train)
+tree.pred=predict(tree.carseats, Carseats.test, type="class")
+table(tree.pred,High.test)
+```
+Book result
+
+High.test
+tree.pred  No Yes 
+        No 86 27 
+       Yes 30 57
+> (86+57) /200 [1] 0.715
+
+```{r}
+(104 + 50)/200
+```
+## Prune Tree
+
+We use the argument FUN=prune.misclass in order to indicate that we want the classification error rate to guide the cross-validation and pruning process, rather than the default for the cv.tree() function, which is deviance.
+
+```{r}
+set.seed(3)
+cv.carseats =cv.tree(tree.carseats, FUN=prune.misclass)
+names(cv.carseats)
+```
+
+```{r}
+cv.carseats
+```
+
+Note that, despite the name, dev corresponds to the cross-validation error rate in this instance. The tree with 9 terminal nodes results in the lowest cross-validation error rate, with 50 cross-validation errors. We plot the error rate as a function of both size and k.
+```{r}
+par(mfrow=c(1,2))
+plot(cv.carseats$size, cv.carseats$dev, type="b")
+plot(cv.carseats$k, cv.carseats$dev, type="b")
+```
+
+```{r}
+prune.carseats=prune.misclass(tree.carseats,best=9)
+{
+plot(prune.carseats )
+text(prune.carseats,pretty=0)
+}
+```
+
+```{r}
+tree.pred=predict(prune.carseats,Carseats.test,type="class")
+table(tree.pred ,High.test)
+```
+
+77% of the test observations are correctly classified, so not only has the pruning process produced a more interpretable tree, but it has also improved the classification accuracy
+```{r}
+(97+58)/200
+```
+
+```{r}
+prune.carseats=prune.misclass(tree.carseats, best=15)
+{
+plot(prune.carseats)
+text(prune.carseats, pretty=0)
+}
+tree.pred=predict(prune.carseats,Carseats.test,type="class")
+table(tree.pred ,High.test)
+
+```
+
+#View(Carseats)
+
+
