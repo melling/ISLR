@@ -58,12 +58,16 @@ coef(fit2b)
 ## Getting the range of ages in Wage
 ```{r}
 agelims = range(Wage$age)
+agelims
 ```
 
 ```{r}
 ## Creating a sequence of values in between agelims
 age.grid = seq(from=agelims[1], to=agelims[2])
+age.grid
+```
 
+```{r}
 ## Predicting the wages for the ages in age.grid using fit model
 preds = predict(fit, newdata=list(age=age.grid), se=TRUE)
 
@@ -163,7 +167,7 @@ matlines(age.grid, se.bands, lwd=1, col="blue", lty=3)
 table(cut(Wage$age,4))
 ```
 
-Fitting a linear model on each bin
+Fitting a linear model on each bin - Step function
 ```{r}
 fit = lm(wage ~ cut(age,4), data=Wage)
 coef(summary(fit))
@@ -206,6 +210,7 @@ attr(bs(Wage$age, df=6), "knots")
 
 
 # Natural Spline ####
+
 ```{r}
 fit2=lm(wage~ns(age,df=4), data = Wage)
 
@@ -229,7 +234,8 @@ legend("topright", legend=c("16 DF", "6.8 DF"),
 
 
 # Local Regression ####
-# Uses loess
+
+loess() - local regression fitting
 ```{r}
 attach(Wage)
 plot(age, wage, xlim = agelims, cex=.5, col="darkgrey")
@@ -260,6 +266,8 @@ gam1=lm(wage~ns(year,4)+ns(age,5) + education, data=Wage)
 #plot.gam(gam1, se=TRUE, col="red")
 ```
 
+The s() function, which is part of the gam library, is used to indicate that s() we would like to use a smoothing spline.
+
 ```{r}
 library(gam)
 
@@ -270,8 +278,8 @@ plot(gam.m3, se=TRUE,col="blue")
 ```
 
 ```{r}
-#library(gam)
-#plot.gam(gam1, se=TRUE, col="red")
+library(gam)
+plot.Gam(gam1, se=TRUE, col="red")
 ```
 
 ```{r}
@@ -284,13 +292,15 @@ anova(gam.m1,gam.m2,gam.m3,test="F")
 summary(gam.m3)
 ```
 
+The large p-value for year reinforces our conclusion from the ANOVA test that a linear function is adequate for this term. However, there is very clear evidence that a non-linear term is required for age.
+
 ```{r}
 preds=predict(gam.m2,newdata=Wage)
 ```
 
 ```{r}
 gam.lo=gam(wage~s(year,df=4)+lo(age,span=0.7)+education, data=Wage)
-#plot.gam(gam.lo, se=TRUE, col="green")
+#plot.Gam(gam.lo, se=TRUE, col="green")
 ```
 
 ```{r}

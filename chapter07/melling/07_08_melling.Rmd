@@ -1,15 +1,18 @@
 ---
-title: "Chapter 7 Q8"
+title: "Chapter 7 Question 8"
 output: html_document
+filename: foo.html
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Chapter 7 Question 7
-
 p299
+
+## References
+
+- https://www.datanovia.com/en/blog/how-to-plot-a-smooth-line-using-ggplot2/
 
 ```{r include=FALSE}
 library(tidyverse) 
@@ -64,13 +67,17 @@ ggplot(Auto, aes(x = weight, y = mpg)) +
   geom_smooth()
 ```
 
+```{r eval=FALSE, include=FALSE}
+?loess
+```
+
 
 ### Acceleration vs MPG
 
 ```{r}
 ggplot(Auto, aes(x = acceleration, y = mpg)) +
   geom_point(alpha = 0.5) +
-  geom_smooth()
+  geom_smooth(method = "loess", formula = y ~ x)
 ```
 
 ### Year vs MPG
@@ -78,7 +85,7 @@ ggplot(Auto, aes(x = acceleration, y = mpg)) +
 ```{r}
 ggplot(Auto, aes(x = year, y = mpg)) +
   geom_point(alpha = 0.5) +
-  geom_smooth(method = "loess")
+  geom_smooth(method = "loess", formula = y ~ x) # Default params
 ```
 
 ### Origin vs MPG
@@ -90,6 +97,15 @@ ggplot(Auto, aes(x = origin, y = mpg, group=origin)) +
 
 Python Code
 ```{python}
-print(f"Python Code: {2+2}")
+print(f"Hello World: {2+2}")
+```
+
+## GAM - Generalize Additive Models
+
+```{r}
+library(gam)
+# gam.fit = gam(mpg ~ cylinders +  s(acceleration,4) + s(weight,4), data = Auto)
+gam.fit = gam(mpg ~ cylinders, data = Auto)
+summary(gam.fit)
 ```
 

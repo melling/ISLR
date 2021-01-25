@@ -43,10 +43,14 @@ summary(jobclass.fit)
 # Can't do splines with categorical variables
 
 ## GAM - Generalize Additive Models
+
+library(splines)
 library(gam)
 #attach(Wage)
-fit = gam(wage ~ age + maritl + jobclass , data = Wage)
-fit = gam(wage ~ maritl + jobclass + s(age,4), data = Wage)
-deviance(fit)
+#fit = gam(wage ~ age + maritl + jobclass , data = Wage)
+library(ISLR)
+#gam::gam.fit()
+fit.gam = gam(wage ~ maritl + jobclass + s(age,5), data = Wage)
+deviance(fit.gam)
 
 #gam.m3=gam(wage∼s(year ,4)+s(age ,5)+education ,data=Wage)
