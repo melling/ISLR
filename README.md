@@ -60,6 +60,7 @@ Our solutions:
 
 # Other Math Introductory Books
 
+- http://www.cs.cmu.edu/~zkolter/course/linalg/linalg_notes.pdf
 - http://joshua.smcvt.edu/linearalgebra/
 - http://vmls-book.stanford.edu/
    - https://ses.library.usyd.edu.au/handle/2123/21370
