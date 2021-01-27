@@ -73,3 +73,6 @@ plot(gam.lr, se=TRUE, col="green")
 
 # 
 table(Wage$education, I(Wage$wage>250))
+
+fit.gam = gam(wage ~ maritl + jobclass + s(age,5), data=Wage)
+summary(fit.gam)
