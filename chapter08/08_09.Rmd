@@ -43,6 +43,7 @@ train = sample(1:nrow(OJ), 800)
 # Don't actually use these ???
 oj.train = OJ[train,]
 oj.test = OJ[-train,]
+oj.test.y = OJ[-train,"Purchase"]
 ```
 
 
@@ -54,13 +55,15 @@ Fit a tree to the training data, with Purchase as the response and the other var
 tree.oj = tree(Purchase ~ ., OJ, subset=train)
 summary(tree.oj)
 ```
+Uses only 5 predictors to split the tree.
+
 ### Training error rate
 
-Training error rate: Misclassification rate: 16.88%  (p324)
+Training error rate: Misclassification rate: 15.88%  (p324)
 
 ### How many terminal nodes does the tree have?
 
-terminal nodes: 7
+terminal nodes: 9
 
 
 ## 9c
@@ -73,8 +76,25 @@ tree.oj
 ```
 
 ### Interpret one terminal node
+```
+"8) LoyalCH < 0.0356415 59   10.14 MM ( 0.01695 0.98305 ) *"
+"9) LoyalCH > 0.0356415 118  116.40 MM ( 0.19492 0.80508 ) *"
+```
 
-**TODO**
+#### Branch 8
+```
+59 - Number observations in that branch
+10.14 - Deviance
+MM - Predicted class
+( 0.01695 0.98305 ) - (Prob CH, Prob MM)
+```
+This branching (8) looks redundant because MM is always chosen.
+
+#### Branch 9
+
+118 - Number observations in that branch
+
+
 
 ## 9d Plot Unpruned Tree
 
@@ -86,7 +106,9 @@ text(tree.oj, pretty=0)
 }
 ```
 
-### Interpretation of Results: **TODO**
+### Interpretation of Results
+
+9 terminal nodes.  At least least 1 redundant node.
 
 
 ## 9e Predict Test Data from Unpruned
@@ -106,16 +128,24 @@ Calculate Error Rate of Training Data
 
 
 ```{r}
-yhat = predict(tree.oj, newdata = OJ[-train ,])
+yhat = predict(tree.oj, newdata = OJ[-train ,], type = "class")
 oj.test.y = OJ[-train, "Purchase"] # Y target vector
 ```
+
 
 ### Confusion Matrix
 
 ```{r}
+table(yhat, oj.test.y)
+```
+Calculate Test Error Rate for unpruned tree
+```{r}
+(160+64)/270
+```
+
+```{r}
 summary(OJ$Purchase)
 ```
-**TODO**: Confusion Matrix
 
 ## 9f Find Optimal Prune Size
 
@@ -132,13 +162,15 @@ names(cv.oj)
 cv.oj
 ```
 
-7 is the best. ??? We looked at plot in lab??
+7 is the optimal number of terminal nodes. Small misclassification error with 149 ($dev=149)
+
 
 ## 9g Plot Tree Size vs Classification Error Rate
 
 Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
 
 ```{r}
+# xlabel="Tree Size"
 plot(cv.oj$size, cv.oj$dev, type='b')
 ```
 
@@ -154,7 +186,8 @@ plot(cv.oj$k,cv.oj$dev, type="b")
 
 Which tree size corresponds to the lowest cross-validated classification error rate?
 
-**TODO**
+7 is the optimal.
+
 
 ## 9i Prune Training Tree
 
@@ -167,13 +200,47 @@ text(prune.oj, pretty=0)
 }
 ```
 
-## 9j
+## 9j Training Error
 
 Compare the training error rates between the pruned and unpruned trees. Which is higher?
 
+```{r}
+train.predict = predict(tree.oj, newdata = oj.train, type="class")
 
-## 9k
+table(oj.train$Purchase, train.predict)
+```
+```{r}
+(450+223)/800
+```
+Predict on Prune
+```{r}
+train.pruned.predict = predict(prune.oj, newdata = oj.train, type="class")
+table(oj.train$Purchase, train.pruned.predict)
+
+```
+table(oj.train$Purchase, train.predict)
+
+```{r}
+(441+229)/800
+
+```
+Unpruned is overfitting so it gives a better result.
+
+## 9k Test Error
 
 Compare the test error rates between the pruned and unpruned trees. Which is higher?
 
+Unpruned error from 9e: 0.8296296
 
+
+
+```{r}
+test.pruned.predict = predict(prune.oj, newdata = oj.test, type="class")
+table(oj.test$Purchase, test.pruned.predict)
+
+```
+```{r}
+(160 + 66)/270
+```
+
+Pruned gives a better test error rate.

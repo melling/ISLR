@@ -38,8 +38,7 @@ p325
 [plot.new error](https://stackoverflow.com/questions/40938561/plot-new-has-not-been-called-yet-error-in-rmarkdown-rstudio-1-0-44)
 
 ```{r}
-{
-plot(tree.carseats)
+{plot(tree.carseats)
 text(tree.carseats, pretty=0)
 }
 ```
@@ -93,8 +92,7 @@ plot(cv.carseats$k, cv.carseats$dev, type="b")
 
 ```{r}
 prune.carseats=prune.misclass(tree.carseats,best=9)
-{
-plot(prune.carseats )
+{plot(prune.carseats )
 text(prune.carseats,pretty=0)
 }
 ```
@@ -111,8 +109,7 @@ table(tree.pred ,High.test)
 
 ```{r}
 prune.carseats=prune.misclass(tree.carseats, best=15)
-{
-plot(prune.carseats)
+{plot(prune.carseats)
 text(prune.carseats, pretty=0)
 }
 tree.pred=predict(prune.carseats,Carseats.test,type="class")
