@@ -1,0 +1,104 @@
+---
+title: "ISLR Q8.9"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(ISLR)
+library(tree)
+```
+
+```{r}
+summary(OJ)
+```
+
+## 9a
+
+Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+```{r}
+dim(OJ)
+set.seed(1)
+train = sample(1:nrow(OJ), 800)
+
+# Don't actually use these ???
+oj.train = OJ[train,]
+oj.test = OJ[-train,]
+```
+
+## 9b
+
+Fit a tree to the training data, with Purchase as the response and the other variables as predictors. Use the summary() function to produce summary statistics about the tree, and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
+
+```{r}
+tree.oj = tree(Purchase ~ .,OJ ,subset=train)
+summary(tree.oj)
+```
+### Training error rate
+
+Misclassification rate: 0.1688
+or Residual mean deviance ???
+
+## 9c
+
+Type in the name of the tree object in order to get a detailed text output. Pick one of the terminal nodes, and interpret the information displayed.
+
+```{r}
+tree.oj
+```
+
+## 9d
+
+Create a plot of the tree, and interpret the results.
+
+```{r}
+{plot(tree.oj)
+text(tree.oj, pretty=0)
+}
+```
+
+## 9e
+
+Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test error rate?
+
+```{r}
+yhat=predict(tree.oj, newdata=OJ[-train ,])
+oj.test.Y = OJ[-train ,"Purchase"] # Y target vector
+```
+
+## 9f
+
+Apply the cv.tree() function to the training set in order to determine the optimal tree size.
+
+```{r}
+cv.oj=cv.tree(tree.oj)
+plot(cv.oj$size, cv.oj$dev ,type='b')
+```
+
+7 is the best.
+
+## 9g
+
+Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
+
+## 9h
+
+Which tree size corresponds to the lowest cross-validated classification error rate?
+
+## 9i
+
+Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
+
+## 9j
+
+Compare the training error rates between the pruned and unpruned trees. Which is higher?
+
+## 9k
+
+Compare the test error rates between the pruned and unpruned trees. Which is higher?
+
+
