@@ -1,6 +1,8 @@
 ---
-title: "ISRL Chapter 8 Lab"
-output: html_document
+title: "ISRL Chapter 8 Lab 1 - Fitting Classification Trees"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

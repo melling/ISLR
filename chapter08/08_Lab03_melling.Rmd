@@ -1,12 +1,27 @@
 ---
-title: "Chapter 08 Lab - Bagging and Random Forests"
-output: html_document
+title: "Chapter 08 Lab 3 - Bagging and Random Forests"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(MASS)
+```
+
+```{r}
+set.seed(1)
+train = sample(1:nrow(Boston), nrow(Boston)/2)
+
+boston.test.y=Boston[-train, "medv"] # Need to import from other Lab section
+
+```
+
+p328
 
 ```{r}
 library(MASS)
@@ -18,23 +33,23 @@ bag.boston
 
 ```{r}
 yhat.bag = predict(bag.boston, newdata=Boston[-train ,])
-{plot(yhat.bag, boston.test)
+{plot(yhat.bag, boston.test.y)
 abline(0 ,1)
 }
-mean((yhat.bag-boston.test)^2)
+mean((yhat.bag-boston.test.y)^2)
 ```
 
 ```{r}
 bag.boston=randomForest(medv~.,data=Boston,subset=train, mtry=13,ntree=25)
 yhat.bag = predict(bag.boston ,newdata=Boston[-train ,])
-mean((yhat.bag-boston.test)^2)
+mean((yhat.bag-boston.test.y)^2)
 ```
 
 ```{r}
 set.seed(1)
 rf.boston=randomForest(medv ~ ., data=Boston, subset=train, mtry=6, importance =TRUE)
 yhat.rf = predict(rf.boston ,newdata=Boston[-train ,])
-mean((yhat.rf-boston.test)^2)
+mean((yhat.rf - boston.test.y)^2)
 ```
 
 ```{r}

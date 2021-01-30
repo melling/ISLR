@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q8.9"
+title: "ISLR Q8.9 Regression Trees with OJ Data"
 output:
   pdf_document: default
   html_document: default
@@ -13,13 +13,28 @@ library(ISLR)
 library(tree)
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 summary(OJ)
 ```
+Similar to Lab: 8.3.1 Fitting Classification Trees
+
+target = OJ$Purchase
+
+Purchase: A factor with levels CH and MM indicating whether the customer purchased Citrus Hill or Minute Maid Orange Juice
+
+## Overview
+- Build Tree with Training Data: tree.oj
+- Predict Training Data Error on unpruned tree
+- Prune Tree: prune.oj
+- Predict Training Data Error on pruned tree
+- Predict Test Data Error on unpruned tree
+- Predict Test Data Error on pruned tree
 
 ## 9a
 
 Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+
+
 ```{r}
 dim(OJ)
 set.seed(1)
@@ -30,28 +45,38 @@ oj.train = OJ[train,]
 oj.test = OJ[-train,]
 ```
 
-## 9b
+
+## 9b Fit Tree to Training
 
 Fit a tree to the training data, with Purchase as the response and the other variables as predictors. Use the summary() function to produce summary statistics about the tree, and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
 
 ```{r}
-tree.oj = tree(Purchase ~ .,OJ ,subset=train)
+tree.oj = tree(Purchase ~ ., OJ, subset=train)
 summary(tree.oj)
 ```
 ### Training error rate
 
-Misclassification rate: 0.1688
-or Residual mean deviance ???
+Training error rate: Misclassification rate: 16.88%  (p324)
+
+### How many terminal nodes does the tree have?
+
+terminal nodes: 7
+
 
 ## 9c
 
 Type in the name of the tree object in order to get a detailed text output. Pick one of the terminal nodes, and interpret the information displayed.
 
+* denotes terminal node
 ```{r}
 tree.oj
 ```
 
-## 9d
+### Interpret one terminal node
+
+**TODO**
+
+## 9d Plot Unpruned Tree
 
 Create a plot of the tree, and interpret the results.
 
@@ -61,41 +86,91 @@ text(tree.oj, pretty=0)
 }
 ```
 
-## 9e
+### Interpretation of Results: **TODO**
+
+
+## 9e Predict Test Data from Unpruned
 
 Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test error rate?
 
+Predict Test Response **SKIP**
 ```{r}
-yhat=predict(tree.oj, newdata=OJ[-train ,])
-oj.test.Y = OJ[-train ,"Purchase"] # Y target vector
+tree.pred = predict(tree.oj, oj.test, type="class")
 ```
 
-## 9f
+Calculate Error Rate of Training Data
+
+```{r}
+
+```
+
+
+```{r}
+yhat = predict(tree.oj, newdata = OJ[-train ,])
+oj.test.y = OJ[-train, "Purchase"] # Y target vector
+```
+
+### Confusion Matrix
+
+```{r}
+summary(OJ$Purchase)
+```
+**TODO**: Confusion Matrix
+
+## 9f Find Optimal Prune Size
 
 Apply the cv.tree() function to the training set in order to determine the optimal tree size.
 
 ```{r}
-cv.oj=cv.tree(tree.oj)
-plot(cv.oj$size, cv.oj$dev ,type='b')
+cv.oj=cv.tree(tree.oj, FUN=prune.misclass)
+summary(cv.oj)
+```
+```{r}
+names(cv.oj)
+```
+```{r}
+cv.oj
 ```
 
-7 is the best.
+7 is the best. ??? We looked at plot in lab??
 
-## 9g
+## 9g Plot Tree Size vs Classification Error Rate
 
 Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
+
+```{r}
+plot(cv.oj$size, cv.oj$dev, type='b')
+```
+
+We plot the error rate as a function of both size and k. (p326)
+Type="b" means plot both "p" points and "l" lines
+```{r}
+par(mfrow=c(1,2))
+plot(cv.oj$size, cv.oj$dev, type="b")
+plot(cv.oj$k,cv.oj$dev, type="b")
+```
 
 ## 9h
 
 Which tree size corresponds to the lowest cross-validated classification error rate?
 
-## 9i
+**TODO**
+
+## 9i Prune Training Tree
 
 Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
+
+```{r}
+prune.oj=prune.tree(tree.oj, best=7)
+{plot(prune.oj)
+text(prune.oj, pretty=0)
+}
+```
 
 ## 9j
 
 Compare the training error rates between the pruned and unpruned trees. Which is higher?
+
 
 ## 9k
 

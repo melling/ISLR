@@ -1,41 +1,61 @@
 ---
-title: "Chapter 08 Lab - Boosting"
-output: html_document
+title: "Chapter 08 Lab 4 - Boosting"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+p330
 
+Use half the data for training and half for testing/validation.
 ```{r}
 library(MASS)
-library(gbm)
+library(gbm) # Generalized Boosted Regression Modeling
+```
+
+```{r}
 set.seed(1)
 train = sample(1:nrow(Boston), nrow(Boston)/2)
 
-boost.boston=gbm(medv ~ ., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4)
+#Probably shouldn't do this because set train is different here? seed=1 so ok?
+boston.test.y=Boston[-train, "medv"] # Need to import f other Lab section
+
+```
+
+```{r}
+boost.boston=gbm(medv ~ ., data=Boston[train,], distribution="gaussian",
+                 n.trees=5000, interaction.depth=4)
 summary(boost.boston)
 ```
 
 ```{r}
 par(mfrow=c(1,2))
-plot(boost.boston, i="rm") 
-plot(boost.boston, i="lstat")
+plot(boost.boston, i="rm") # average number of rooms per dwelling
+plot(boost.boston, i="lstat") # lower status of the population (percent)
+```
+Probably shouldn't do this because set train is different here? seed=1 so ok?
+```{r}
+#boston.test=Boston[-train, "medv"] # Need to import f other Lab section
 ```
 
 ```{r}
-yhat.boost=predict(boost.boston,newdata=Boston[-train,], n.trees=5000)
-mean((yhat.boost - boston.test)^2)
+yhat.boost=predict(boost.boston, newdata=Boston[-train,], n.trees=5000)
+mean((yhat.boost - boston.test.y)^2)
 ```
 
 
-In this case, using λ = 0.2 leads to a slightly lower test MSE than λ = 0.00
+In this case, using $\lambda = 0.2$ leads to a slightly lower test MSE than $\lambda = 0.00$
 
 ```{r}
-boost.boston=gbm(medv ~ .,data=Boston[train,],distribution="gaussian", n.trees=5000, interaction.depth=4, shrinkage =0.2, verbose=F)
+boost.boston=gbm(medv ~ .,data=Boston[train,], distribution="gaussian",
+                 n.trees=5000, interaction.depth=4,
+                 shrinkage=0.2, verbose=F)
 
 yhat.boost=predict(boost.boston, newdata=Boston[-train,], n.trees=5000)
-mean((yhat.boost - boston.test)^2)
+mean((yhat.boost - boston.test.y)^2)
 ```
 
