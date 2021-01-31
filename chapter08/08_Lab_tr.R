@@ -80,7 +80,7 @@ plot(cv.carseats$k, cv.carseats$dev, type="b")
 # Create a tree model with best number of nodes from pruning
 prune.carseats = prune.misclass(tree.carseats, best=9)
 
-# Plotting pruned decistion tree
+# Plotting pruned decision tree
 plot(prune.carseats)
 text(prune.carseats, pretty=0) # Adding text to the tree
 
