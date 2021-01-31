@@ -14,7 +14,7 @@ library(tree)
 ```
 
 ```{r eval=FALSE, include=FALSE}
-summary(OJ)
+#summary(OJ)
 ```
 Similar to Lab: 8.3.1 Fitting Classification Trees
 
@@ -43,6 +43,7 @@ train = sample(1:nrow(OJ), 800)
 # Don't actually use these ???
 oj.train = OJ[train,]
 oj.test = OJ[-train,]
+oj.train.y = OJ[train,"Purchase"]
 oj.test.y = OJ[-train,"Purchase"]
 ```
 
@@ -100,7 +101,7 @@ This branching (8) looks redundant because MM is always chosen.
 
 Create a plot of the tree, and interpret the results.
 
-```{r}
+```{r, out.width="75%"}
 {plot(tree.oj)
 text(tree.oj, pretty=0)
 }
@@ -169,14 +170,13 @@ cv.oj
 
 Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
 
-```{r}
-# xlabel="Tree Size"
-plot(cv.oj$size, cv.oj$dev, type='b')
+```{r, out.width="50%"}
+plot(cv.oj$size, cv.oj$dev, type='b', xlab="Tree Size", ylab="Classification Error")
 ```
 
-We plot the error rate as a function of both size and k. (p326)
-Type="b" means plot both "p" points and "l" lines
-```{r}
+Plot the error rate as a function of both size and k. (p326)
+Type="b" means plot both "p" points, "l" lines
+```{r, out.width="75%"}
 par(mfrow=c(1,2))
 plot(cv.oj$size, cv.oj$dev, type="b")
 plot(cv.oj$k,cv.oj$dev, type="b")
@@ -193,7 +193,7 @@ Which tree size corresponds to the lowest cross-validated classification error r
 
 Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
 
-```{r}
+```{r, out.width="75%"}
 prune.oj=prune.tree(tree.oj, best=7)
 {plot(prune.oj)
 text(prune.oj, pretty=0)
