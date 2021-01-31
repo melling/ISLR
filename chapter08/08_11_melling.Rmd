@@ -45,7 +45,7 @@ Bernoulli for classification.  Gaussian for regression.
 boost.caravan=gbm(Purchase ~ ., data=Caravan[train,], 
                  distribution="bernoulli",
                  n.trees=1000,
-                 shrinkage=0.1, 
+                 shrinkage=0.01, 
                  interaction.depth=4,
                  verbose=F)
                  
@@ -65,20 +65,23 @@ table(caravan.train.y, train.predict)
 Calculate Training Classification Accuracy
 
 ```{r}
-(941+55)/1000
+(941+10)/1000
 ```
 
 ## 11c Predict the Test Data
 
 Use the boosting model to predict the response on the test data. 
 
-* Predict that a person will make a purchase if the estimated prob- ability of purchase is greater than **20%**. 
+* Predict that a person will make a purchase if the estimated probability of purchase is greater than **20%**. 
 * Form a confusion matrix.
-* What fraction of the people predicted to make a purchase do in fact make one? 
-* How does this compare with the results obtained from applying KNN or logistic regression to this data set?
+* What fraction of the people predicted to make a purchase do in fact make one? **90%**
+* How does this compare with the results obtained from applying KNN or logistic regression to this data set?  **In Chapter 4 Lab, KNN and LR produced much worse results.  < 35% accuracy**
 
 ```{r}
-test.predict.prob = predict.gbm(boost.caravan, newdata = Caravan[-train,], n.trees = 1000, type = "response")
+test.predict.prob = predict.gbm(boost.caravan, 
+                                newdata = Caravan[-train,],
+                                n.trees = 1000, 
+                                type = "response")
 test.predict = ifelse(test.predict.prob > 0.2, 1, 0)
 ```
 
@@ -89,6 +92,6 @@ table(caravan.test.y, test.predict)
 
 Calculate Test Classification Accuracy
 ```{r}
-(4339 + 34)/4822 
+(4336 + 31)/4822 
 ```
 
