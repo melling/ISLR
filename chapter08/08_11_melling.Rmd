@@ -1,0 +1,94 @@
+---
+title: "ISLR Q8.11 Boosting with Caravan Data"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISLR)
+library(gbm)
+```
+
+## 11a
+
+Create a training set consisting of the first 1,000 observations,
+and a test set consisting of the remaining observations.
+
+```{r}
+dim(Caravan)
+set.seed(1)
+train = 1:1000
+test = 1001:nrow(Caravan)
+
+Caravan["Purchase"] = ifelse(Caravan$Purchase == "Yes", 1, 0)
+# Don't actually use these ???
+
+caravan.train = Caravan[train,]
+caravan.test = Caravan[-train,]
+caravan.train.y = Caravan[train,"Purchase"]
+caravan.test.y = Caravan[-train,"Purchase"]
+```
+## 11b
+
+Fit a boosting model to the training set with Purchase as the response and the other variables as predictors.
+
+* Use 1,000 trees, and a shrinkage value of 0.01. 
+* Which predictors appear to be the most important?
+
+Bernoulli for classification.  Gaussian for regression.
+```{r}
+boost.caravan=gbm(Purchase ~ ., data=Caravan[train,], 
+                 distribution="bernoulli",
+                 n.trees=1000,
+                 shrinkage=0.1, 
+                 interaction.depth=4,
+                 verbose=F)
+                 
+summary(boost.caravan)
+```
+
+Predict the Training Data
+```{r}
+train.predict.prob = predict.gbm(boost.caravan, newdata = Caravan[train,], n.trees = 1000)
+train.predict = ifelse(train.predict.prob > 0.5, 1, 0)
+
+```
+Confusion Matrix
+```{r}
+table(caravan.train.y, train.predict)
+```
+Calculate Training Classification Accuracy
+
+```{r}
+(941+55)/1000
+```
+
+## 11c Predict the Test Data
+
+Use the boosting model to predict the response on the test data. 
+
+* Predict that a person will make a purchase if the estimated prob- ability of purchase is greater than **20%**. 
+* Form a confusion matrix.
+* What fraction of the people predicted to make a purchase do in fact make one? 
+* How does this compare with the results obtained from applying KNN or logistic regression to this data set?
+
+```{r}
+test.predict.prob = predict.gbm(boost.caravan, newdata = Caravan[-train,], n.trees = 1000, type = "response")
+test.predict = ifelse(test.predict.prob > 0.2, 1, 0)
+```
+
+Confusion Matrix
+```{r}
+table(caravan.test.y, test.predict)
+```
+
+Calculate Test Classification Accuracy
+```{r}
+(4339 + 34)/4822 
+```
+
