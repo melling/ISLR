@@ -1,0 +1,313 @@
+---
+title: "ISLR Chapter 9 Lab - Support Vector Machines"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+p359
+
+## Support Vector Classifier
+```{r}
+set.seed(1)
+x=matrix(rnorm(20*2), ncol=2)
+y=c(rep(-1,10), rep(1,10))
+x[y==1,]=x[y==1,] + 1
+plot(x, col=(3-y))
+```
+
+```{r}
+dat=data.frame(x=x, y=as.factor(y))
+library(e1071)
+svmfit=svm(y~., data=dat, kernel="linear", cost=10, scale=FALSE)
+```
+
+Plot the support vector classifier
+```{r}
+plot(svmfit, dat)
+```
+
+7 support vectors
+```{r}
+svmfit$index
+```
+
+```{r}
+summary(svmfit)
+```
+
+
+Change cost to 0.1
+```{r}
+svmfit=svm(y~., data=dat, kernel="linear", cost=0.1, scale=FALSE)
+plot(svmfit , dat)
+```
+
+16 support vectors
+```{r}
+svmfit$index
+```
+
+## Tune
+```{r}
+set.seed(1)
+tune.out=tune(svm, y~., data=dat, kernel="linear",
+              ranges=list(cost=c(0.001, 0.01, 0.1, 1,5,10,100)))
+```
+
+Summary
+```{r}
+summary(tune.out)
+```
+
+We see that cost=0.1 results in the lowest cross-validation error rate.
+
+## Best Model
+```{r}
+bestmodel=tune.out$best.model
+summary(bestmodel)
+```
+
+# Predict
+
+Generate test data
+```{r}
+xtest=matrix(rnorm(20*2), ncol=2)
+ytest=sample(c(-1,1), 20, replace = TRUE)
+xtest [ ytest ==1 ,]= xtest [ ytest ==1 ,] + 1
+testdat=data.frame(x=xtest, y=as.factor(ytest))
+```
+
+## Predict and Generate Confusion Matrix
+```{r}
+ypred=predict(bestmodel, testdat)
+table(predict=ypred, truth=testdat$y)
+```
+
+Change cost to 0.1
+```{r}
+svmfit=svm(y~., data=dat, kernel="linear", cost=.01, scale=FALSE)
+ypred=predict(svmfit ,testdat)
+table(predict=ypred, truth=testdat$y)
+```
+Consider a situation in which the two classes are linearly separable.
+
+```{r}
+x[y==1,]=x[y==1,]+0.5
+plot(x, col=(y+5)/2, pch=19)
+```
+
+The observations are just barely linearly separable
+
+
+We fit the support vector classifier and plot the resulting hyperplane, using a very large value of cost so that no observations are misclassified.
+
+```{r}
+dat=data.frame(x=x,y=as.factor(y))
+svmfit=svm(y~., data=dat, kernel="linear", cost=1e5)
+summary(svmfit)
+```
+```{r}
+plot(svmfit , dat)
+```
+
+No training errors were made and only three support vectors were used. However, we can see from the figure that the margin is very narrow
+
+## Try a smaller value of cost
+
+```{r}
+svmfit=svm(y~., data=dat, kernel="linear", cost=1)
+summary(svmfit)
+plot(svmfit ,dat)
+```
+
+Using cost=1, we misclassify a training observation, but we also obtain a much wider margin and make use of seven support vectors. It seems likely that this model will perform better on test data than the model with cost=1e5.
+
+# Support Vector Machine
+p363
+
+We use a different value of the parameter kernel. To fit an SVM with a polynomial kernel we use kernel="polynomial", and to fit an SVM with a radial kernel we use kernel="radial"
+```{r}
+set.seed(1)
+x=matrix(rnorm(200*2), ncol=2)
+x[1:100,]=x[1:100,]+2
+x[101:150,]=x[101:150,]-2
+y=c(rep(1,150),rep(2,50))
+dat=data.frame(x=x,y=as.factor(y))
+```
+
+Plotting the data makes it clear that the class boundary is indeed non-linear.
+```{r}
+plot(x, col=y)
+```
+
+The data is randomly split into training and testing groups. We then fit the training data using the svm() function with a radial kernel and $\gamma = 1$
+
+```{r}
+train=sample(200,100)
+svmfit=svm(y~., data=dat[train,], kernel="radial", gamma=1,
+           cost=1)
+plot(svmfit, dat[train,])
+```
+
+```{r}
+summary(svmfit)
+```
+Increase cost to 1e5 to reduce training errors.
+```{r}
+svmfit=svm(y~., data=dat[train,], kernel="radial",gamma=1, cost=1e5)
+plot(svmfit, dat[train ,])
+```
+
+Perform cross-validation using tune() to select the best choice of $\gamma$ and cost for an SVM with a radial kernel.
+
+```{r}
+set.seed(1)
+tune.out=tune(svm, y~., data=dat[train,], kernel="radial",
+              ranges=list(cost=c(0.1,1,10,100,1000),
+                          gamma=c(0.5,1,2,3,4) ))
+summary(tune.out)
+```
+The best choice of parameters involves cost=1 and gamma=2
+
+```{r}
+table(true=dat[-train,"y"], pred=predict(tune.out$best.model,
+                                         newdata=dat[-train ,]))
+```
+
+10% of test observations are misclassified by this SVM.
+
+# ROC Curves
+p365
+
+```{r}
+library(ROCR) 
+rocplot=function(pred, truth, ...) {
+  predob = prediction(pred, truth)
+  perf = performance (predob , "tpr", "fpr")
+  plot(perf ,...)
+  }
+```
+
+the predict() function will output the fitted values
+```{r}
+svmfit.opt=svm(y~., data=dat[train,], kernel="radial",
+               gamma=2, 
+               cost=1,
+               decision.values=T)
+fitted.training=attributes(predict(svmfit.opt, dat[train,],
+                          decision.values=TRUE))$decision.values
+```
+## ROC plot
+```{r eval=FALSE, include=FALSE}
+par(mfrow=c(1,2))
+rocplot(fitted.training, dat[train,"y"], main="Training Data")
+```
+
+By increasing $\gamma$ we can produce a more flexible fit and generate further improvements in accuracy.
+```{r}
+svmfit.flex=svm(y~., data=dat[train,], kernel="radial",
+                gamma=50, 
+                cost=1, 
+                decision.values=T)
+fitted.gamma50=attributes(predict(svmfit.flex,dat[train,],decision.values=T))$decision.values
+```
+
+```{r}
+{
+par(mfrow=c(1,2))
+rocplot(fitted.training, dat[train,"y"], main="Training Data")
+rocplot(fitted.gamma50, dat[train ,"y"], add=T, col="red")
+}
+```
+
+When we compute the ROC curves on the test data, the model with $\gamma=2$ appears to provide the most accurate results.
+```{r}
+{fitted.test=attributes(predict(svmfit.opt,dat[-train,],
+                                decision.values=T))$decision.values
+rocplot(fitted.test, dat[-train,"y"], main="Test Data")
+fitted.test2=attributes(predict(svmfit.flex,dat[-train,],decision.values=T))$decision.values
+rocplot(fitted.test2, dat[-train,"y"], add=T,col="red")
+}
+```
+
+
+# SVM with Multiple Classes
+p366
+
+If the response is a factor containing more than two levels, then the svm() function will perform multi-class classification using the one-versus-one approach. We explore that setting here by generating a third class of observations.
+
+```{r}
+set.seed(1)
+x=rbind(x, matrix(rnorm(50*2), ncol=2))
+y=c(y, rep(0,50))
+x[y==0,2]=x[y==0,2]+2
+dat=data.frame(x=x, y=as.factor(y))
+par(mfrow=c(1,1))
+plot(x,col=(y+1))
+```
+
+Fit an SVM to the data
+
+```{r}
+svmfit=svm(y~., data=dat, kernel="radial", cost=10, gamma=1)
+plot(svmfit , dat)
+```
+
+# Application to Gene Expression Data
+
+The Khan data set, which consists of a number of tissue samples corresponding to four distinct types of small round blue cell tumors. For each tissue sample, gene expression measurements are available.
+
+```{r}
+library(ISLR)
+names(Khan)
+```
+
+```{r}
+dim(Khan$xtrain)
+```
+
+```{r}
+dim(Khan$xtest)
+```
+
+```{r}
+length(Khan$ytrain)
+```
+```{r}
+length(Khan$ytest)
+```
+This data set consists of expression measurements for 2,308 genes.
+The training and test sets consist of 63 and 20 observations respectively.
+```{r}
+table(Khan$ytrain)
+```
+
+```{r}
+table(Khan$ytest)
+```
+
+We will use a support vector approach to predict cancer subtype using gene expression measurements. In this data set, there are a very large number of features relative to the number of observations. This suggests that we should use a linear kernel, because the additional flexibility that will result from using a polynomial or radial kernel is unnecessary.
+
+```{r}
+dat=data.frame(x=Khan$xtrain, y=as.factor(Khan$ytrain))
+out=svm(y~., data=dat, kernel="linear",cost=10)
+summary(out)
+```
+
+```{r}
+table(out$fitted, dat$y)
+```
+We see that there are no training errors. In fact, this is not surprising, because the large number of variables relative to the number of observations implies that it is easy to find hyperplanes that fully separate the classes.
+
+```{r}
+dat.te=data.frame(x=Khan$xtest, y=as.factor(Khan$ytest))
+pred.te=predict(out, newdata=dat.te)
+table(pred.te, dat.te$y)
+```
+
+We see that using cost=10 yields two test set errors on this data.
+
