@@ -57,6 +57,9 @@ summary(svmfit)
 
 there were seven support vectors, four in one class and three in the other.
 
+Observations that lie directly on the 
+margin, or on the wrong side of the margin for their class, are known as **support vectors**
+
 ### Cost Function
 
  A cost argument allows us to specify the cost of a violation to the margin.
