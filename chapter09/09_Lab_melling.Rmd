@@ -129,6 +129,9 @@ svmfit=svm(y~., data=dat, kernel="linear", cost=.01, scale=FALSE)
 ypred=predict(svmfit ,testdat)
 table(predict=ypred, truth=testdat$y)
 ```
+
+### Linearly Separable Example
+
 Consider a situation in which the two classes are linearly separable.
 
 ```{r}
@@ -165,7 +168,15 @@ Using cost=1, we misclassify a training observation, but we also obtain a much w
 # Support Vector Machine
 p363
 
+Change the kernel parameter.
 We use a different value of the parameter kernel. To fit an SVM with a polynomial kernel we use kernel="polynomial", and to fit an SVM with a radial kernel we use kernel="radial"
+
+
+- In the former case we also use the degree argument to specify a degree for the polynomial kernel (this is d in (9.22)), 
+- in the latter case we use gamma to specify a value of γ for the radial basis kernel (9.24).
+
+We first generate some data with a non-linear class boundary,
+
 ```{r}
 set.seed(1)
 x=matrix(rnorm(200*2), ncol=2)
@@ -193,6 +204,10 @@ plot(svmfit, dat[train,])
 summary(svmfit)
 ```
 Increase cost to 1e5 to reduce training errors.
+
+If we increase the value of cost, we can reduce the number of training errors. However, this comes at the price of a more irr
+
+
 ```{r}
 svmfit=svm(y~., data=dat[train,], kernel="radial",gamma=1, cost=1e5)
 plot(svmfit, dat[train ,])
