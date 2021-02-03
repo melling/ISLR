@@ -11,6 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 p359
 
 ## Support Vector Classifier
+
+We begin by generating the observations, 
+which belong to two classes, and checking whether 
+the classes are linearly separable.
+
 ```{r}
 set.seed(1)
 x=matrix(rnorm(20*2), ncol=2)
@@ -18,6 +23,14 @@ y=c(rep(-1,10), rep(1,10))
 x[y==1,]=x[y==1,] + 1
 plot(x, col=(3-y))
 ```
+They are not.
+
+we fit the support vector classifier. 
+Note that in order for the svm() function to 
+perform classification (as opposed to SVM-based regression), 
+we must encode the response as a factor variable. We now create a data frame with the response coded as a factor.
+
+The argument scale=FALSE tells the svm() function not to scale each feature to have mean zero or standard deviation one;
 
 ```{r}
 dat=data.frame(x=x, y=as.factor(y))
@@ -26,6 +39,9 @@ svmfit=svm(y~., data=dat, kernel="linear", cost=10, scale=FALSE)
 ```
 
 Plot the support vector classifier
+
+Note that here the second feature is plotted on the x-axis and the first feature is plotted on the y-axis, in contrast to the behavior of the usual plot() function in R.
+
 ```{r}
 plot(svmfit, dat)
 ```
@@ -38,6 +54,10 @@ svmfit$index
 ```{r}
 summary(svmfit)
 ```
+
+there were seven support vectors, four in one class and three in the other.
+
+### Cost Function
 
  A cost argument allows us to specify the cost of a violation to the margin.
 When the cost argument is small, then the mar- gins will be wide and many support vectors will 
@@ -52,18 +72,29 @@ plot(svmfit , dat)
 ```
 
 16 support vectors
+
+Now that a smaller value of the cost parameter is being used, we obtain a larger number of support vectors, because the margin is now wider.
+
+
 ```{r}
 svmfit$index
 ```
 
 ## Tune
+
+tune(), to perform cross- validation.
+By default, tune() performs ten-fold cross-validation on a set of models of interest.
+
 ```{r}
 set.seed(1)
 tune.out=tune(svm, y~., data=dat, kernel="linear",
               ranges=list(cost=c(0.001, 0.01, 0.1, 1,5,10,100)))
 ```
 
-Summary
+### Summary
+
+We can easily access the cross-validation errors for each of these models using the summary() command:
+
 ```{r}
 summary(tune.out)
 ```
