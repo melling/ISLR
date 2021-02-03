@@ -172,6 +172,8 @@ Using cost=1, we misclassify a training observation, but we also obtain a much w
 # Support Vector Machine
 p363
 
+When the support vector classifier is combined with a non-linear kernel such as (9.22), the resulting classifier is known as a support vector machine
+
 Change the kernel parameter.
 We use a different value of the parameter kernel. To fit an SVM with a polynomial kernel we use kernel="polynomial", and to fit an SVM with a radial kernel we use kernel="radial"
 
