@@ -78,6 +78,7 @@ plot(svmfit , dat)
 
 Now that a smaller value of the cost parameter is being used, we obtain a larger number of support vectors, because the margin is now wider.
 
+if a training observation is not a support vector, then its α i equals zero
 
 ```{r}
 svmfit$index
