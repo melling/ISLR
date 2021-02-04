@@ -1,0 +1,65 @@
+---
+title: "ISLR Q9.4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p369
+
+Generate a simulated two-class data set with 100 observations and two features in which there is a visible but non-linear separation between the two classes. 
+
+ - Show that in this setting, a support vector machine with a polynomial kernel (with degree greater than 1) or a radial kernel will outperform a support vector classifier on the training data. 
+ - Which technique performs best on the test data? 
+ - Make plots and report training and test error rates in order to back up your assertions
+ 
+## 
+
+
+
+x <- rnorm(100) * 2 + 1
+y <- x^2 + 2*x + rnorm(100)
+x[1:25] = x[1:25] - 4
+plot(x,y)
+
+```{r}
+set.seed(1)
+x=matrix(rnorm(50*2), ncol=2)
+y=c(rep(-1,25), rep(1,25))
+x[y==1,]=x[y==1,] + 1
+
+```
+
+```{r}
+library(e1071)
+# df = data.frame(x, y)
+dat = data.frame(x=x, y=as.factor(y))
+train=sample(100, 50)
+```
+
+### Linear, Cost=1
+```{r}
+svmfit.linear=svm(y~., data=dat[train,], kernel="linear", cost=1, scale = FALSE)
+plot(svmfit.linear, dat)
+
+```
+
+```{r}
+summary(svmfit.linear)
+```
+
+
+### Radial, gamma=1, cost=1
+```{r}
+svmfit.radial=svm(y~., data=dat[train,], kernel="radial", gamma=1,
+           cost=1)
+plot(svmfit.radial, dat[train,])
+
+```
+
+```{r}
+summary(svmfit.radial)
+```
+

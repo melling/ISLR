@@ -1,8 +1,8 @@
 ---
 title: "ISLR Chapter 9 Lab - Support Vector Machines"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -62,31 +62,33 @@ margin, or on the wrong side of the margin for their class, are known as **suppo
 
 ### Cost Function
 
+#### Notes
+ 
  A cost argument allows us to specify the cost of a violation to the margin.
-When the cost argument is small, then the mar- gins will be wide and many support vectors will 
-be on the margin or will violate the margin. 
+
+When the cost argument is small, then the mar- gins will be wide and many support vectors will be on the margin or will violate the margin. 
 When the cost argument is large, then the margins 
 will be narrow and there will be few support vectors on the margin or violating the margin.
 
-Change cost to 0.1
+### Change cost to 0.1
 ```{r}
 svmfit=svm(y~., data=dat, kernel="linear", cost=0.1, scale=FALSE)
-plot(svmfit , dat)
+plot(svmfit, dat)
 ```
 
 16 support vectors
 
 Now that a smaller value of the cost parameter is being used, we obtain a larger number of support vectors, because the margin is now wider.
 
-if a training observation is not a support vector, then its α i equals zero
+If a training observation is not a support vector, then its $\alpha_i$ equals zero
 
 ```{r}
 svmfit$index
 ```
 
-## Tune
+## Tune/Cross Validate
 
-tune(), to perform cross- validation.
+Use tune(), to perform cross-validation.
 By default, tune() performs ten-fold cross-validation on a set of models of interest.
 
 ```{r}
@@ -127,7 +129,7 @@ ypred=predict(bestmodel, testdat)
 table(predict=ypred, truth=testdat$y)
 ```
 
-Change cost to 0.1
+## Change cost to 0.01
 ```{r}
 svmfit=svm(y~., data=dat, kernel="linear", cost=.01, scale=FALSE)
 ypred=predict(svmfit ,testdat)
@@ -159,18 +161,24 @@ plot(svmfit , dat)
 
 No training errors were made and only three support vectors were used. However, we can see from the figure that the margin is very narrow
 
-## Try a smaller value of cost
+## Try a smaller value of cost=1
 
 ```{r}
 svmfit=svm(y~., data=dat, kernel="linear", cost=1)
 summary(svmfit)
-plot(svmfit ,dat)
+plot(svmfit, dat)
 ```
 
 Using cost=1, we misclassify a training observation, but we also obtain a much wider margin and make use of seven support vectors. It seems likely that this model will perform better on test data than the model with cost=1e5.
 
+Higher **cost** value means more overfitting.
+
 # Support Vector Machine
 p363
+
+#### Notes
+
+The support vector machine (SVM) is an extension of the support vector classifier that results from enlarging the feature space in a specific way, using kernels. p350
 
 When the support vector classifier is combined with a non-linear kernel such as (9.22), the resulting classifier is known as a support vector machine
 
@@ -179,7 +187,9 @@ We use a different value of the parameter kernel. To fit an SVM with a polynomia
 
 
 - In the former case we also use the degree argument to specify a degree for the polynomial kernel (this is d in (9.22)), 
-- in the latter case we use gamma to specify a value of γ for the radial basis kernel (9.24).
+- in the latter case we use gamma to specify a value of $\gamma$ for the radial basis kernel (9.24).
+
+### Lab
 
 We first generate some data with a non-linear class boundary,
 
@@ -215,7 +225,7 @@ If we increase the value of cost, we can reduce the number of training errors. H
 
 
 ```{r}
-svmfit=svm(y~., data=dat[train,], kernel="radial",gamma=1, cost=1e5)
+svmfit=svm(y~., data=dat[train,], kernel="radial", gamma=1, cost=1e5)
 plot(svmfit, dat[train ,])
 ```
 
@@ -223,7 +233,8 @@ Perform cross-validation using tune() to select the best choice of $\gamma$ and 
 
 ```{r}
 set.seed(1)
-tune.out=tune(svm, y~., data=dat[train,], kernel="radial",
+tune.out=tune(svm, y~., data=dat[train,],
+              kernel="radial",
               ranges=list(cost=c(0.1,1,10,100,1000),
                           gamma=c(0.5,1,2,3,4) ))
 summary(tune.out)
@@ -249,7 +260,7 @@ rocplot=function(pred, truth, ...) {
   }
 ```
 
-the predict() function will output the fitted values
+The predict() function will output the fitted values.
 ```{r}
 svmfit.opt=svm(y~., data=dat[train,], kernel="radial",
                gamma=2, 
@@ -307,7 +318,7 @@ par(mfrow=c(1,1))
 plot(x,col=(y+1))
 ```
 
-Fit an SVM to the data
+### Fit an SVM to the data
 
 ```{r}
 svmfit=svm(y~., data=dat, kernel="radial", cost=10, gamma=1)
