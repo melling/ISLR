@@ -14,20 +14,21 @@ Generate a simulated two-class data set with 100 observations and two features i
  - Show that in this setting, a support vector machine with a polynomial kernel (with degree greater than 1) or a radial kernel will outperform a support vector classifier on the training data. 
  - Which technique performs best on the test data? 
  - Make plots and report training and test error rates in order to back up your assertions
- 
+
 ## 
 
 
 
-x <- rnorm(100) * 2 + 1
-y <- x^2 + 2*x + rnorm(100)
-x[1:25] = x[1:25] - 4
-plot(x,y)
+<!-- x <- rnorm(100) * 2 + 1 -->
+<!-- y <- x^2 + 2*x + rnorm(100) -->
+<!-- x[1:25] = x[1:25] - 4 -->
+<!-- plot(x,y) -->
 
+2 columns and the class
 ```{r}
 set.seed(1)
 x=matrix(rnorm(50*2), ncol=2)
-y=c(rep(-1,25), rep(1,25))
+y=c(rep(-1,25), rep(1,25)) # The class vector
 x[y==1,]=x[y==1,] + 1
 
 ```
@@ -36,7 +37,7 @@ x[y==1,]=x[y==1,] + 1
 library(e1071)
 # df = data.frame(x, y)
 dat = data.frame(x=x, y=as.factor(y))
-train=sample(100, 50)
+train=sample(50, 25)
 ```
 
 ### Linear, Cost=1
@@ -50,16 +51,59 @@ plot(svmfit.linear, dat)
 summary(svmfit.linear)
 ```
 
+### Confusion Matrix
+```{r}
+svm.predict = predict(svmfit.linear, newdata = dat[train,])
+table(true=dat[train,"y"], pred=svm.predict)
+```
+```{r}
+(11+7)/25
+```
+```{r}
+length(svm.predict)
+```
+
 
 ### Radial, gamma=1, cost=1
 ```{r}
 svmfit.radial=svm(y~., data=dat[train,], kernel="radial", gamma=1,
            cost=1)
 plot(svmfit.radial, dat[train,])
-
 ```
 
 ```{r}
 summary(svmfit.radial)
 ```
+```{r}
+svm.predict.radial = predict(svmfit.radial, newdata = dat[train,])
+table(true=dat[train,"y"], pred=svm.predict.radial)
 
+```
+
+```{r}
+(13+9)/25
+```
+## Do Predict for Test Data
+
+### Linear
+```{r}
+svm.predict.test = predict(svmfit.linear, newdata = dat[-train,])
+table(true=dat[-train,"y"], pred=svm.predict.test)
+```
+```{r}
+(10+11)/25
+```
+
+### Radial Kernel
+
+```{r}
+svm.predict.radial.test = predict(svmfit.radial, newdata = dat[-train,])
+table(true=dat[-train,"y"], pred=svm.predict.radial.test)
+```
+
+```{r}
+(8+9)/25
+```
+
+The radial kernel overfit the training data and did not do as well on the test data.
+In other words, linear kernel was better on the test data.

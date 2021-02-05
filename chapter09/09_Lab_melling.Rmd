@@ -243,7 +243,7 @@ The best choice of parameters involves cost=1 and gamma=2
 
 ```{r}
 table(true=dat[-train,"y"], pred=predict(tune.out$best.model,
-                                         newdata=dat[-train ,]))
+                                         newdata=dat[-train,]))
 ```
 
 10% of test observations are misclassified by this SVM.
