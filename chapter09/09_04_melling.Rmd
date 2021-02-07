@@ -93,6 +93,9 @@ table(true=dat[-train,"y"], pred=svm.predict.test)
 ```{r}
 (10+11)/25
 ```
+```{r}
+plot(svmfit.linear, dat[-train,])
+```
 
 ### Radial Kernel
 
@@ -103,6 +106,10 @@ table(true=dat[-train,"y"], pred=svm.predict.radial.test)
 
 ```{r}
 (8+9)/25
+```
+
+```{r}
+plot(svmfit.radial, dat[-train,])
 ```
 
 The radial kernel overfit the training data and did not do as well on the test data.
