@@ -1,0 +1,160 @@
+---
+title: "ISRL Q9.5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We have seen that we can fit an SVM with a non-linear kernel in order to perform classification using a non-linear decision boundary. We will now see that we can also obtain a non-linear decision boundary by performing logistic regression using non-linear transformations of the features.
+
+### (a)
+Generate a data set with n = 500 and p = 2, such that the observations belong to two classes with a quadratic decision boundary between them. For instance, you can do this as follows:
+
+```{r}
+set.seed(421)
+x1=runif(500)-0.5
+x2=runif(500)-0.5
+y=1*(x1^2 - x2^2 > 0)
+```
+
+
+### (b) Plot
+```{r}
+#dat = data.frame(x1=x1, x2= x2, y=as.factor(y))
+dat = data.frame(x1=x1, x2= x2, y=y)
+plot(dat$x1, dat$x2, col=(3-y), pch=4)
+```
+
+
+### (c) Logistic Regression
+
+Fit a logistic regression model to the data, using X1 and X2 as predictors.
+
+```{r}
+#set.seed(1)
+train = sample(nrow(dat), nrow(dat)*.98)
+lr.fit = glm(y~., data = dat, family = binomial)
+#lr.fit = glm(y ~ x1 + x2, data = dat[train,], family = binomial)
+summary(lr.fit)
+```
+
+### (d) Plot
+
+#### Predict Training Data
+```{r}
+lr.predict.train.probs = predict(lr.fit, newdata = dat, type = "response")
+```
+
+```{r}
+#preds = rep(0, 250)
+#preds[lr.predict.train.probs >= 0.5] = 1
+preds = ifelse(lr.predict.train.probs > 0.52, 1, 0)
+```
+
+Confusion Matrix
+```{r}
+table(preds, dat[,"y"])
+```
+```{r}
+(28+109)/250 # 54% accuracy
+(39+169)/500 # 54% accuracy
+```
+#### Plot
+
+Note, 3 - preds converts to 3,2 for colors
+
+Positive is '+', blue
+
+Negative is 'x', red
+```{r}
+dat.neg = dat[preds==0,]
+dat.pos = dat[preds==1,]
+{plot(dat.pos$x1, dat.pos$x2, col=("blue"), pch="+", xlab = "X1", ylab = "X2")
+ points(dat.neg$x1, dat.neg$x2, col=("red"), pch=4) 
+}
+```
+
+### Prince Solution
+
+```{r}
+lm.fit = glm(y ~ x1 + x2, family = binomial)
+data = data.frame(x1 = x1, x2 = x2, y = y)
+lm.prob = predict(lm.fit, data, type = "response")
+lm.pred = ifelse(lm.prob > 0.52, 1, 0)
+data.pos = data[lm.pred == 1, ]
+data.neg = data[lm.pred == 0, ]
+plot(data.pos$x1, data.pos$x2, col = "blue", xlab = "X1", ylab = "X2", pch = "+")
+points(data.neg$x1, data.neg$x2, col = "red", pch = 4)
+```
+
+### (e)
+
+Now fit a logistic regression model to the data using non-linear functions of X1 and X2 as predictors (e.g. X12, X1 ×X2, log(X2), and so forth)
+
+#plot(lr.fit)
+```{r}
+#library(glmnet)
+#lr.fit.poly = glm(y~poly(x1,2) + poly(x2,2), data = dat[train,], family = binomial)
+#lm.fit = glm(y ~ poly(x1, 2) + poly(x2, 2) + I(x1 * x2), data = data, family = binomial)
+lr.fit.poly = glm(y~poly(x1,2) + poly(x2,2), data = dat, family = binomial)
+#summary(lr.fit.poly)
+```
+
+### (f)
+
+Apply this model to the training data in order to obtain a predicted class label for each training observation. Plot the observations, colored according to the predicted class labels. The decision boundary should be obviously non-linear. If it is not, then repeat (a)-(e) until you come up with an example in which the predicted class labels are obviously non-linear.
+
+```{r}
+pred.poly = predict(lr.fit.poly, dat, family = binomial)
+lm.poly.pred = ifelse(pred.poly > 0.5, 1, 0)
+dat.neg = dat[lm.poly.pred==0,]
+dat.pos = dat[lm.poly.pred==1,]
+{plot(dat.pos$x1, dat.pos$x2, col=("blue"), pch="+", xlab = "X1", ylab = "X2")
+ points(dat.neg$x1, dat.neg$x2, col=("red"), pch=4) 
+}
+```
+
+
+### (g)
+
+Fit a support vector classifier to the data with X1 and X2 as predictors. Obtain a class prediction for each training observa- tion. Plot the observations, colored according to the predicted class labels.
+
+```{r}
+library(e1071)
+dat.svm = data.frame(x1=x1, x2= x2, y=as.factor(y))
+
+svm.fit <- svm(y ~ x1 + x2, data = dat.svm, kernel = "linear")
+svm.pred = predict(svm.fit, dat.svm)
+```
+
+```{r}
+dat.neg = dat[svm.pred==0,]
+dat.pos = dat[svm.pred==1,]
+{plot(dat.pos$x1, dat.pos$x2, col=("blue"), pch="+", xlab = "X1", ylab = "X2")
+ points(dat.neg$x1, dat.neg$x2, col=("red"), pch=4) 
+}
+```
+
+
+### (h)
+
+Fit a SVM using a non-linear kernel to the data. Obtain a class prediction for each training observation. Plot the observations, colored according to the predicted class labels.
+
+```{r}
+svm.fit <- svm(y ~ x1 + x2, data = dat.svm, kernel = "radial")
+svm.pred = predict(svm.fit, dat.svm)
+```
+
+```{r}
+dat.neg = dat[svm.pred==0,]
+dat.pos = dat[svm.pred==1,]
+{plot(dat.pos$x1, dat.pos$x2, col=("blue"), pch="+", xlab = "X1", ylab = "X2")
+ points(dat.neg$x1, dat.neg$x2, col=("red"), pch=4) 
+}
+```
+```
+
+### (i) Comments
+
