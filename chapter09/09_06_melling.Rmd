@@ -1,0 +1,87 @@
+---
+title: "ISRL Q9.6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p370
+
+
+At the end of Section 9.6.1 (the Lab), it is claimed that in the case of data that is just barely linearly separable, a support vector classifier with a small value of cost that misclassifies a couple of training observations may perform better on test data than one with a huge value of cost that does not misclassify any training observations. You will now investigate this claim.
+
+
+### 6a
+
+Generate two-class data with p = 2 in such a way that the classes are just barely linearly separable.
+
+From the lab.  Taking Prince's data generation. FIXME!!
+```{r}
+set.seed(3154)
+# Class one
+x.one = runif(500, 0, 90)
+y.one = runif(500, x.one + 10, 100)
+x.one.noise = runif(50, 20, 80)
+y.one.noise = 5/4 * (x.one.noise - 10) + 0.1
+
+# Class zero
+x.zero = runif(500, 10, 100)
+y.zero = runif(500, 0, x.zero - 10)
+x.zero.noise = runif(50, 20, 80)
+y.zero.noise = 5/4 * (x.zero.noise - 10) - 0.1
+```
+
+# Combine all
+```{r}
+class.one = seq(1, 550)
+x = c(x.one, x.one.noise, x.zero, x.zero.noise)
+y = c(y.one, y.one.noise, y.zero, y.zero.noise)
+
+{plot(x[class.one], y[class.one], col = "blue", pch = "+", ylim = c(0, 100))
+points(x[-class.one], y[-class.one], col = "red", pch = 4)
+}
+x
+```
+
+```{r}
+dat = data.frame(x=x, y = as.factor(y))
+```
+
+
+```{r}
+library(e1071)
+
+#tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(0.1, 1, 5, 100))
+tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(5))
+summary(tune.out)
+```
+
++ positive/blue
+x negative/red
+
+
+### 6b
+
+Compute the cross-validation error rates for support vector classifiers with a range of cost values.
+
+- How many training errors are misclassified for each value of cost considered, 
+- how does this relate to the cross-validation errors obtained?
+
+```{r}
+
+```
+
+### 6c
+
+Generate an appropriate test data set, and compute the test errors corresponding to each of the values of cost 
+
+- Which value of cost leads to the fewest test errors, 
+- How does this compare to the values of cost that yield the fewest training errors and the fewest cross-validation errors?
+
+
+### 6d
+
+Discuss your results.
+

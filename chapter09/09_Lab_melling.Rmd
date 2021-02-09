@@ -3,6 +3,7 @@ title: "ISLR Chapter 9 Lab - Support Vector Machines"
 output:
   pdf_document: default
   html_document: default
+  author: "Michael Mellinger"
 ---
 
 ```{r setup, include=FALSE}
@@ -12,9 +13,7 @@ p359
 
 ## Support Vector Classifier
 
-We begin by generating the observations, 
-which belong to two classes, and checking whether 
-the classes are linearly separable.
+We begin by generating the observations, which belong to two classes, and checking whether the classes are linearly separable.
 
 ```{r}
 set.seed(1)
@@ -25,10 +24,8 @@ plot(x, col=(3-y))
 ```
 They are not.
 
-we fit the support vector classifier. 
-Note that in order for the svm() function to 
-perform classification (as opposed to SVM-based regression), 
-we must encode the response as a factor variable. We now create a data frame with the response coded as a factor.
+We fit the support vector classifier. 
+Note that in order for the svm() function to perform classification (as opposed to SVM-based regression), we must encode the response as a factor variable. We now create a data frame with the response coded as a factor.
 
 The argument scale=FALSE tells the svm() function not to scale each feature to have mean zero or standard deviation one;
 
@@ -55,7 +52,7 @@ svmfit$index
 summary(svmfit)
 ```
 
-there were seven support vectors, four in one class and three in the other.
+There were seven support vectors, four in one class and three in the other.
 
 Observations that lie directly on the 
 margin, or on the wrong side of the margin for their class, are known as **support vectors**
@@ -138,6 +135,7 @@ table(predict=ypred, truth=testdat$y)
 
 ### Linearly Separable Example
 
+p362
 Consider a situation in which the two classes are linearly separable.
 
 ```{r}

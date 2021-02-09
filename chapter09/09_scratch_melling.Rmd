@@ -1,0 +1,31 @@
+---
+title: "Scratch - Chapter 09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+```{r}
+set.seed(1)
+x = matrix(rnorm(10*2), ncol=2)
+y = c(rep(-1,5), rep(1,5)) # The class vector
+x[y==1,]=x[y==1,] + 1
+```
+
+```{r}
+df = data.frame(x,y)
+df
+```
+```{r}
+ggplot(df, aes(x=X1, X2), color=(3-y)) +
+  geom_point(size=2, shape=23) + 
+  xlim(-2, 2) + 
+  ylim(-2, 2) # + geom_jitter()
+```
+

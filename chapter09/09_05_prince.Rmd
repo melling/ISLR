@@ -3,10 +3,13 @@ title: "09_05"
 output: html_document
 ---
 
+We have seen that we can fit an SVM with a non-linear kernel in order to perform classification using a non-linear decision boundary. We will now see that we can also obtain a non-linear decision boundary by performing logistic regression using non-linear transformations of the features.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-### (a)
+### 5a
+Generate a data set with n = 500 and p = 2, such that the obser- vations belong to two classes with a quadratic decision boundary between them. For instance, you can do this as follows:
 ```{r}
 set.seed(421)
 x1 = runif(500) - 0.5
@@ -14,13 +17,13 @@ x2 = runif(500) - 0.5
 y = 1 * (x1^2 - x2^2 > 0)
 ```
 
-### (b)
+### 5b
 ```{r}
 plot(x1[y == 0], x2[y == 0], col = "red", xlab = "X1", ylab = "X2", pch = "+")
 points(x1[y == 1], x2[y == 1], col = "blue", pch = 4)
 ```
 
-### (c)
+### 5c
 ```{r}
 lm.fit = glm(y ~ x1 + x2, family = binomial)
 summary(lm.fit)
@@ -37,13 +40,13 @@ plot(data.pos$x1, data.pos$x2, col = "blue", xlab = "X1", ylab = "X2", pch = "+"
 points(data.neg$x1, data.neg$x2, col = "red", pch = 4)
 ```
 
-### (e)
+### 5e
 
 ```{r}
 lm.fit = glm(y ~ poly(x1, 2) + poly(x2, 2) + I(x1 * x2), data = data, family = binomial)
 ```
 
-### (f)
+### 5f
 
 ```{r}
 lm.prob = predict(lm.fit, data, type = "response")
@@ -54,7 +57,7 @@ plot(data.pos$x1, data.pos$x2, col = "blue", xlab = "X1", ylab = "X2", pch = "+"
 points(data.neg$x1, data.neg$x2, col = "red", pch = 4)
 ```
 
-### (g)
+### 5g
 
 ```{r}
 library(e1071)
@@ -69,7 +72,7 @@ plot(data.pos$x1, data.pos$x2, col = "blue", xlab = "X1", ylab = "X2", pch = "+"
 points(data.neg$x1, data.neg$x2, col = "red", pch = 4)
 ```
 
-### (h)
+### 5h
 ```{r}
 svm.fit = svm(as.factor(y) ~ x1 + x2, data, gamma = 1)
 svm.pred = predict(svm.fit, data)

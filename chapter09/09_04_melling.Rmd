@@ -17,34 +17,50 @@ Generate a simulated two-class data set with 100 observations and two features i
 
 ## 
 
-
-
-<!-- x <- rnorm(100) * 2 + 1 -->
-<!-- y <- x^2 + 2*x + rnorm(100) -->
-<!-- x[1:25] = x[1:25] - 4 -->
-<!-- plot(x,y) -->
+```{r include=FALSE}
+library(tidyverse)
+```
 
 2 columns and the class
 ```{r}
 set.seed(1)
-x=matrix(rnorm(50*2), ncol=2)
-y=c(rep(-1,25), rep(1,25)) # The class vector
+x = matrix(rnorm(50*2), ncol=2)
+y = c(rep(-1,25), rep(1,25)) # The class vector
 x[y==1,]=x[y==1,] + 1
+```
 
+```{r}
+rnorm(2)
 ```
 
 ```{r}
 library(e1071)
-# df = data.frame(x, y)
 dat = data.frame(x=x, y=as.factor(y))
-train=sample(50, 25)
+train = sample(50, 25)
 ```
+
+```{r}
+x
+```
+
+# Scatter Plot
+```{r}
+df = data.frame(x1 = x[1], x2=x[2], y=y)
+ggplot(df, aes(x=x1, x2), color=(3-y)) +
+  geom_point(size=2, shape=23) + 
+  xlim(-2, 2) + 
+  ylim(-2, 2) + geom_jitter()
+```
+
+```{r}
+dat
+```
+
 
 ### Linear, Cost=1
 ```{r}
 svmfit.linear=svm(y~., data=dat[train,], kernel="linear", cost=1, scale = FALSE)
 plot(svmfit.linear, dat)
-
 ```
 
 ```{r}
@@ -77,7 +93,6 @@ summary(svmfit.radial)
 ```{r}
 svm.predict.radial = predict(svmfit.radial, newdata = dat[train,])
 table(true=dat[train,"y"], pred=svm.predict.radial)
-
 ```
 
 ```{r}
@@ -90,6 +105,7 @@ table(true=dat[train,"y"], pred=svm.predict.radial)
 svm.predict.test = predict(svmfit.linear, newdata = dat[-train,])
 table(true=dat[-train,"y"], pred=svm.predict.test)
 ```
+
 ```{r}
 (10+11)/25
 ```
