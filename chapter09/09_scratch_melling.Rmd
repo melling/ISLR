@@ -1,6 +1,9 @@
 ---
 title: "Scratch - Chapter 09"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
+  author: "Michael Mellinger"
 ---
 
 ```{r setup, include=FALSE}
@@ -9,23 +12,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r include=FALSE}
 library(tidyverse)
+library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
 ```
 
 ```{r}
 set.seed(1)
 x = matrix(rnorm(10*2), ncol=2)
 y = c(rep(-1,5), rep(1,5)) # The class vector
-x[y==1,]=x[y==1,] + 1
+df = data.frame(x,y)
+df
+```
+
+```{r}
+x[y==1,] <- x[y==1,] + 2
 ```
 
 ```{r}
 df = data.frame(x,y)
 df
 ```
-```{r}
-ggplot(df, aes(x=X1, X2), color=(3-y)) +
-  geom_point(size=2, shape=23) + 
-  xlim(-2, 2) + 
-  ylim(-2, 2) # + geom_jitter()
+```{r out.width="75%"}
+ggplot(df, aes(x=X1, X2, color=factor(y))) +
+  geom_point(size=2, shape=19) + 
+  xlim(-3, 3) + 
+  ylim(-3, 3) +
+  ggtitle("Iris data") +
+  theme_wsj() + scale_colour_wsj("colors6")
+# + geom_jitter()
 ```
 

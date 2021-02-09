@@ -46,7 +46,7 @@ x
 # Scatter Plot
 ```{r}
 df = data.frame(x1 = x[1], x2=x[2], y=y)
-ggplot(df, aes(x=x1, x2), color=(3-y)) +
+ggplot(df, aes(x=x1, x2, color=factor(y))) +
   geom_point(size=2, shape=23) + 
   xlim(-2, 2) + 
   ylim(-2, 2) + geom_jitter()

@@ -7,6 +7,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r include=FALSE}
+library(tidyverse)
+library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
+```
+
 p370
 
 
@@ -42,25 +47,25 @@ y = c(y.one, y.one.noise, y.zero, y.zero.noise)
 {plot(x[class.one], y[class.one], col = "blue", pch = "+", ylim = c(0, 100))
 points(x[-class.one], y[-class.one], col = "red", pch = 4)
 }
-x
 ```
 
 ```{r}
-dat = data.frame(x=x, y = as.factor(y))
-```
+df = data.frame(x=x[class.one], y = y[class.one])
+df2 = data.frame(x=x[-class.one], y = y[-class.one])
 
-
-```{r}
-library(e1071)
-
-#tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(0.1, 1, 5, 100))
-tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(5))
-summary(tune.out)
+p <- ggplot(df, aes(x=x, y=y, color='black', size=4))
 ```
 
 + positive/blue
 x negative/red
 
+```{r}
+p + geom_point(color='blue', size=3, shape="+") +
+  geom_point(data=df2, color='red', size=4, alpha = 1/2, shape=4) + xlim(0, 100)
+  #geom_text()
+  #xlim(-2, 2) + 
+  #ylim(-2, 2) + geom_jitter()
+```
 
 ### 6b
 
@@ -70,8 +75,15 @@ Compute the cross-validation error rates for support vector classifiers with a r
 - how does this relate to the cross-validation errors obtained?
 
 ```{r}
+library(e1071)
+data = data.frame(x=x, y = as.factor(y))
 
+#tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(0.1, 1, 5, 100))
+
+tune.out = tune(svm, y ~ ., data = data, kernel="linear", ranges = c(5))
+#summary(tune.out)
 ```
+
 
 ### 6c
 
