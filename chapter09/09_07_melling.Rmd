@@ -1,10 +1,18 @@
 ---
 title: "ISRL Q9.7"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(ISLR)
+library(tidyverse)
+library(e1071)
 ```
 
 ## 
@@ -14,13 +22,43 @@ p371
 
 Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars with gas mileage below the median.
 
+```{r}
+mpg.median = Auto$mpg %>% median()
+mpg.median
+```
+```{r}
+indicator = ifelse(Auto$mpg > mpg.median, 1, 0)
+indicator
+Auto$mpg_above_median = indicator
+```
+
 ### 7b
 
-Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with dif- ferent values of this parameter. Comment on your results.
+Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with different values of this parameter. Comment on your results.
+
+```{r}
+tune.out = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
+                data = Auto,
+                kernel = "linear", 
+                ranges = list(cost = c(0.01,0.1, 1, 5, 10, 100, 1000, 10000)))
+summary(tune.out)
+```
 
 ### 7c
 
-Now repeat (b), this time using SVMs with radial and polyno- mial basis kernels, with different values of gamma and degree and cost. Comment on your results.
+Now repeat (b), this time using SVMs with radial and polynomial basis kernels, with different values of gamma and degree and cost. Comment on your results.
+
+**Warning**, if you forget as.factor() the tune() function will hang forever.
+#### Radial
+```{r}
+tune.out.radial = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
+                data = Auto,
+                kernel = "radial", 
+                ranges = list(cost = c(0.01,0.1, 1, 5, 10, 100, 1000, 10000)))
+summary(tune.out.radial)
+```
+
+#### Polynomial
 
 ### 7d
 

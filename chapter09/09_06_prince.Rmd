@@ -1,6 +1,8 @@
 ---
 title: "Prince Q9.6"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### a
 
-We randomly generate 1000 points and scatter them across line x=y with wide margin. We also create noisy points along the line 5x−4y−50=0. These points make the classes barely separable and also shift the maximum margin classifier
+We randomly generate 1000 points and scatter them across line x=y with wide margin. We also create noisy points along the line $5x-4y-50=0$. These points make the classes barely separable and also shift the maximum margin classifier
 
 ```{r}
 set.seed(3154)

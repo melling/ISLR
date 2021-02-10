@@ -63,7 +63,7 @@ margin, or on the wrong side of the margin for their class, are known as **suppo
  
  A cost argument allows us to specify the cost of a violation to the margin.
 
-When the cost argument is small, then the mar- gins will be wide and many support vectors will be on the margin or will violate the margin. 
+When the cost argument is small, then the margins will be wide and many support vectors will be on the margin or will violate the margin. 
 When the cost argument is large, then the margins 
 will be narrow and there will be few support vectors on the margin or violating the margin.
 

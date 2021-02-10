@@ -74,14 +74,21 @@ Compute the cross-validation error rates for support vector classifiers with a r
 - How many training errors are misclassified for each value of cost considered, 
 - how does this relate to the cross-validation errors obtained?
 
+**Warning**, if you forget as.factor() the tune() function will hang forever.
+
 ```{r}
 library(e1071)
-data = data.frame(x=x, y = as.factor(y))
+#data = data.frame(x=x, y = as.factor(y))
+z = rep(0, 1100)
+z[class.one] = 1
+data = data.frame(x = x, y = y, z = z)
 
 #tune.out = tune(svm, y ~ ., data = dat, kernel="linear", ranges = c(0.1, 1, 5, 100))
+#tune.out = tune(svm, y ~ ., data = data, kernel="linear", ranges = c(5))
+tune.out = tune(svm, as.factor(z) ~ ., data = data, kernel = "linear", ranges = list(cost = c(0.01, 
+    0.1, 1, 5, 10, 100, 1000, 10000)))
 
-tune.out = tune(svm, y ~ ., data = data, kernel="linear", ranges = c(5))
-#summary(tune.out)
+summary(tune.out)
 ```
 
 
