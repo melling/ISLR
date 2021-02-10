@@ -15,6 +15,8 @@ library(tidyverse)
 library(e1071)
 ```
 
+In this problem, you will use support vector approaches in order to predict whether a given car gets high or low gas mileage based on the Auto data set.
+
 ### 7a - (p371)
 
 Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars with gas mileage below the median.
@@ -35,7 +37,7 @@ Fit a support vector classifier to the data with various values of cost, in orde
 
 # Linear Kernel
 
-Parameters: Cost
+Hyper ... Parameters: Cost
 ```{r}
 tune.out = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
                 data = Auto,
@@ -49,6 +51,7 @@ summary(tune.out)
 Now repeat (b), this time using SVMs with radial and polynomial basis kernels, with different values of gamma and degree and cost. Comment on your results.
 
 **Warning**, if you forget as.factor() the tune() function will hang forever.
+
 #### Radial
 
 Parameters: Cost, Gamma
@@ -62,6 +65,17 @@ tune.out.radial = tune(svm, as.factor(mpg_above_median) ~ weight + displacement,
                   gamma = c(0.1, 5, 10)
                   ))
 summary(tune.out.radial)
+```
+
+```{r}
+svm.fit.radial = svm(as.factor(mpg_above_median) ~ weight + displacement, data = Auto, kernel = "radial", cost = 5, gamma = 0.1)
+#summary(svm.fit.radial)
+
+```
+
+```{r}
+svm.fit = svm(as.factor(mpg_above_median) ~ weight + displacement, data = Auto, kernel = "linear", cost = c(1))
+#summary(svm.fit)
 ```
 
 #### Polynomial
@@ -78,6 +92,32 @@ tune.out.linear = tune(svm, as.factor(mpg_above_median) ~ weight + displacement,
                   ))
 summary(tune.out.linear)
 ```
+```{r}
+svm.fit.poly = svm(as.factor(mpg_above_median) ~ weight + displacement, data = Auto, kernel = "polynomial", cost = .1, degree = 3)
+#summary(svm.fit.poly)
+
+```
 ### 7d
 
 Make some plots to back up your assertions in (b) and (c).
+
+Radial looks the best with the lowest error.
+#?plot.svm
+
+## Linear
+
+```{r}
+plot(svm.fit, Auto, weight~displacement)
+```
+
+## Radial
+
+```{r}
+plot(svm.fit.radial, Auto, weight~displacement)
+```
+
+## Poly
+
+```{r}
+plot(svm.fit.poly, Auto, weight~displacement)
+```

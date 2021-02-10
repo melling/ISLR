@@ -85,7 +85,7 @@ tune.out = tune(svm, as.factor(Purchase) ~ .,
 summary(tune.out)
 ```
 
-Cost = 0.10 is optimal
+Cost = 0.10 is optimal ??? Changing in PDF
 
 ### 8e
 
