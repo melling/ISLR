@@ -15,10 +15,7 @@ library(tidyverse)
 library(e1071)
 ```
 
-## 
-p371
-
-### 7a
+### 7a - (p371)
 
 Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars with gas mileage below the median.
 
@@ -28,7 +25,7 @@ mpg.median
 ```
 ```{r}
 indicator = ifelse(Auto$mpg > mpg.median, 1, 0)
-indicator
+#indicator
 Auto$mpg_above_median = indicator
 ```
 
@@ -36,11 +33,14 @@ Auto$mpg_above_median = indicator
 
 Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with different values of this parameter. Comment on your results.
 
+# Linear Kernel
+
+Parameters: Cost
 ```{r}
 tune.out = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
                 data = Auto,
                 kernel = "linear", 
-                ranges = list(cost = c(0.01,0.1, 1, 5, 10, 100, 1000, 10000)))
+                ranges = list(cost = c(0.01,0.1, 1, 5, 10, 100)))
 summary(tune.out)
 ```
 
@@ -50,16 +50,34 @@ Now repeat (b), this time using SVMs with radial and polynomial basis kernels, w
 
 **Warning**, if you forget as.factor() the tune() function will hang forever.
 #### Radial
+
+Parameters: Cost, Gamma
 ```{r}
+kernel <-  "radial"
 tune.out.radial = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
                 data = Auto,
-                kernel = "radial", 
-                ranges = list(cost = c(0.01,0.1, 1, 5, 10, 100, 1000, 10000)))
+                kernel = kernel, 
+                ranges = list(
+                  cost = c(0.01,0.1, 1, 5, 10, 100),
+                  gamma = c(0.1, 5, 10)
+                  ))
 summary(tune.out.radial)
 ```
 
 #### Polynomial
 
+Parameters: Cost, Degree
+```{r}
+kernel <-  "polynomial"
+tune.out.linear = tune(svm, as.factor(mpg_above_median) ~ weight + displacement, 
+                data = Auto,
+                kernel = kernel, 
+                ranges = list(
+                  cost = c(0.01,0.1, 1, 5, 10, 100),
+                  degree = c(2,3,4,5)
+                  ))
+summary(tune.out.linear)
+```
 ### 7d
 
 Make some plots to back up your assertions in (b) and (c).
