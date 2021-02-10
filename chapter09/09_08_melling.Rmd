@@ -1,0 +1,74 @@
+---
+title: "ISRL Q9.8"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This problem involves the OJ data set which is part of the ISLR package.
+Question 9 was the OJ problem in Chapter 8.
+
+```{r include=FALSE}
+library(ISLR)
+library(tidyverse)
+```
+
+### 8a - (p371)
+
+Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations. (see Q8.9)
+
+```{r}
+# From Q8.9
+dim(OJ)
+set.seed(1)
+train = sample(1:nrow(OJ), 800)
+
+# Don't actually use these ???
+oj.train = OJ[train,]
+oj.test = OJ[-train,]
+oj.train.y = OJ[train,"Purchase"]
+oj.test.y = OJ[-train,"Purchase"]
+```
+
+### 8b
+
+Fit a support vector classifier to the training data using cost=0.01, with Purchase as the response and the other variables as predictors.
+
+- Use the summary() function to produce summary statistics, 
+- describe the results obtained.
+
+
+### 8c
+
+What are the training and test error rates?
+
+
+
+
+### 8d
+
+Use the tune() function to select an optimal cost. Consider values in the range 0.01 to 10
+
+
+### 8e
+
+Compute the training and test error rates using this new value for cost
+
+
+
+### 8f
+
+Repeat parts (b) through (e) using a support vector machine with a radial kernel. Use the default value for gamma
+
+### 8g
+
+Repeat parts (b) through (e) using a support vector machine with a polynomial kernel. Set degree=2
+
+### 8h
+
+Overall, which approach seems to give the best results on this data?
+
