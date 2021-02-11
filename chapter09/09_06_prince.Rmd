@@ -1,15 +1,15 @@
 ---
 title: "Prince Q9.6"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### a
+### 6a
 
 We randomly generate 1000 points and scatter them across line x=y with wide margin. We also create noisy points along the line $5x-4y-50=0$. These points make the classes barely separable and also shift the maximum margin classifier
 
@@ -36,7 +36,7 @@ plot(x[class.one], y[class.one], col = "blue", pch = "+", ylim = c(0, 100))
 points(x[-class.one], y[-class.one], col = "red", pch = 4)
 
 ```
-### b
+### 6b
 
 ```{r}
 library(e1071)
@@ -53,9 +53,9 @@ tune.out = tune(svm, as.factor(z) ~ ., data = data, kernel = "linear", ranges = 
 summary(tune.out)
 ```
 
-### c
+### 6c
 
-We now generate a random test-set of same size. This test-set satisfies the true decision boundary 
+We now generate a random test-set of same size. This test-set satisfies the true decision boundary
 
 ```{r}
 set.seed(1111)

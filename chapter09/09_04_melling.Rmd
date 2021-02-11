@@ -3,6 +3,7 @@ title: "ISLR Q9.4"
 output:
   pdf_document: default
   html_document: default
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 ---
 
 ```{r setup, include=FALSE}
