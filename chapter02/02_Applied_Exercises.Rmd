@@ -1,71 +1,93 @@
 ---
 title: "ISLR Chapter 2 Applied Exercises"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
-```{r, echo=FALSE}
-library(ISLR)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# attach(College)
-Question 8
-
+```{r, echo=FALSE}
+#library(ISLR)
+```
 
 ```{r}
-# 8a
-college = read.csv("College.csv")
-# 8b
-# fix()
+getwd()
 ```
 
-Add row names
-```{r, results='hide'}
-rownames(college)=college[,1]
+## Question 8 p54
+
+### 8a
+```{r}
+college = read.csv("../input/College.csv")
+#View(college)
+# attach(College)
 ```
 
-Remove first column
+### 8b
+
+fix function
+
+{r, results='hide'}
+
+### Add row names
+
+```{r}
+rownames(college)=college[,1] ### Set rownames equal to first column
+```
+
+### Remove first column
+
+Remove column 1 because we assigned to rownames.
 ```{r}
 # college[,-1]
-college=college[,-1]
+college=college[,-1] # 
 ```
 
-Question 8c
+### 8c
+
 ```{r}
 summary(college)
-
 ```
+### Correlation Pairs
 
 ```{r}
-pairs(College[,1:10]) # [,1:10] college didn't work
+library(ISLR)
+pairs(College[,1:10]) # [,1:10] college dataframe didn't work
 ```
+
 ```{r}
 plot(College$Outstate, College$Private)
 ```
 
+
 ```{r}
+#rm(college)
+detach("package:ISLR", unload=TRUE)
+
 attach(college)
-plot(Private, Outstate)
+plot(Private, Outstate, xlim=c(0,100), ylim=c(0,100))
 ```
-8c iv
-```{r}
+
+### 8c iv
+```{r, elite_colleges}
 Elite=rep("No", nrow(college))
-Elite[College$Top10perc > 50] = "Yes"
+Elite[college$Top10perc > 50] = "Yes"
 Elite = as.factor(Elite)
 summary(Elite)
 ```
 
-```{r}
-```
 
-
-```{r}
+```{r, plot_elite, fig.align='center', out.width="50%"}
 plot(college$Outstate, Elite)
 ```
 
-```{r}
-plot(college$Elite, college$Outstate)
+```{r, elite_vs_outstate, out.width="50%"}
+plot(Elite, college$Outstate)
 ```
-```{r}
+```{r, 4plots}
 par(mfrow=c(2,2)) # 4 plots per picture
 attach(college)
 hist(PhD, breaks = 10, col = 3)
@@ -82,19 +104,20 @@ pairs(~ PhD + F.Undergrad + P.Undergrad , college)
 
 vi. Continue exploring...
 
-Question 9: Auto
+## Question 9: Auto
 
 a. Which predictors are quantitative, and which are qualitative.
 
 b. range of each quantitative predictor
 
 ```{r}
-View(Auto)
+#View(Auto)
 ```
 
 
-```{r}
+```{r, range_examples}
 # attach(Auto)
+library(ISLR)
 range(Auto$mpg)
 range(Auto$cylinders)
 range(Auto$displacement)
@@ -105,9 +128,9 @@ range(Auto$year)
 # range(order)
 ```
 
-9c Mean standard deviation for each quantitative predictor
+### 9c Mean standard deviation for each quantitative predictor
 
-```{r}
+```{r, 9c}
 sd(Auto$mpg)
 sd(Auto$cylinders)
 sd(Auto$displacement)
@@ -115,11 +138,12 @@ sd(Auto$weight)
 sd(Auto$horsepower)
 sd(Auto$acceleration)
 sd(Auto$year)
-View(Auto)
+#View(Auto)
 ```
 
-Question 9d
-```{r}
+### 9d
+
+```{r, 9d}
 auto = Auto
 tenth = auto[10,]
 
@@ -134,38 +158,90 @@ sd(acceleration)
 sd(year)
 ```
 
-Question 10
+### 10
 
-```{r}
-
+```{r, q10}
 library(MASS)
-Boston
+head(Boston, n=5)
 ```
-# rows and columns
-```{r}
+Number of rows and columns
+
+How many rows are in this data set? How many columns? What do the rows and columns represent?
+
+```{r, 10a}
 dim(Boston)
 ```
-Question 10b
-```{r}
+### 10b
+
+Make some pairwise scatterplots of the predictors (columns) in this data set. Describe your findings.
+
+```{r, 10b}
 pairs(Boston)
 ```
 
-```{r}
-View(Boston)
-```
+### 10c
 
-```{r}
+Are any of the predictors associated with per capita crime rate? If so, explain the relationship.
+
+```{r, pairs_crim_age}
 pairs(~ crim + age, Boston)
 ```
 
 ```{r}
-help(Boston)
+#help(Boston)
 pairs(~ crim + age + zn, Boston)
 ```
 
-Question 10c
+### 10c Answer
 
-```{r}
+Age of the housing, Most likely the older the neighborhood, the more experience/ lower income it has with crime
 
+Radial Highways, either criminals has quick getaway or it is so far away from highway that it is not gentrified
+
+
+### 10d
+
+Do any of the suburbs of Boston appear to have particularly high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range of each predictor.
+
+```{r, 10d}
+dim(Boston[Boston$crim >= 20,])
+dim(Boston[Boston$tax >= 666,])
+dim(Boston[Boston$ptratio >= 20,])
 ```
+
+### 10e
+
+How many of the suburbs in this data set bound the Charles river?
+
+```{r, 10e}
+dim(Boston[Boston$chas==1,])[1]
+```
+
+### 10f
+
+What is the median pupil-teacher ratio among the towns in this data set?
+
+```{r, 10f}
+median(Boston$ptratio)
+```
+
+### 10g
+
+Which suburb of Boston has lowest median value of owner- occupied homes? What are the values of the other predictors for that suburb, and how do those values compare to the overall ranges for those predictors? Comment on your findings.
+
+```{r, 10g}
+Boston[Boston$medv == min(Boston$medv),]
+```
+
+### 10h
+
+In this data set, how many of the suburbs average more than seven rooms per dwelling? More than eight rooms per dwelling? Comment on the suburbs that average more than eight rooms per dwelling.
+
+```{r, 10h}
+dim(Boston[Boston$rm > 7,])[1]
+dim(Boston[Boston$rm > 8,])[1]
+pairs(Boston[Boston$rm > 8,])
+```
+
+
 

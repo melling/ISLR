@@ -1,5 +1,6 @@
 #getwd()
 #setwd("../chapter02/")
+#setwd("chapter02/")
 # 8.a
 college = read.csv("../input/College.csv", stringsAsFactors = TRUE)
 
