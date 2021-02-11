@@ -3,6 +3,7 @@ title: "ISRL Q9.8"
 output:
   pdf_document: default
   html_document: default
+  author: "Michael Mellinger"
 ---
 
 ```{r setup, include=FALSE}
@@ -120,9 +121,89 @@ table(true=oj.test.y, pred=svm.predict)
 
 Repeat parts (b) through (e) using a support vector machine with a radial kernel. Use the default value for gamma
 
+#### 8f-b
+
+Parameters: Cost = 0.01
+```{r}
+svm.fit.radial = svm(Purchase ~ ., data = oj.train, kernel = "radial", cost = c(0.01))
+#summary(svm.fit.radial)
+```
+
+#### 8f-c
+
+### Training Data Confusion Matrix
+```{r}
+svm.predict = predict(svm.fit.radial, newdata = oj.train)
+table(true=oj.train.y, pred=svm.predict)
+```
+#### 8f-d
+
+```{r}
+tune.out = tune(svm, as.factor(Purchase) ~ ., 
+                data = oj.train,
+                kernel = "radial", 
+                ranges = list(cost = c(0.01, 0.1, 1, 5, 10)))
+summary(tune.out)
+```
+
+#### 8f-e
+
+Parameters: Cost = 0.1
+```{r}
+svm.fit = svm(Purchase ~ ., data = oj.train, kernel = "radial", cost = c(0.1))
+summary(svm.fit)
+```
+
+### Test Data Confusion Matrix
+```{r}
+svm.predict = predict(svm.fit, newdata = oj.test)
+table(true=oj.test.y, pred=svm.predict)
+```
+
 ### 8g
 
 Repeat parts (b) through (e) using a support vector machine with a polynomial kernel. Set degree=2
+
+#### 8g-b
+
+Parameters: Cost = 0.01
+```{r}
+degree <- 2
+svm.fit.radial = svm(Purchase ~ ., data = oj.train, kernel = "polynomial", cost = c(0.01), degree=degree)
+#summary(svm.fit.radial)
+```
+
+#### 8g-c
+
+### Training Data Confusion Matrix
+```{r}
+svm.predict = predict(svm.fit.radial, newdata = oj.train)
+table(true=oj.train.y, pred=svm.predict)
+```
+#### 8g-d
+
+```{r}
+tune.out = tune(svm, as.factor(Purchase) ~ ., 
+                data = oj.train,
+                kernel = "polynomial", 
+                ranges = list(cost = c(0.01, 0.1, 1, 5, 10),
+                              degree = degree))
+summary(tune.out)
+```
+
+#### 8g-e
+
+Parameters: Cost = 0.1
+```{r}
+svm.fit = svm(Purchase ~ ., data = oj.train, kernel = "polynomial", cost = c(0.1), degree = degree)
+summary(svm.fit)
+```
+
+### Test Data Confusion Matrix
+```{r}
+svm.predict = predict(svm.fit, newdata = oj.test)
+table(true=oj.test.y, pred=svm.predict)
+```
 
 ### 8h
 

@@ -4,6 +4,8 @@
 
 .DS_Store
 
+*.html
+
 # Session Data files
 .RData
 
