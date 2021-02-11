@@ -1,0 +1,263 @@
+---
+title: "ISLR Lab 04 - Logistic Regression, LDA, QDA, and KNN"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p155
+
+Chapter 4 Lab 
+
+```{r}
+library(ISLR)
+```
+
+
+
+### Stock Market Data ####
+```{r}
+names(Smarket)
+dim(Smarket)
+
+summary(Smarket)
+
+cor(Smarket[,-9]) # Skip col 9 because it's qualitative
+
+attach(Smarket)
+#detach(Smarket)
+plot(Smarket$Volume)
+```
+
+### Logistic Regression p156 ####
+
+```{r}
+glm.fit1 = glm(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+               data = Smarket,
+               family = binomial)  # binomial for logistic regression
+summary(glm.fit1)              
+
+coef(glm.fit1)
+
+summary(glm.fit1)$coef
+summary(glm.fit1)$coef[,4] # Column 4
+```
+
+p157
+P(Y=1|X)
+
+If no data set is supplied to the predict() function, then the probabilities are computed for the training data that was used to fit the logistic regression mode
+
+
+```{r}
+glm.probs = predict(glm.fit1, type = "response")
+glm.probs[1:6]
+#View(glm.probs)
+
+contrasts(Smarket$Direction)
+```
+
+### Confusion Matrix ####
+# Create prediction table
+```{r}
+#glm.probs
+glm.pred = rep("Down", 1250) 
+glm.pred[glm.probs > .5] = "Up"
+summary(glm.pred)
+# Produce a confusion matrix
+# Diagonals indicate correct predictions. Off-diagonals indicate incorrect predictions.
+table(glm.pred, Smarket$Direction)
+```
+
+# Determine how many correctly and incorrectly classified
+```{r}
+(507 + 145) / 1250 # Correct 52.16%
+```
+
+```{r}
+mean(glm.pred == Smarket$Direction)
+head(glm.pred, 5)
+head(Smarket$Direction, 5)
+```
+
+## Now Predict ####
+p159
+
+```{r}
+train = (Smarket$Year<2005)
+
+Smarket.2005 = Smarket[!train,]
+dim(Smarket.2005)
+Direction.2005 = Smarket$Direction[!train] # Vector
+
+Smarket.2005[1:6,]
+head(Smarket.2005, 4)
+```
+
+### Fit Logistic Regression Model ####
+
+```{r}
+glm.fit2 = glm(Direction ~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+data = Smarket,
+family = binomial, subset = train)
+glm.probs2 = predict(glm.fit2, Smarket.2005, type = "response")
+```
+
+## Now check prediction
+
+```{r}
+glm.pred = rep("Down", 252) # nrow(Smarket.2005)
+glm.pred[glm.probs2 > .5] = "Up"
+table(glm.pred, Direction.2005)
+```
+
+```{r}
+mean(glm.pred == Direction.2005)
+mean(glm.pred != Direction.2005) # Compute and test error rate
+```
+
+### Remove Predictors ####
+
+remove +Lag3+Lag4+Lag5+Volume
+
+```{r}
+glm.fit1 = glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) # Train Data
+glm.probs2 = predict(glm.fit1, Smarket.2005, type = "response")
+head(Smarket.2005, 5)
+```
+
+## Again check
+
+```{r}
+glm.pred = rep("Down", 252)
+glm.pred[glm.probs2 > .5] = "Up"
+table(glm.pred, Direction.2005)
+```
+
+```{r}
+mean(glm.pred == Direction.2005)
+106 / (106 + 76)
+```
+
+```{r}
+predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type = "response")
+```
+
+## Linear Discriminant Analysis ####
+p161
+
+```{r}
+library(MASS)
+```
+
+Same format as glm: glm(Direction ~Lag1+Lag2, data = Smarket, family = binomial, subset = train) - family
+
+```{r}
+lda.fit = lda(Direction ~Lag1+Lag2, data = Smarket, subset = train)
+lda.fit
+```
+
+```{r}
+lda.pred = predict(lda.fit, Smarket.2005)
+names(lda.pred)
+```
+```{r}
+lda.class = lda.pred$class
+table(lda.class, Direction.2005)
+```
+
+```{r}
+mean(lda.class == Direction.2005)
+```
+
+```{r}
+sum(lda.pred$posterior[,1] >=.5)
+sum(lda.pred$posterior[,1] <.5)
+```
+
+```{r}
+sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
+# 0 !!!
+```
+
+## Quadratic Discriminant Analysis ####
+
+p163
+Same format as lda()
+
+```{r}
+qda.fit = qda(Direction ~Lag1+Lag2, data = Smarket, subset = train)
+qda.fit
+```
+
+```{r}
+qda.pred = predict(qda.fit, Smarket.2005)
+names(qda.pred)
+```
+```{r}
+qda.class = qda.pred$class
+table(qda.class,Direction.2005)
+```
+
+```{r}
+mean(qda.class == Direction.2005) # Accurate 60% of the time
+```
+
+## K-Nearest Neighbors ####
+p163
+data(package="ISLR")
+
+- knn() requires 4 inputs
+- 1. matrix of predictors for training data: train.X
+- 2. matrix of predictors for test.X
+- 3. vector containing class labels for training observations: train.Direction
+- 4. value for K, number of nearest neighbors to be used by classifier
+
+```{r}
+library(class)
+```
+
+```{r}
+train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
+
+#View(train.X)
+test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,] # ! wrong??
+train.Direction = Smarket$Direction[train]
+#train.Direction
+#Direction[train]
+dim(train.X)
+```
+
+```{r}
+summary(Smarket$Direction)
+```
+
+## Make predictions for dates in 2005
+
+### k=1
+ 
+```{r}
+set.seed(1)
+knn.pred = knn(train.X, test.X, train.Direction, k=1)
+table(knn.pred,Direction.2005)
+```
+
+```{r}
+(83+43)/252
+```
+
+### k=3
+
+```{r}
+knn.pred = knn(train.X, test.X, train.Direction, k=3)
+table(knn.pred, Direction.2005)
+mean(knn.pred == Direction.2005)
+```
+
+detach(Smarket) # Cleanup so we don't have bad references to wrong table
+
+## QDA provides best results so far
