@@ -6,6 +6,8 @@
 
 *.html
 
+*.Rout
+
 # Session Data files
 .RData
 
