@@ -87,6 +87,7 @@ plot(college$Outstate, Elite)
 ```{r, elite_vs_outstate, out.width="50%"}
 plot(Elite, college$Outstate)
 ```
+
 ```{r, 4plots}
 par(mfrow=c(2,2)) # 4 plots per picture
 attach(college)
