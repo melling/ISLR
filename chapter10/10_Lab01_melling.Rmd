@@ -1,0 +1,105 @@
+---
+title: "ISRL Chapter 10 Lab 01 - Principal Components Analysis"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p401
+
+We perform PCA on the USArrests data set, which is part of the base R package. The rows of the data set contain the 50 states, in alphabetical order.
+
+```{r}
+states=row.names(USArrests)
+#states
+names(USArrests)
+```
+
+Apply the mean to each column
+```{r}
+apply(USArrests, 2, mean)
+```
+
+Apply the variance to each column
+```{r}
+apply(USArrests, 2, var)
+```
+
+Perform principal components analysis using the prcomp() function.
+
+By default, the prcomp() function centers the variables to have mean zero. By using the option scale=TRUE, we scale the variables to have standard deviation one.
+
+```{r}
+pr.out=prcomp(USArrests, scale=TRUE)
+summary(pr.out)
+```
+```{r}
+pr.out$center
+pr.out$scale
+```
+
+```{r}
+names(pr.out)
+```
+
+The rotation matrix provides the principal component loadings; each column of pr.out$rotation contains the corresponding principal component loading vector.
+```{r}
+pr.out$rotation
+```
+
+There are four distinct principal components. In general min(n - 1, p) informative principal components in a data set with n observations and p variables.
+
+```{r}
+dim(pr.out$x)
+```
+We can plot the first two principal components as follows:
+```{r}
+biplot(pr.out, scale=0)
+```
+
+The scale=0 argument to biplot() ensures that the arrows are scaled to represent the loadings; other values for scale give slightly different biplots with different interpretations.
+
+Reproduce Figure 10.1
+```{r}
+pr.out$rotation=-pr.out$rotation
+pr.out$x=-pr.out$x
+biplot(pr.out, scale=0)
+```
+
+The prcomp() function also outputs the standard deviation of each principal component
+```{r}
+pr.out$sdev
+```
+
+The variance explained by each principal component is obtained by squaring these:
+
+```{r}
+pr.var <- pr.out$sdev^2
+pr.var
+```
+
+To compute the proportion of variance explained by each principal component, we simply divide the variance explained by each principal component by the total variance explained by all four principal components:
+```{r}
+pve=pr.var/sum(pr.var)
+pve
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(pve, xlab="Principal Component", 
+     ylab="Proportion of Variance Explained ",
+     ylim=c(0,1),type='b')
+plot(cumsum(pve), xlab="Principal Component ",
+     ylab="Cumulative Proportion of Variance Explained ",
+     ylim=c(0,1), type='b')
+```
+
+cumsum() used above is the cumulative sum.
+```{r}
+a=c(1,2,8,-3)
+cumsum (a)
+```

@@ -1,3 +1,9 @@
+---
+title: "ISRL Chapter 6 Labs"
+output:
+  pdf_document: default
+  html_document: default
+---
 # Chapter 6 Lab
 # p244
 

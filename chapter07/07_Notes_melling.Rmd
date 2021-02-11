@@ -1,6 +1,10 @@
 ---
 title: "ISRL Chapter 7 Notes"
-output: html_document
+author: "Michael Mellinger"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

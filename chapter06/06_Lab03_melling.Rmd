@@ -1,6 +1,8 @@
 ---
 title: "06_Lab03_melling"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 

@@ -1,6 +1,8 @@
 ---
 title: "ISRL Q9.6"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -11,9 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
 ```
-
 p370
-
 
 At the end of Section 9.6.1 (the Lab), it is claimed that in the case of data that is just barely linearly separable, a support vector classifier with a small value of cost that misclassifies a couple of training observations may perform better on test data than one with a huge value of cost that does not misclassify any training observations. You will now investigate this claim.
 

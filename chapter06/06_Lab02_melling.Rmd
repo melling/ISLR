@@ -1,13 +1,15 @@
 ---
 title: "06_Lab02_melling"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 6.6 Lab 2: Ridge Regression and the Lasso 
+## 6.6 Lab 2: Ridge Regression and the Lasso
 
 pg 251
 

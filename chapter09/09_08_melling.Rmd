@@ -3,7 +3,8 @@ title: "ISRL Q9.8"
 output:
   pdf_document: default
   html_document: default
-  author: "Michael Mellinger"
+author: "Michael Mellinger"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 ---
 
 ```{r setup, include=FALSE}
