@@ -1,5 +1,5 @@
 ---
-title: "ISRL Q9.6"
+title: "ISLR Q9.6"
 output:
   pdf_document: default
   html_document: default

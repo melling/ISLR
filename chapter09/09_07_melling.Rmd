@@ -1,8 +1,8 @@
 ---
-title: "ISRL Q9.7"
+title: "ISLR Q9.7"
 output:
   pdf_document: default
-  html_document: default
+  html_document: defaultz
 ---
 
 ```{r setup, include=FALSE}
@@ -93,7 +93,10 @@ tune.out.linear = tune(svm, as.factor(mpg_above_median) ~ weight + displacement,
 summary(tune.out.linear)
 ```
 ```{r}
-svm.fit.poly = svm(as.factor(mpg_above_median) ~ weight + displacement, data = Auto, kernel = "polynomial", cost = .1, degree = 3)
+svm.fit.poly = svm(as.factor(mpg_above_median) ~ weight + displacement,
+                   data = Auto, 
+                   kernel = "polynomial",
+                   cost = .1, degree = 3)
 #summary(svm.fit.poly)
 
 ```
