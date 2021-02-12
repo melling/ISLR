@@ -24,7 +24,7 @@ library(e1071)
 
 Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations. (see Q8.9)
 
-```{r}
+```{r, q8_9}
 # From Q8.9
 dim(OJ)
 set.seed(1)
@@ -56,30 +56,34 @@ summary(svm.fit)
 What are the training and test error rates?
 
 ### Training Data Confusion Matrix
-```{r}
+```{r, 8c}
 svm.predict = predict(svm.fit, newdata = oj.train)
-table(true=oj.train.y, pred=svm.predict)
+result = table(true=oj.train.y, pred=svm.predict)
+result
 ```
+### Training Data Accuracy
 ```{r}
-(420+240)/800
+(result[1] + result[4]) / sum(result)
 ```
+
 
 ### Test Data Confusion Matrix
 ```{r}
 svm.predict = predict(svm.fit, newdata = oj.test)
-table(true=oj.test.y, pred=svm.predict)
+result = table(true=oj.test.y, pred=svm.predict)
+result
 ```
 
+### Test Data Accuracy
 ```{r}
-(153+69)/270
+(result[1] + result[4]) / sum(result)
 ```
 
-
-### 8d
+### 8d Cross-Validation
 
 Use the tune() function to select an optimal cost. Consider values in the range 0.01 to 10
 
-```{r}
+```{r, 8d}
 tune.out = tune(svm, as.factor(Purchase) ~ ., 
                 data = oj.train,
                 kernel = "linear", 
@@ -87,7 +91,17 @@ tune.out = tune(svm, as.factor(Purchase) ~ .,
 summary(tune.out)
 ```
 
-Cost = 0.10 is optimal ??? Changing in PDF
+### Best Model
+
+```{r}
+best.model <- tune.out$best.model
+best.model
+```
+
+```{r}
+best.model$cost
+```
+
 
 ### 8e
 
@@ -95,27 +109,54 @@ Compute the training and test error rates using this new value for cost
 
 Parameters: Cost = 0.1
 ```{r}
-svm.fit = svm(Purchase ~ ., data = oj.train, kernel = "linear", cost = c(0.1))
-summary(svm.fit)
+#svm.fit = svm(Purchase ~ ., data = oj.train, kernel = "linear", cost = best_model)
+#summary(svm.fit)
+```
+```{r}
+best.model.predict = predict(best.model, newdata=oj.train)
+result = table(true=oj.train.y, pred=best.model.predict)
+result
+```
+
+### Best Model Training Data Accuracy
+```{r}
+(result[1] + result[4]) / sum(result)
 ```
 
 Training Data Confusion Matrix
 ```{r}
-svm.predict = predict(svm.fit, newdata = oj.train)
-table(true=oj.train.y, pred=svm.predict)
+#svm.predict = predict(svm.fit, newdata = oj.train)
+#table(true=oj.train.y, pred=svm.predict)
 ```
 ```{r}
-(422+246)/800
+#(422+246)/800
+```
+```{r}
+#best.model.predict = predict(best.model, newdata=oj.test)
+#result = table(true=oj.test.y, pred=best.model.predict)
+#result
 ```
 
-### Test Data Confusion Matrix
+### Best Model Test Data Confusion Matrix
+
 ```{r}
-svm.predict = predict(svm.fit, newdata = oj.test)
-table(true=oj.test.y, pred=svm.predict)
+best.model.predict = predict(best.model, newdata=oj.test)
+result = table(true=oj.test.y, pred=best.model.predict)
+result
+```
+
+### Accuracy
+```{r}
+(result[1] + result[4]) / sum(result)
 ```
 
 ```{r}
-(155+71)/270
+#svm.predict = predict(svm.fit, newdata = oj.test)
+#table(true=oj.test.y, pred=svm.predict)
+```
+
+```{r}
+#(155+71)/270
 ```
 
 ### 8f
