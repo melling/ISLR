@@ -1,5 +1,5 @@
 ---
-title: "ISRL Chapter 10 Lab 01 - Principal Components Analysis"
+title: "ISLR Chapter 10 Lab 01 - Principal Components Analysis"
 output:
   pdf_document: default
   html_document: default

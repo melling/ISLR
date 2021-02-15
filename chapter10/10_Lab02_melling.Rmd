@@ -1,0 +1,114 @@
+---
+title: "ISLR Chapter 10 Lab 02 - Clustering"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+p404
+
+## K-Means Clustering
+
+kmeans()
+```{r}
+set.seed(2)
+x=matrix(rnorm(50*2), ncol=2)
+x[1:25,1]=x[1:25,1]+3
+x[1:25,2]=x[1:25,2]-4
+```
+
+#### kmeans, k=2
+```{r}
+km.out=kmeans(x,2,nstart=20)
+km.out$cluster
+```
+The K-means clustering perfectly separated the observations into two clusters
+```{r}
+plot(x, col=(km.out$cluster +1), main="K-Means Clustering Results with K=2", xlab="", ylab="", pch=20, cex=2)
+```
+#### kmeans, k=3
+
+```{r}
+set.seed (4)
+km.out=kmeans(x,3,nstart=20)
+km.out
+```
+
+To run the kmeans() function in R with multiple initial cluster assignments, we use the nstart argument. If a value of nstart greater than one is used, then K-means clustering will be performed using multiple random assignments in Step 1 of Algorithm 10.1, and the kmeans() function will report only the best results. 
+
+Compare using nstart=1 to nstart=20
+```{r}
+set.seed(3)
+km.out=kmeans(x,3,nstart=1)
+km.out$tot.withinss # [1] 104.3319
+```
+
+```{r}
+km.out=kmeans(x,3,nstart=20)
+km.out$tot.withinss
+```
+
+We strongly recommend always running K-means clustering with a large value of nstart, such as 20 or 50
+
+## Hierarchical Clustering
+
+p406
+
+hclust() function implements hierarchical clustering in R
+
+```{r}
+hc.complete=hclust(dist(x), method="complete")
+```
+
+We could just as easily perform hierarchical clustering with average or single linkage instead
+```{r}
+hc.average=hclust(dist(x), method="average")
+hc.single=hclust(dist(x), method="single")
+```
+
+#### Dendograms
+
+```{r}
+par(mfrow=c(1,3))
+plot(hc.complete,main="Complete Linkage", xlab="", sub="", cex =.9)
+plot(hc.average , main="Average Linkage", xlab="", sub="", cex =.9)
+plot(hc.single , main="Single Linkage", xlab="", sub="", cex =.9)
+```
+
+#### Cut Tree
+
+To determine the cluster labels for each observation associated with a given cut of the dendrogram, we can use the cutree() function
+```{r}
+cutree(hc.complete, 2)
+```
+
+```{r}
+cutree(hc.average, 2)
+```
+
+```{r}
+cutree(hc.single, 2)
+```
+```{r}
+cutree(hc.single, 4)
+```
+To scale the variables before performing hierarchical clustering of the observations, we use the scale() function.
+
+```{r}
+xsc=scale(x)
+plot(hclust(dist(xsc), method="complete"), main="Hierarchical Clustering with Scaled Features ")
+```
+
+#### Correlation-based distance
+
+Only makes sense for data with at least three features since the absolute correlation between any two observations with measurements on two features is always 1.
+
+Cluster a three-dimensional data set
+
+```{r}
+x=matrix(rnorm(30*3), ncol=3)
+dd=as.dist(1-cor(t(x)))
+plot(hclust(dd, method="complete"), main="Complete Linkage with Correlation-Based Distance", xlab="", sub="")
+```
+
