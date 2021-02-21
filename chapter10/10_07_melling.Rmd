@@ -1,0 +1,43 @@
+---
+title: "Q7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISLR)
+set.seed(1)
+```
+
+```{r}
+names(USArrests)
+```
+
+```{r}
+dsc = scale(USArrests)
+```
+
+```{r}
+head(dsc)
+```
+
+```{r}
+a = dist(dsc)^2
+b = as.dist(1 - cor(t(dsc)))
+summary(b/a)
+```
+
+## a
+```{r}
+a
+```
+
+## b
+
+```{r}
+b
+```
+
