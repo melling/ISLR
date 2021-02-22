@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In the chapter, we mentioned the use of correlation-based distance and Euclidean distance as dissimilarity measures for hierarchical clus- tering. It turns out that these two measures are almost equivalent: if each observation has been centered to have mean zero and standard deviation one, and if we let rij denote the correlation between the ith and jth observations, then the quantity 1 − rij is proportional to the squared Euclidean distance between the ith and jth observations.
+In the chapter, we mentioned the use of correlation-based distance and Euclidean distance as dissimilarity measures for hierarchical clustering. It turns out that these two measures are almost equivalent: if each observation has been centered to have mean zero and standard deviation one, and if we let rij denote the correlation between the ith and jth observations, then the quantity $1 − r_{ij}$ is proportional to the squared Euclidean distance between the ith and jth observations.
 On the USArrests data, show that this proportionality holds.
 
 Hint: The Euclidean distance can be calculated using the dist() function, and correlations can be calculated using the cor() function.
@@ -22,7 +22,7 @@ names(USArrests)
 ```
 
 ```{r}
-dsc = scale(USArrests)
+dsc <-  scale(USArrests)
 ```
 
 ```{r}
@@ -30,9 +30,9 @@ head(dsc)
 ```
 
 ```{r}
-a = dist(dsc)^2
-b = as.dist(1 - cor(t(dsc)))
-summary(b/a)
+a <- dist(dsc)^2
+b <- as.dist(1 - cor(t(dsc)))
+summary(b / a)
 ```
 
 ## a

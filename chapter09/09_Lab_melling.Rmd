@@ -3,7 +3,7 @@ title: "ISLR Chapter 9 Lab - Support Vector Machines"
 output:
   pdf_document: default
   html_document: default
-  author: "Michael Mellinger"
+author: "Michael Mellinger"
 ---
 
 ```{r setup, include=FALSE}
