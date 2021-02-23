@@ -1,0 +1,68 @@
+---
+title: "ISLR Q9.4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISLR)
+```
+
+In Section 10.2.3, a formula for calculating PVE (proportion of variance explained) was given in Equation 10.8. We also saw that the PVE can be obtained using the sdev output of the prcomp() function.
+
+On the USArrests data, calculate PVE in two ways:
+
+(a) Using the sdev output of the prcomp() function, as was done in
+Section 10.2.3.
+
+(b) By applying Equation 10.8 directly. That is, use the prcomp() function to compute the principal component loadings. Then, use those loadings in Equation 10.8 to obtain the PVE.
+
+These two approaches should give the same results.
+
+Hint: You will only obtain the same results in (a) and (b) if the same data is used in both cases. For instance, if in (a) you performed prcomp() using centered and scaled variables, then you must center and scale the variables before applying Equation 10.3 in (b).
+
+## 10.8a
+
+```{r}
+pr.out=prcomp(USArrests, scale=TRUE)
+pr.out$sdev
+```
+```{r}
+pr.var = pr.out$sdev^2
+pr.var
+```
+We must match these in part b
+```{r}
+pve = pr.var / sum(pr.var)
+pve
+```
+
+
+## 10.8b
+
+```{r}
+loadings = pr.out$rotation
+loadings
+```
+
+From Prince
+
+```{r}
+pve2 = rep(NA, 4)
+dmean = apply(USArrests, 2, mean)
+dsdev = sqrt(apply(USArrests, 2, var))
+dsc = sweep(USArrests, MARGIN=2, dmean, "-")
+dsc = sweep(dsc, MARGIN=2, dsdev, "/")
+for (i in 1:4) {
+  proto_x = sweep(dsc, MARGIN=2, loadings[,i], "*")
+  pc_x = apply(proto_x, 1, sum)
+  pve2[i] = sum(pc_x^2)
+}
+pve2 = pve2/sum(dsc^2)
+pve2
+```
+These numbers match Part a
+
