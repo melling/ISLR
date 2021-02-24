@@ -24,16 +24,26 @@ Generate a simulated data set with 20 observations in each of three classes (i.e
 # From Lab 02
 # x=matrix(rnorm(50*2), ncol=2)
 set.seed(2)
-x = matrix(rnorm(20*3*50, mean=0, sd=0.001), ncol=50)
-x[1:20, 2] = 1
+x0 = matrix(rnorm(20*3*50, mean=sqrt(runif(1)), sd=0.1), ncol=50) # 0.001
+x = x0
+x[1:20, 2] = 1 
 x[21:40, 1] = 2
 x[21:40, 2] = 2
 x[41:60, 1] = 1
 ```
 
 ```{r}
-#ggplot()
-plot(x)
+
+```
+
+```{r}
+data = matrix(sapply(1:3,function(x){ rnorm(20*50, mean = 10*sqrt(x))  }),ncol=50)    # 20 obs. in each class with 50 features.
+dim(data)
+```
+
+```{r}
+class=unlist(lapply(1:3,function(x){rep(x,20)}))
+class
 ```
 
 
@@ -41,11 +51,16 @@ plot(x)
 
 Perform PCA on the 60 observations and plot the first two principal component score vectors. Use a different color to indicate the observations in each of the three classes. If the three classes appear separated in this plot, then continue on to part (c). If not, then return to part (a) and modify the simulation so that there is greater separation between the three classes. Do not continue to part (c) until the three classes show at least some separation in the first two principal component score vectors.
 
-Lab 1: By default, the prcomp() function centers the variables to have mean zero. By using the option scale=TRUE, we scale the variables to have standard deviation one.
-
 ```{r}
-pr.out=prcomp(x, scale=TRUE)
-summary(pr.out)
+pr.out=prcomp(data, scale=FALSE) # Don't need scale because mean=0, sd=0.001
+#summary(pr.out)
+#plot(pr.out$x[,c(1,2)],col=class)
+
+```
+```{r}
+#plot(pr.out$x[,c(1,2)], col=c(1,2,3))
+#plot(pr.out$x[,1:2], col=2:4, xlab="Z1", ylab="Z2", pch=19)
+plot(pr.out$x[,c(1,2)],col=class, pch=19)
 ```
 
 
@@ -55,23 +70,92 @@ Perform K-means clustering of the observations with K = 3. How well do the clust
 
 *Hint: You can use the table() function in R to compare the true class labels to the class labels obtained by clustering. Be careful how you interpret the results: K-means clustering will arbitrarily number the clusters, so you cannot simply check whether the true class labels and clustering labels are the same.*
 
+```{r}
+km.out=kmeans(data,3,nstart=20)
+km.out$cluster
+```
+```{r}
+table(km.out$cluster)
+```
+
+```{r}
+#class_vars = c(rep(1,20), rep(2,20), rep(3,20))
+table(km.out$cluster, class)
+```
+
+
+```{r}
+# plot(pr, col=(km.out$cluster + 1), main="K-Means Clustering Results with K=3", xlab="", ylab="", pch=20, cex=2)
+plot(data, col=km.out$cluster)
+
+```
 
 ## 10d
 
 Perform K-means clustering with K = 2. Describe your results
 
 
+```{r}
+km.out=kmeans(data,2,nstart=20)
+km.out$cluster
+```
+```{r}
+table(km.out$cluster)
+```
+```{r}
+table(km.out$cluster, class)
+```
+41 misclassified (20+1+18+2)
+
+
 ## 10e
 
 Now perform K-means clustering with K = 4, and describe your results
 
+```{r}
+km.out=kmeans(data,4,nstart=20)
+km.out$cluster
+```
 
+```{r}
+table(km.out$cluster)
+```
+```{r}
+table(km.out$cluster, class)
+```
 ## 10f
 
 Now perform K-means clustering with K = 3 on the first two principal component score vectors, rather than on the raw data. That is, perform K-means clustering on the 60 × 2 matrix of which the first column is the first principal component score vector, and the second column is the second principal component score vector. Comment on the results.
+```{r}
+#summary(pr.out)
+```
 
+```{r}
+km.out=kmeans(pr.out$x[,1:2],3,nstart=20)
+km.out$cluster
+```
+
+```{r}
+table(km.out$cluster)
+```
+```{r}
+table(km.out$cluster, class)
+```
 
 ## 10g
 
 Using the scale() function, perform K-means clustering with K = 3 on the data after scaling each variable to have standard deviation one. How do these results compare to those obtained in (b)? Explain.
 
+```{r}
+sc = scale(data)
+km.out = kmeans(sc, 3, nstart = 20)
+km.out$cluster
+```
+```{r}
+plot(data, col=km.out$cluster)
+```
+
+Much more is misclassied!!!
+```{r}
+table(km.out$cluster, class)
+```
