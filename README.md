@@ -41,6 +41,7 @@ Our solutions:
 - https://github.com/KamranMK/ISLR-Solutions
 - https://laptrinhx.com/solutions-to-labs-and-excercises-from-an-introduction-to-statistical-learning-as-jupyter-notebooks-1723363054/
 - https://altaf-ali.github.io/ISLR/index.html
+- https://github.com/evertonjlima/Notebooks
 - https://waxworksmath.com/Authors/G_M/James/james.html
 
 ## Python Solutions
