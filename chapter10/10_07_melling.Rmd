@@ -1,5 +1,5 @@
 ---
-title: "Q7"
+title: "ISLR Q10.7"
 output: html_document
 ---
 

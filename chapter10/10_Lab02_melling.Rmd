@@ -27,7 +27,7 @@ km.out$cluster
 ```
 The K-means clustering perfectly separated the observations into two clusters
 ```{r}
-plot(x, col=(km.out$cluster +1), main="K-Means Clustering Results with K=2", xlab="", ylab="", pch=20, cex=2)
+plot(x, col=(km.out$cluster + 1), main="K-Means Clustering Results with K=2", xlab="", ylab="", pch=20, cex=2)
 ```
 #### kmeans, k=3
 
