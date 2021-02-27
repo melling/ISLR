@@ -1,0 +1,58 @@
+---
+title: "ISLR Chapter 04 Notes - Classification"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Topics Covered
+
+- Logistic Regression
+- Linear Discriminant Analysis - LDA
+- Quadratic Discriminant Analysis - QDA
+- A Comparison of Classification Methods
+
+## Logistic Regression
+
+
+### Estimating the Regression Coefficients
+
+The estimates $\beta_0$ and $\beta_1$ are chosen to maximize the likelihood function. MLE p133
+
+In the linear regression setting, the least squares approach is in fact a special case of **maximum likelihood**.
+
+### Making Predictions
+
+## Multiple Logistic Regression
+
+
+### Logistic Regression for >2 Response Classes
+
+## Linear Discriminant Analysis - LDA
+
+### Using Bayes’ Theorem for Classification
+
+This is a generative model
+
+### Linear Discriminant Analysis for p = 1
+
+### Linear Discriminant Analysis for p > 1
+
+confusion matrix p145
+
+sensitivity and specificity
+
+ROC curve
+
+## Quadratic Discriminant Analysis - QDA
+
+Since the Bayes decision boundary is linear, it is more accurately approximated by LDA than by QDA p150
+
+
+
+## A Comparison of Classification Methods
+
+
+
+

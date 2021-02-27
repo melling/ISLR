@@ -1,0 +1,56 @@
+---
+title: "ISLR Chapter 10 Notes - Unsupervised Learning"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Topics Covered
+
+- PCA
+- Clustering
+  - K-Means
+  - Hierarchical
+
+## Hierarchical clustering
+
+What is a major advantage of Hierarchical clustering over k-means?
+
+Hierarchical clustering doesn’t require we commit to a choice of K. 
+
+—
+
+“most common type of hierarchical clustering”
+
+“bottom-up or **agglomerative** clustering”
+
+—
+
+“Dendogram is built starting from the leaves and combining clusters up to the trunk.”
+Bottom-up approach 
+
+“complete linkage and Euclidean distance.”
+
+“as we move up the tree, some leaves begin to fuse into branches. These correspond to observations that are similar to each other”
+
+“The earlier (lower in the tree) fusions occur, the more similar the groups of observations are to each other.”
+
+“observations that fuse later (near the top of the tree) can be quite different”
+
+“The height of the first fusion, as measured on the vertical axis, indicates how different the two observations are.”
+
+“observations that fuse at the very bottom of the tree are quite similar to each other, whereas observations that fuse close to the top of the tree will tend to be quite different.”
+
+Just being close does not mean they’re similar 
+
+“cannot draw conclusions about the similarity of two observations based on their proximity along the horizontal axis”
+
+## Linkage
+
+- Single
+- Complete
+- Average 
+- Centroid
+

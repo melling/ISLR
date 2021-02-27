@@ -1,0 +1,45 @@
+---
+title: "ISLR Chapter 03 Notes - Linear Regression"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Topics Covered
+
+- Simple Linear Regression
+
+## Linear Regression
+
+Machine Learning: Start with linear regression
+
+“a very simple approach for supervised learning”
+
+“widely used statistical learning method”
+
+### House Prices
+
+Square feet | Price 
+
+$$y = Mx + b$$
+Written as $$y = b0 + b1 * x$$
+
+y is called response or target 
+x predictor
+
+Once we know betas we can predict value of response 
+
+Minimize the total error from each point to our line. 
+
+Bend the line to fit better 
+
+
+Square feet | # bedrooms | Price 
+
+cs229 Example 
+
+Simple Linear one variable 
+
+“We typically assume that the error term is independent of X.”

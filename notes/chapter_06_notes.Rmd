@@ -1,0 +1,42 @@
+---
+title: "ISLR Chapter 06 Notes - Linear Model Selection and Regularization"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p203
+
+## Topics Covered
+
+- Subset Selection
+  - Best Subset Selection
+  - Forward Stepwise Selection
+  - Backward Stepwise Selection p208
+- Shrinkage Methods
+  - Ridge Regression
+  - Lasso
+- Dimension Reduction Methods
+  - Principal Components Regression
+  - Partial Least Squares
+  
+  
+## Choosing the Optimal Model
+
+## Shrinkage Methods
+
+### Ridge Regression
+
+Why Does Ridge Regression Improve Over Least Squares? p217
+
+## Bayesian Interpretation for Ridge Regression and the Lasso
+
+p226
+
+## Selecting the Tuning Parameter
+
+## Dimension Reduction Methods
+
+
