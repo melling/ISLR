@@ -1,0 +1,126 @@
+---
+title: "ISLR Q10.9"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISLR)
+```
+
+
+```{r}
+library(ggdendro) # Better dendrograms
+library(ggplot2)
+```
+
+Consider the USArrests data. We will now perform hierarchical clustering on the states.
+
+- (a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states.
+- (b) Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
+- (c) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
+- (d) What effect does scaling the variables have on the hierarchical clustering obtained? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed? Provide a justification for your answer.
+
+
+## 9a
+
+Fitting a hierarchical clustering
+
+```{r}
+hc.complete = hclust(
+  dist(USArrests),
+  method="complete"
+)
+```
+
+
+### Summary
+```{r}
+summary(hc.complete)
+hc.complete
+
+plot(hc.complete)
+```
+
+
+## 9b
+
+Cutting the tree to have only three branches (clusters)
+```{r}
+hc.cut.complete = cutree(hc.complete, 3)
+```
+
+Number of observations in each class
+```{r}
+table(hc.cut.complete)
+```
+
+```{r}
+hc.cut.complete
+```
+
+Plotting dendrogram with abline cutting off at 3 clusters
+```{r}
+par(mfrow=c(1,1))
+plot(hc.complete)
+abline(h=150, col="red")
+```
+
+
+
+## 9c
+
+Scaling the features
+```{r}
+USArrests.scaled = scale(USArrests)
+
+# Fitting the scaled features
+hc.complete.scaled = hclust(
+  dist(USArrests.scaled),
+  method="complete"
+)
+```
+
+
+### Dendrogram
+
+```{r}
+plot(hc.complete.scaled)
+```
+
+### Better Dendrogram
+```{r}
+ggdendrogram(hc.complete.scaled)
+```
+
+```{r}
+ggdendrogram(hc.complete.scaled, rotate = TRUE, theme_dendro = FALSE)
+```
+
+## 9d
+
+Cutting the tree to have only three branches (clusters)
+
+```{r}
+hc.scaled.cut.complete = cutree(hc.complete.scaled, 3)
+table(hc.scaled.cut.complete)
+```
+
+```{r}
+table(hc.scaled.cut.complete, hc.cut.complete)
+```
+
+
+COMMENTS:
+Scaling the features changes the results. It decreases the vertical axis.
+It might be good to scale the features because if the features are in 
+difference range, the model might weight features that have high values
+since its a big number even though the value might not have an impact
+on result.
+
+## References
+
+- [Dendrograms_ggplot2_R.R](https://rpubs.com/TX-YXL/662586)
