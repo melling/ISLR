@@ -6,10 +6,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+p
 ## Topics Covered
 
 - Simple Linear Regression
+- Multiple Linear Regression
 
 ## Linear Regression
 
@@ -24,7 +25,7 @@ Machine Learning: Start with linear regression
 Square feet | Price 
 
 $$y = Mx + b$$
-Written as $$y = b0 + b1 * x$$
+Written as $$y = \beta_0 + \beta_1x$$
 
 y is called response or target 
 x predictor
@@ -43,3 +44,6 @@ cs229 Example
 Simple Linear one variable 
 
 “We typically assume that the error term is independent of X.”
+
+## Multiple Regression
+p71

@@ -1,8 +1,8 @@
 ---
 title: "ISLR Chapter 10 Lab 01 - Principal Components Analysis"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}

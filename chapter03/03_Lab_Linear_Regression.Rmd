@@ -26,25 +26,40 @@ library(ISLR)
 
 ## Simple Linear Regression ####
 
+- mdev = median value of owner-occupied homes in \$1000s
+- lstate = lower status of the population (percent).
+
 ```{r}
 names(Boston)
-#?Boston
+```
 
-# mdev = median value of owner-occupied homes in \$1000s
-# lstate = lower status of the population (percent).
+- lstat is the predictor (x)
+- mdev is the response (Y)
 
+```{r}
 lm.fit = lm(medv~lstat, data = Boston)
 
 attach(Boston)
 lm.fit = lm(medv~lstat) # mdev is the response, lstat is the predictor
 
 lm.fit
+```
 
+```{r}
 summary(lm.fit)
+```
 
+```{r}
 names(lm.fit)
+```
+
+### Coefficients
+
+```{r}
 coef(lm.fit)
 ```
+
+### Predict
 
 ```{r}
 # one line for each lstat, c(5,10,15)
@@ -53,8 +68,9 @@ predict(lm.fit, data.frame(lstat = c(5,10,15)), interval = "confidence") # Confi
 predict(lm.fit, data.frame(lstat = c(5,10,15)), interval = "prediction") # Prediction Intervals
 ```
 
+### Plot
 ```{r}
-plot(lstat,medv)
+plot(lstat, medv)
 abline(lm.fit) # Add Least Squares Regression Line
 
 abline(lm.fit, lwd=3) # Line width
@@ -65,48 +81,89 @@ abline(lm.fit, pch="+") # Plot character
 abline(lm.fit, pch=1:20) # Plot character
 ```
 
+### Plot Analytics
+
+- Residuals vs Fitted
+- Q-Q Plot tells us if residuals are normal
+- Scale-Location
+- Residuals vs Leverage
+
 ```{r}
 par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.fit) # 4 plots
-par()
 ```
 
-## residuals
+### Residuals
 
-```{r}
-par(mfrow = c(1,1))
+```{r, out.width="75%"}
+par(mfrow = c(1,1)) # Reset to 1 picture
 plot(predict(lm.fit), residuals(lm.fit))
-plot(predict(lm.fit), rstudent(lm.fit))
+```
 
+### rstudent
+
+```{r, out.width="75%"}
+plot(predict(lm.fit), rstudent(lm.fit))
+```
+
+### Largest Leverage Statistic
+
+which.max() identifies the index of the largest element of a vector
+
+```{r, out.width="75%"}
 plot(hatvalues(lm.fit))
 which.max(hatvalues(lm.fit)) # Largest leverage statistic
 ```
-## Multiple Linear Regression ####
+
+## Multiple Linear Regression
 
 p113
 
+### medv ~ lstat + age
+
+$$mdev = \beta_{1} * lstat + \beta_2 age$$
 ```{r}
 lm.fit = lm(medv ~ lstat + age, data = Boston)
 summary(lm.fit)
 ```
 
+### medv ~ .
+
+Use all the x's/parameters/features
+
 ```{r}
 lm.fit = lm(medv ~ . , data = Boston) # Use all 13 variables
 summary(lm.fit)
+```
 
+### R-Squared
+
+$$R^2$$
+
+```{r}
 summary(lm.fit)$r.sq
+```
+
+### Sigma 
+
+$$\sigma$$
+
+```{r}
 summary(lm.fit)$sigma
 ```
 
-### Variance inflation factors
+### Variance Inflation Factors - VIF
 
 ```{r}
 # install.packages("car")
 library(car)
 vif(lm.fit) # Variance inflation factors
+```
 
-lm.fit1 = lm(medv ~ . -age, data = Boston) # Use all 13 variables - age
-summary(lm.fit1)
+Fit all features, excluding age
+```{r}
+lm.fit_no_age = lm(medv ~ . -age, data = Boston) # Use all 13 variables minus age
+summary(lm.fit_no_age)
 ```
 
 ```{r}
@@ -114,64 +171,78 @@ update(lm.fit, ~. -age) # Another way to remove age
 summary(lm.fit)
 ```
 
-## Interaction Terms ####
+### Interaction Terms
 
 p115
+
+lstat * age means ...
 
 ```{r}
 summary(lm(medv ~ lstat * age, data = Boston))
 ```
 
-## Non-Linear Transformations of the Predictors
+### Non-Linear Transformations of the Predictors
+
+$$mdev = \beta_1 lstat + \beta_2 lstat^2$$
 
 ```{r}
 lm.fit2 = lm(medv ~ lstat + I(lstat^2))
 summary(lm.fit2)
 ```
 
+### ANOVA
+
 ```{r}
 lm.fit = lm(medv ~ lstat)
 anova(lm.fit, lm.fit2)
+```
 
+```{r}
 par(mfrow = c(2,2)) # 4 plots in same picture
 plot(lm.fit2) # 4 plots
 ```
 
-### Polynomial Fit ####
+### Polynomial Fit
+
+5th degree polynomial fit
 
 ```{r}
 lm.fit5 = lm(medv ~ poly(lstat,5)) # 5th degree fit
 summary(lm.fit5)
+```
 
+#### Log Transformation 
+
+```{r}
 lm.fit_log = lm(medv ~ log(rm), data = Boston) # log transformation rooms
 summary(lm.fit_log)
 ```
-### Qualitative Predictors ####
+### Qualitative Predictors
 
- p117
+p117
 
- https://stackoverflow.com/questions/40567421/asterisk-vs-colon-in-r-formulas
+- https://stackoverflow.com/questions/40567421/asterisk-vs-colon-in-r-formulas
  
 ```{r}
 names(Carseats)
+```
 
+```{r}
 lm.fit <- lm(Sales ~ .+Income:Advertising+Price:Age, data = Carseats)
 summary(lm.fit)
 ```
 
- lm.fit <- lm(Sales ~ Income:Advertising+Price:Age, data = Carseats)
+lm.fit <- lm(Sales ~ Income:Advertising+Price:Age, data = Carseats)
 
- summary(lm.fit)
+summary(lm.fit)
 
 ```{r}
-attach(Carseats)
-
+attach(Carseats) # Makes table look better
 contrasts(ShelveLoc) # Return coding for dummy variables
-
 #?contrasts
 ```
 
-## Writing Functions ####
+## Writing Functions
 
 p119
 

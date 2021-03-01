@@ -41,11 +41,17 @@ hc.complete = hclust(
 ```{r}
 summary(hc.complete)
 hc.complete
+```
 
+Dendrogram
+```{r}
 plot(hc.complete)
 ```
 
-
+Better Dendrogram
+```{r}
+ggdendrogram(hc.complete)
+```
 ## 9b
 
 Cutting the tree to have only three branches (clusters)
@@ -69,7 +75,10 @@ plot(hc.complete)
 abline(h=150, col="red")
 ```
 
-
+Better Dendrogram
+```{r}
+ggdendrogram(hc.complete)
+```
 
 ## 9c
 
