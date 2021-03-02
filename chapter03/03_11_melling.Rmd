@@ -1,0 +1,106 @@
+---
+title: "ISLR Q3.11"
+output:
+  html_document: default
+---
+
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(ISLR)
+```
+
+In this problem we will investigate the t-statistic for the null hypothesis $$H_0 : \beta = 0$$ in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows
+
+```{r}
+set.seed(0)
+x = rnorm(100)
+y = 2 * x + rnorm(100)
+```
+
+
+## 11a
+
+(a) Perform a simple linear regression of y onto x, without an intercept. Report the coefficient estimate βˆ, the standard error of this coefficient estimate, and the t-statistic and p-value associated with the null hypothesis H0 : β = 0. Comment on these results. (You can perform regression without an intercept using the command lm(y∼x+0).)
+
+***
+
+Fitting y onto x without intercept
+```{r}
+lm.fit.no.intercept = lm(y ~ 0 + x)
+summary(lm.fit.no.intercept)
+```
+
+
+- coeficient: 2.1374
+- Standard Error: 0.1092
+- t-statistic: 19.58
+- p-value: 2e-16
+
+Since the x is the only predictor, it is highly significant. When x goes up one unit, y goes up two units.
+
+## 11b
+
+(b) Now perform a simple linear regression of x onto y without an intercept, and report the coefficient estimate, its standard error, and the corresponding t-statistic and p-values associated with the null hypothesis  $$H_0 :\beta =0$$. Comment on these results.
+
+***
+
+Fitting x onto y without intercept
+```{r}
+lm.fit.x.y = lm(x ~ 0 + y)
+summary(lm.fit.x.y)
+```
+
+- coeficient: 0,37185
+- Standard Error: 0.01899
+- t-statistic: 19.58
+- p-value: 2e-16
+
+It seems that everytime y goes up by about 100 units, x goes up by about 37 units
+
+## 11c
+
+(c) What is the relationship between the results obtained in (a) and (b)?
+
+—-
+
+(a) seems to have a higher standard error and coefficient than (b). However their t-statistic and p-value are the same.
+
+## 11d
+
+(d) For the regression of Y onto X without an intercept, the t- statistic for  $$H_0 :\beta_j =0$$ takes the form βˆ/SE(βˆ), where βˆ is given by (3.38), and where
+
+(These formulas are slightly different from those given in Sections 3.1.1 and 3.1.2, since here we are performing regression without an intercept.) Show algebraically, and confirm numerically in R, that the t-statistic can be written as
+
+***
+
+TODO
+
+
+## 11e
+
+(e) Using the results from (d), argue that the t-statistic for the regression of y onto x is the same as the t-statistic for the regression of x onto y.
+
+***
+
+The derived equation for t-statistic shows that the x values and y values are only
+being mulitplied. Since multiplication has a cumulative property, switching the 
+values for x and y will not effect the result.
+
+## 11f
+
+(f) In R, show that when regression is performed with an intercept, the t-statistic for  $$H_0 :\beta_1 = 0$$ is the same for the regression of y onto x as it is for the regression of x onto y.
+
+***
+
+Checking the t-statistic for both models and seeing that it is same for both
+
+```{r}
+summary(lm.fit.no.intercept)
+summary(lm.fit.x.y)
+```
+

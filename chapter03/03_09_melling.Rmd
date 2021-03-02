@@ -1,0 +1,156 @@
+---
+title: "ISLR Q3.9"
+output:
+  html_document: default
+---
+
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This question involves the use of multiple linear regression on the Auto data set.
+
+```{r message=FALSE, warning=FALSE}
+library(MASS)
+library(ISLR)
+library(tidyverse)
+```
+
+
+## 9a
+
+Produce a scatterplot matrix which includes all of the variables in the data set.
+
+```{r}
+pairs(Auto)
+```
+
+
+## 9b
+
+Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the name variable, which is qualitative.
+
+```{r}
+cor(Auto[,!colnames(Auto) %in% c("name")])
+```
+
+## 9c
+
+(9c) Use the lm() function to perform a multiple linear regression with mpg as the response and all other variables except name as the predictors. Use the summary() function to print the results. Comment on the output. For instance:
+
+Running a MLR on all predictors except for name
+```{r}
+auto.mlr = lm(mpg~.-name, data=Auto)
+summary(auto.mlr)
+```
+
+### i.
+
+Is there a relationship between the predictors and the response?
+
+There are multiple predictors that have relationship with the response because their associated p-value is significant
+
+### ii.
+
+ii. Which predictors appear to have a statistically significant relationship to the response?
+
+The predictors: displacement, weight, year, and origin have a statistically significant relationship.
+
+### iii.
+
+What does the coefficient for the year variable suggest?
+
+The coefficient of year suggests that every 4 years, the mpg goes up by 3 
+
+## 9d
+
+(9d) Use the plot() function to produce diagnostic plots of the linear regression fit. 
+
+- Comment on any problems you see with the fit.
+- Do the residual plots suggest any unusually large outliers? 
+- Does the leverage plot identify any observations with unusually high leverage?
+
+***
+
+```{r}
+par(mfrow=c(2,2))
+plot(auto.mlr)
+```
+
+```{r}
+#qplot(auto.mlr)
+```
+
+Non-Linearity: The residual plot shows that there is a U-shape pattern in the residuals which might indicate that the data is non-linear.
+
+Non-constant Variance: The residual plot also shows that the variance is not constant. There is a funnel shape appearing at the end which indicates heteroscedasticity (non-constant variance)
+
+Outliers: There seems to not be any outliers because in the  Scale-Location, all values are within the range of [-2,2]. It will only be an outlier if standardized residual is outside the range of [-3, 3].
+
+High Leverage Points: Based on the Residuals vs. Leverage graph, there is no observations that provides a high leverage
+
+## 9e
+
+Use the * and : symbols to fit linear regression models with interaction effects. 
+
+Do any interactions appear to be statistically significant?
+
+```{r}
+names(Auto)
+interact.fit = lm(mpg~.-name+horsepower*displacement, data=Auto)
+origin.hp = lm(mpg~.-name+horsepower*origin, data=Auto)
+summary(origin.hp)
+```
+
+Statistically Significant Interaction Terms:
+
+- displacement and horsepower
+- horsepower and origin
+
+```{r}
+inter.fit = lm(mpg~.-name+horsepower:origin+horsepower:weight+horsepower:displacement, data=Auto)
+summary(inter.fit)
+```
+
+Adding more interactions, decreases the significance of previous significant values
+
+# 9f
+
+Try a few different transformations of the variables, such as log(X), $$sqrt(X), X^2$$
+
+
+```{r}
+summary(lm(mpg~.-name+log(acceleration), data=Auto))
+```
+
+log(acceleration) is still very significant but less significant than acceleration
+
+```{r}
+summary(lm(mpg~.-name+log(horsepower), data=Auto))
+```
+log(horsepower) is more significant than horsepower
+
+```{r}
+summary(lm(mpg~.-name+I(horsepower^2), data=Auto))
+```
+Squaring horsepower doesn’t change the significance
+
+```{r}
+summary(lm(mpg~.-name+I(weight^2), data=Auto))
+```
+Squaring the weights doesnt change significance
+
+```{r}
+lm.fit = lm(mpg~.-name+I(cylinders^2), data=Auto)
+plot(lm.fit)
+```
+
+```{r}
+summary(lm(mpg~.-name+I(cylinders^2), data=Auto))
+```
+
+Squaring the cylinders makes cylinders and horsepower significant variables
+
+

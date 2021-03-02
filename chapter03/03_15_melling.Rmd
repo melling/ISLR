@@ -1,0 +1,355 @@
+---
+title: "ISLR Q3.15"
+output:
+  html_document: default
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This problem involves the Boston data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+
+```{r}
+library(MASS)
+```
+
+Information on the Boston Housing data can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html)
+
+```{r}
+attach(Boston) # Attaching the Boston dataset to workspace
+
+lm.function = function(predictor) {
+  
+  fit1 <- lm(crim ~ predictor, data = Boston)
+  #fit1$coefficients
+  # names(fit1$coefficients) <- c('Intercept', predictor)
+  return(summary(fit1))
+}
+
+# for (v in c(rm, age)) {
+#   summary(lm(crim ~ v, data = Boston))
+# }
+# lm.function(rm)
+```
+
+## 15a
+
+(a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
+
+***
+
+### Predict crim ~ zn
+
+```{r}
+lm.zn = lm(crim ~ zn, data = Boston)
+summary(lm.zn)
+```
+
+Based on the p-value (5.51e-6), zn has a significant association with crim
+
+### Diagnostic Plots
+
+```{r}
+par(mfrow = c(2,2))
+plot(lm.zn)
+```
+
+### Predict crim ~ indus
+
+```{r}
+lm.indus = lm(crim ~ indus, data = Boston)
+summary(lm.indus)
+```
+
+Based on the p-value (2e-16), indus has a significant association with crim
+
+### Predict crim ~ chas
+
+```{r}
+lm.chas = lm(crim ~ chas, data = Boston)
+summary(lm.chas)
+```
+
+Based on the p-value (.209), chas does not have an association with crim
+
+### Predict crim ~ nox
+
+```{r}
+lm.nox = lm(crim ~ nox, data = Boston)
+summary(lm.nox)
+```
+
+
+Based on the p-value (2e-16), nox has a significant association with crim
+
+### Predict crim ~ rm
+
+```{r}
+lm.rm = lm(crim ~ rm, data = Boston)
+summary(lm.rm)
+```
+
+Based on the p-value (6.35e-7), rn has a significant association with crim
+
+### Predict crim ~ age
+
+```{r}
+lm.age = lm(crim ~ age, data = Boston)
+summary(lm.age)
+```
+
+Based on the p-value (2.85e-16), age has a significant association with crim
+
+### Predict crim ~ dis
+
+```{r}
+lm.dis = lm(crim ~ dis, data = Boston)
+summary(lm.dis)
+```
+
+Based on the p-value (2e-16), dis has a significant association with crim
+
+### Predict crim ~ rad
+
+```{r}
+lm.rad = lm(crim ~ rad, data = Boston)
+summary(lm.rad)
+```
+
+Based on the p-value (2e-16), rad has a significant association with crim
+
+### Predict crim ~ tax
+
+```{r}
+lm.tax = lm(crim ~ tax, data = Boston)
+summary(lm.tax)
+```
+
+Based on the p-value (2e-16), tax has a significant association with crim
+
+### Predict crim ~ ptratio
+
+```{r}
+lm.ptratio = lm(crim ~ ptratio, data = Boston)
+summary(lm.ptratio)
+```
+
+Based on the p-value (2.94e-11), ptratio has a significant association with crim
+
+```{r}
+lm.black = lm(crim~black)
+
+```
+
+### Predict crim ~ lstat
+
+```{r}
+lm.lstat = lm(crim ~ lstat, data = Boston)
+summary(lm.lstat)
+```
+
+Based on the p-value (2e-16), lstat has a significant association with crim
+
+### Predict crim ~ medv
+
+```{r}
+lm.medv = lm(crim ~ medv, data = Boston)
+summary(lm.medv)
+```
+
+Based on the p-value (2e-16), tax has a significant association with crim
+
+### Diagnostic Plots
+
+```{r}
+par(mfrow = c(2,2))
+plot(lm.indus)
+plot(lm.chas)
+plot(lm.nox)
+plot(lm.rm)
+plot(lm.age)
+plot(lm.dis)
+plot(lm.rad)
+plot(lm.tax)
+plot(lm.ptratio)
+plot(lm.lstat)
+plot(lm.medv)
+```
+
+## 15b
+
+(b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis $$H_0 : \beta_j = 0$$?
+
+***
+
+### Multiple Linear Regression: Fitting on all independent variables
+
+```{r}
+lm.all = lm(crim ~ ., data=Boston)
+summary(lm.all)
+```
+
+Based on the MLR, only zn, dis, rad, black, and medv have a significant association with crim (p-value is below 0.05) which means we can reject the null hypothesis
+
+## 15c
+
+(c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the x-axis, and the multiple regression coefficients from (b) on the y-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regression model is shown on the x-axis, and its coefficient estimate in the multiple linear regression model is shown on the y-axis.
+
+***
+
+### FIXME: for loop melling
+## FIXME: melling
+### FIXME: 15d T
+
+```{r}
+x = c(coefficients(lm.zn)[2],
+      coefficients(lm.indus)[2],
+      coefficients(lm.chas)[2],
+      coefficients(lm.nox)[2],
+      coefficients(lm.rm)[2],
+      coefficients(lm.age)[2],
+      coefficients(lm.dis)[2],
+      coefficients(lm.rad)[2],
+      coefficients(lm.tax)[2],
+      coefficients(lm.ptratio)[2],
+      coefficients(lm.black)[2],
+      coefficients(lm.lstat)[2],
+      coefficients(lm.medv)[2])
+y = coefficients(lm.all)[2:14]
+```
+
+```{r}
+par(mfrow = c(1,1)) # 1 plot
+plot(x, y)
+```
+
+x$coeffients <-  c('Intercept', "RME")
+
+
+## 15d
+
+(d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form
+
+$$Y = \beta_0 + \beta_1X + \beta_2 X^2 + \beta_3 X^3 + \epsilon$$
+
+***
+
+### Predict crim ~ zn with 3rd degree polynomials
+
+$$Y = \beta_0 + \beta_1 (zn) + \beta_2 (zn)^2 + \beta_3 (zn)^3 + \epsilon$$
+```{r}
+lm.poly.zn = lm(crim ~ zn + I(zn^2) + I(zn^3), data = Boston)
+summary(lm.poly.zn)
+```
+
+Based on the p-values, zn does NOT have a non-linear association with crim
+
+### Diagnostic Plots
+
+```{r}
+par(mfrow = c(2,2))
+plot(lm.zn)
+```
+
+### Predict crim ~ indus with 3rd degree polynomials
+
+```{r}
+lm.poly.indus = lm(crim ~ indus + I(indus^2) + I(indus^3), data = Boston)
+summary(lm.poly.indus)
+```
+
+Based on the p-values, indus SHOWS that it has a non-linear association with crim
+
+### Predict crim ~ chas with 3rd degree polynomials
+
+```{r}
+lm.poly.chas = lm(crim ~ chas + I(chas^2) + I(chas^3), data = Boston)
+summary(lm.poly.chas)
+
+```
+
+Since chas is a factor, squaring it does not affect it.
+
+### Predict crim ~ nox with 3rd degree polynomials
+
+```{r}
+lm.poly.nox = lm(crim ~ nox + I(nox^2) + I(nox^3), data = Boston)
+summary(lm.poly.nox)
+```
+
+Based on the p-values, nox SHOWS that it has a non-linear association with crim
+
+### Predict crim ~ rm with 3rd degree polynomials
+
+```{r}
+lm.poly.rm = lm(crim ~ rm + I(rm^2) + I(rm^3), data = Boston)
+summary(lm.poly.rm)
+```
+
+Based on the p-value, rm does NOT have a non-linear association with crim
+
+### Predict crim ~ age
+
+```{r}
+lm.poly.age = lm(crim ~ age + I(age^2) + I(age^3), data = Boston)
+summary(lm.poly.age)
+```
+
+Based on the p-values, age SHOWS a non-linear association with crim
+
+### Predict crim ~ dis
+
+```{r}
+lm.poly.dis = lm(crim ~ dis + I(dis^2) + I(dis^3), data = Boston)
+summary(lm.poly.dis)
+```
+
+Based on the p-values, dis SHOWS a non-linear association with crim
+
+### Predict crim ~ rad
+
+```{r}
+lm.poly.rad = lm(crim ~ rad + I(rad^2) + I(rad^3), data = Boston)
+summary(lm.poly.rad)
+```
+
+Based on the p-value, rad does NOT have a non-linear association with crim
+
+### Predict crim ~ tax with 3rd degree polynomials
+
+```{r}
+lm.poly.tax = lm(crim ~ tax + I(tax^2) + I(tax^3), data = Boston)
+summary(lm.poly.tax)
+```
+
+Based on the p-value, tax does NOT have a non-linear association with crim
+
+### Predict crim ~ ptratio 
+
+```{r}
+lm.poly.ptratio = lm(crim ~ ptratio + I(ptratio^2) + I(ptratio^3), data = Boston)
+summary(lm.poly.ptratio)
+```
+
+Based on the p-value, ptratio SHOWS a non-linear association with crim
+
+### Predict crim ~ lstat
+
+```{r}
+lm.poly.lstat = lm(crim ~ lstat + I(lstat^2) + I(lstat^3), data = Boston)
+summary(lm.poly.lstat)
+```
+
+Based on the p-value, lstat NOT have a non-linear association with crim
+
+### Predict crim ~ medv
+
+```{r}
+lm.poly.medv = lm(crim ~ medv + I(medv^2) + I(medv^3), data = Boston)
+summary(lm.poly.medv)
+```
+
+Based on the p-value, medv SHOWS a non-linear association with crim

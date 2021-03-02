@@ -1,7 +1,6 @@
 ---
 title: "ISLR Lab 03 - Linear Regression"
 output:
-  pdf_document: default
   html_document: default
 ---
 
@@ -10,6 +9,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r include=FALSE}
+#install.packages("ggthemes")
+#install.packages("car")
 library(tidyverse)
 library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
 ```
@@ -35,16 +36,23 @@ names(Boston)
 
 - lstat is the predictor (x)
 - mdev is the response (Y)
-
+$$mdev = \beta_0 + \beta_1 (lstat)$$
 ```{r}
-lm.fit = lm(medv~lstat, data = Boston)
+# mdev is the response, lstat is the predictor
+lm.fit = lm(medv ~ lstat, data = Boston)
 
-attach(Boston)
-lm.fit = lm(medv~lstat) # mdev is the response, lstat is the predictor
 
-lm.fit
+# Can attach a default dataframe then it's implied in many places
+attach(Boston) 
+lm.fit = lm(medv~lstat) # Prefer the first method with data = Boston
+
+lm.fit # Show the coefficients
 ```
-
+$$
+ \beta_0 = 34.55 \\
+ \beta_1 = -0.95
+$$
+ 
 ```{r}
 summary(lm.fit)
 ```
@@ -132,7 +140,7 @@ summary(lm.fit)
 Use all the x's/parameters/features
 
 ```{r}
-lm.fit = lm(medv ~ . , data = Boston) # Use all 13 variables
+lm.fit = lm(medv ~ . , data = Boston) # Use all 13 independent variables
 summary(lm.fit)
 ```
 
