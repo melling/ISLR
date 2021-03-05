@@ -1,0 +1,23 @@
+---
+title: "ISLR Q4.13"
+output:
+  html_document: default
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p173
+
+Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various sub- sets of the predictors. Describe your findings.
+
+***
+
+```{r message=FALSE, warning=FALSE}
+library(ISLR)
+```
+
+
+

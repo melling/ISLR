@@ -1,0 +1,237 @@
+---
+title: "ISLR Lab 02 - Introduction to R"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(tidyverse)
+library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
+```
+
+p42
+
+## Basic Commands
+
+```{r}
+getwd()
+#setwd("../chapter02/")
+# http://faculty.marshall.usc.edu/gareth-james/ISL/bios.html
+
+x <- c(1,3,2,5) # Vector
+x
+
+x = c(1,6,2)
+y = c(1,4,3)
+length(x)
+length(y)
+```
+
+### List and Remove objects
+```{r}
+ls() # List all objects
+rm(list = ls()) # Remove all objects
+```
+
+### Matrix
+```{r}
+#?matrix
+x = matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
+x
+
+x = matrix(c(1,2,3,4), 2, 2)
+x
+
+matrix(c(1,2,3,4), 2, 2, byrow = TRUE)
+```
+
+```{r}
+sqrt(x)
+
+x = rnorm(50)
+y = x + rnorm(50, mean = 50, sd = .1)
+y
+cor(x,y)
+
+set.seed(1303) # Produce same random results by initializing the seed.
+rnorm(50) # First 50
+rnorm(50) # Next 50
+```
+
+```{r}
+set.seed(3) # Matches book
+y=rnorm(100)
+mean(y)
+var(y)
+sqrt(var(y)) # sd()
+sd(y)
+```
+
+
+
+## Graphics
+```{r}
+x=rnorm(100)
+y=rnorm(100)
+
+plot(x,y, xlab = "x-axis", ylab = "y-axis", main = "Title")
+```
+
+### Save chart as PDF
+```{r}
+pdf("Figure.pdf") # Filename
+plot(x,y,col="green")
+dev.off()
+```
+
+
+### Sequences
+
+```{r}
+x = seq(1,10)
+x
+x = 1:10
+x
+x = seq(-pi,pi, length = 50)
+x
+```
+
+### Contour Plot
+
+```{r}
+y=x
+f=outer(x,y,function(x,y) cos(y) / (1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels = 45, add = T)
+
+fa = (f-t(f))/2
+contour(x,y,fa,nlevels = 15)
+```
+
+### Image() - heatmap
+
+```{r}
+image(x,y,fa)
+```
+
+### Perspective Plots
+
+```{r}
+persp(x,y,fa)
+persp(x,y,fa,theta = 30)
+persp(x,y,fa,theta = 30, phi = 20)
+persp(x,y,fa,theta = 30, phi = 70)
+persp(x,y,fa,theta = 30, phi = 40)
+```
+
+## Indexing Data
+
+p47
+
+```{r}
+A = matrix(1:16,4,4)
+A
+A[2,3]
+A[c(1,3),c(2,4)] # rows 1 and 3 intersect with columns 2 and 4
+A[c(1:3),c(2:4)] #
+
+A[1:2,]
+A[1,]
+```
+
+### Negative sign excludes
+
+```{r}
+A[-c(1,3),] # Exclude rows 1,3
+A[-c(1,3),-c(1,3,4)] # Exclude rows 1,3 and columns 1,3,4
+
+dim(A)
+```
+
+## Loading Data
+
+```{r}
+# Loads it incorrectly
+Auto = read.table("../input/Auto.data", stringsAsFactors = TRUE)
+#  fix(Auto) # X not working on Mac
+
+# Loads it correctly
+Auto = read.table("../input/Auto.data", header = T, na.strings = "?")
+
+```
+
+### Load csv
+
+```{r}
+Auto = read.csv("../input/Auto.csv", header = T, na.strings = "?", stringsAsFactors = TRUE)
+dim(Auto)
+```
+
+```{r}
+Auto[1:4,] # First four rows
+
+names(Auto) # column names
+```
+
+## Additional Graphical and Numerical Summaries
+```{r}
+library(ISLR)
+plot(Auto$cylinders, Auto$mpg, xlim=c(0,10), ylim=c(0,100))
+
+attach(Auto) # Now Auto dataframe is implied
+plot(Auto$cylinders, Auto$mpg, xlim=c(0,10), ylim=c(0,100))
+```
+
+## Boxplot
+
+```{r}
+cylinders = as.factor(Auto$cylinders)
+
+# We now get a boxplot because x-axis is categorical
+plot(cylinders, mpg)
+plot(cylinders, mpg, col="red")
+plot(cylinders, mpg, col="red", varwidth=T)
+plot(cylinders, mpg, col="red", varwidth=T, horizontal=T) # Flip x and y axis
+plot(cylinders, mpg, col="red", varwidth=T, xlab="cylinders", ylab="MPG") 
+```
+
+```{r}
+mpg
+```
+
+
+## histogram
+```{r}
+hist(mpg)
+hist(mpg, col=2) # 2 = red
+hist(mpg, col=2, breaks = 15)
+```
+## pairs() scatterplot
+```{r}
+pairs(Auto) # ???
+pairs(~ mpg + displacement + horsepower + weight + acceleration, Auto)
+```
+
+```{r}
+
+```
+### Make graph interactive
+```{r}
+{plot(horsepower, mpg)
+identify(horsepower, mpg, name)
+}
+```
+### Summarize Entire Table
+```{r}
+summary(Auto) 
+```
+
+### Summarize One value
+```{r}
+summary(mpg) # One value
+```

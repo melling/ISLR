@@ -1,5 +1,24 @@
-# Chapter 4 Question 5
-# p169
+---
+title: "ISLR Q4.5"
+output:
+  html_document: default
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+p169
+
+We now examine the differences between LDA and QDA
+
+- (a) If the Bayes decision boundary is linear, do we expect LDA or QDA to perform better on the training set? On the test set?
+- (b) If the Bayes decision boundary is non-linear, do we expect LDA or QDA to perform better on the training set? On the test set?
+- (c) In general, as the sample size n increases, do we expect the test prediction accuracy of QDA relative to LDA to improve, decline, or be unchanged? Why?
+- (d) True or False: Even if the Bayes decision boundary for a given problem is linear, we will probably achieve a superior test er- ror rate using QDA rather than LDA because QDA is flexible enough to model a linear decision boundary. Justify your answer.
+
+***
+
 # Notes
 
 LDA has a linear decision boundary. p 151

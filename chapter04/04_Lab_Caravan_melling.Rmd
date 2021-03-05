@@ -1,9 +1,9 @@
 ---
 title: "ISLR Lab 04 - Caravan Insurance Data"
 output:
-  pdf_document: default
   html_document: default
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

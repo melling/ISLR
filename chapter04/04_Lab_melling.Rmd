@@ -1,9 +1,9 @@
 ---
-title: "ISLR Lab 04 - Logistic Regression, LDA, QDA, and KNN"
+title: "ISLR Chapter 04 Lab - Logistic Regression, LDA, QDA, and KNN"
 output:
-  pdf_document: default
   html_document: default
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -11,15 +11,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p155
 
-Chapter 4 Lab 
-
 ```{r}
 library(ISLR)
 ```
 
 
 
-### Stock Market Data ####
+### Stock Market Data
+
 ```{r}
 names(Smarket)
 dim(Smarket)
@@ -33,7 +32,9 @@ attach(Smarket)
 plot(Smarket$Volume)
 ```
 
-### Logistic Regression p156 ####
+### Logistic Regression
+
+p156
 
 ```{r}
 glm.fit1 = glm(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
@@ -48,6 +49,7 @@ summary(glm.fit1)$coef[,4] # Column 4
 ```
 
 p157
+
 P(Y=1|X)
 
 If no data set is supplied to the predict() function, then the probabilities are computed for the training data that was used to fit the logistic regression mode
@@ -61,8 +63,8 @@ glm.probs[1:6]
 contrasts(Smarket$Direction)
 ```
 
-### Confusion Matrix ####
-# Create prediction table
+### Confusion Matrix
+
 ```{r}
 #glm.probs
 glm.pred = rep("Down", 1250) 
@@ -84,7 +86,7 @@ head(glm.pred, 5)
 head(Smarket$Direction, 5)
 ```
 
-## Now Predict ####
+## Now Predict
 p159
 
 ```{r}
@@ -120,7 +122,7 @@ mean(glm.pred == Direction.2005)
 mean(glm.pred != Direction.2005) # Compute and test error rate
 ```
 
-### Remove Predictors ####
+### Remove Predictors
 
 remove +Lag3+Lag4+Lag5+Volume
 
@@ -147,7 +149,7 @@ mean(glm.pred == Direction.2005)
 predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type = "response")
 ```
 
-## Linear Discriminant Analysis ####
+## Linear Discriminant Analysis
 p161
 
 ```{r}
@@ -184,9 +186,10 @@ sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 # 0 !!!
 ```
 
-## Quadratic Discriminant Analysis ####
+## Quadratic Discriminant Analysis
 
 p163
+
 Same format as lda()
 
 ```{r}
@@ -207,18 +210,20 @@ table(qda.class,Direction.2005)
 mean(qda.class == Direction.2005) # Accurate 60% of the time
 ```
 
-## K-Nearest Neighbors ####
+## K-Nearest Neighbors
 p163
+
 data(package="ISLR")
 
-- knn() requires 4 inputs
+knn() requires 4 inputs
+
 - 1. matrix of predictors for training data: train.X
 - 2. matrix of predictors for test.X
 - 3. vector containing class labels for training observations: train.Direction
 - 4. value for K, number of nearest neighbors to be used by classifier
 
 ```{r}
-library(class)
+library(class) # knn()
 ```
 
 ```{r}
@@ -260,4 +265,5 @@ mean(knn.pred == Direction.2005)
 
 detach(Smarket) # Cleanup so we don't have bad references to wrong table
 
-## QDA provides best results so far
+### QDA provides best results so far with an accuracy of 60%
+

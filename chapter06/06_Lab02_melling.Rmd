@@ -1,7 +1,6 @@
 ---
-title: "06_Lab02_melling"
+title: "ISLR Chater 06 Lab02 - "
 output:
-  pdf_document: default
   html_document: default
 ---
 
@@ -25,7 +24,7 @@ y=Hitters$Salary
 #install.packages("glmnet")
 library(glmnet)
 grid=10^seq(10,-2,length=100) # λ = 1010 to λ = 10^−2
-ridge.mod=glmnet(x,y,alpha=0,lambda=grid) # alpha=0 means ridge, alpha=1 means Lasso
+ridge.mod=glmnet(x, y, alpha=0, lambda=grid) # alpha=0 means ridge, alpha=1 means Lasso
 ```
 
 ```{r}

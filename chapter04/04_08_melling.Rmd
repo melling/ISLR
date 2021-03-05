@@ -1,0 +1,20 @@
+---
+title: "ISLR Q4.8"
+output:
+  html_document: default
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+p170
+```
+logistic 20%/30%
+KNN, k=1, 18%/18%
+
+Answer: KNN
+
+Wrong.  I do not understand!!!
+```

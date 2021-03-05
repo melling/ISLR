@@ -3,6 +3,7 @@ title: "ISLR Lab 03 - Linear Regression"
 output:
   html_document: default
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
