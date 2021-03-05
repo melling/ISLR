@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q3.8"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2
 ---
 [ISLR Home](../index.html)
 
@@ -16,6 +18,8 @@ library(ISLR)
 
 This question involves the use of simple linear regression on the Auto data set.
 
+# 8a
+
 (a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example
 
 ***
@@ -27,16 +31,17 @@ names(Auto)
 
 Creating a simple linear regression model: mpg ~ horsepower
 
+## Model
 ```{r}
 auto.lm = lm(mpg ~ horsepower, data=Auto)
 ```
 
-Viewing statistics of least squares lines
+## Model Summary
 ```{r}
 summary(auto.lm)
 ```
 
-i. Is there a relationship between the predictor and the response?
+## i. Is there a relationship between the predictor and the response?
 
 
 i. (Answers obtained using summary(auto.lm))
@@ -44,25 +49,29 @@ There is a relationship between horsepower (predictor) and  mpg (response)
 because the p-value is extremely below 0.05, which means that chances that 
 this relationship occurred, when there is no relationship at all , is extremely slim, therefore there has to be a relationship
 
-ii. How strong is the relationship between the predictor and the response?
+## ii. How strong is the relationship between the predictor and the response?
 
 ii. (Answers obtained using summary(auto.lm))
 The relationship is strong, about 60%, because the R^2 = .6059. This statistic 
 measures the proportion of variability in response that can be explained using the
 predictor.
 
-iii. Is the relationship between the predictor and the response positive or negative?
+## iii. Is the relationship between the predictor and the response positive or negative?
 
 iii. (Answers obtained using summary(auto.lm))
 The relationship between mpg and horsepower has a negative relationship because the coefficient of horsepower (predictor) is negative
 
-iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?
+## iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?
 
 iv.
 ```{r}
 predict(auto.lm, data.frame(horsepower=c(98)), interval="prediction")
 ```
 
+# 8b
+
 (b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+
+# 8c
 
 (c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.

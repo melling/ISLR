@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q3.10"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    toc_depth: 3
 ---
 [ISLR Home](../index.html)
 
@@ -17,10 +19,9 @@ library(ISLR)
 ```
 
 
-## 10a
+# 10a $Sales = \beta_0 + \beta_1 Price + \beta_2 Urban + \beta_3 US$
 
-(a) Fit a multiple regression model to predict Sales using Price,
-Urban, and US
+(a) Fit a multiple regression model to predict Sales using Price, Urban, and US
 
 ***
 
@@ -30,13 +31,13 @@ carseat.fit = lm(Sales ~ Price + Urban + US, data=Carseats)
 ```
 
 
-## 10b
+# 10b Interpret Coefficients
 
 (b) Provide an interpretation of each coefficient in the model. Be
 careful - some of the variables in the model are qualitative!
 
 ***
-
+## Model Summary
 ```{r}
 summary(carseat.fit)
 ```
@@ -55,7 +56,7 @@ Price: Price is highly significant (p-value) when it comes to sales. There is a 
 UrbanYes: Does not have a significant p-value. This means that it does not effect the sales.
 Consider removing from model
 
-## 10c
+# 10c Model with Qualitative Variables
 
 (c) Write out the model in equation form, being careful to handle the qualitative variables properly
 
@@ -64,38 +65,41 @@ Consider removing from model
 Sales = 13.04 - 0.05 * Price + 1.2 * US
 1 if US = Yes ; 0 if US = No
 
-## 10d
+# 10d Reject Predictors/Features
 
-(d) For which of the predictors can you reject the null hypothesis $$H_0 :\beta_j =0$$?
+(d) For which of the predictors can you reject the null hypothesis $H_0 :\beta_j =0$?
 
 ***
 
 We can reject the null hypothesis for Price and USYes because its p-value is highly significant (<<.05)
 
-## 10e
+# 10e Smaller Model
 
 (e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome
 
 ***
 
+## Model Summary
 ```{r}
 carseat.fit2 = lm(Sales ~ Price + US, data=Carseats)
 summary(carseat.fit2)
 ```
 
+## Diagostic Plots
 ```{r}
+par(mfrow = c(2,2))
 plot(carseat.fit2)
 ```
 
-## 10f
+# 10f Compare Models
 
 (f) How well do the models in (a) and (e) fit the data?
 
 ***
 
-The models for both (a) and (e) do NOT fit the data well. The R^2 statistic for both models show that the model ONLY explains 23% of the variance.  
+The models for both (a) and (e) do NOT fit the data well. The $R^2$ statistic for both models show that the model ONLY explains 23% of the variance.  
 
-## 10g
+# 10g 95% Confidence Interval
 
 (g) Using the model from (e), obtain 95% confidence intervals for the coefficient(s).
 
@@ -103,13 +107,13 @@ The models for both (a) and (e) do NOT fit the data well. The R^2 statistic for 
 
 Getting the confidence intervals for each coefficient confint(carseat.fit2)
 
-## 10h
+# 10h Outliers and High Leverage
 
 (h) Is there evidence of outliers or high leverage observations in the model from (e)?
 
 ***
 
-Visualizing the statistics for leverage
+## Diagnostic Plots
 ```{r}
 par(mfrow = c(2,2))
 plot(carseat.fit2)
@@ -118,5 +122,4 @@ plot(carseat.fit2)
 Based on the Residuals vs. Leverage graph (bottom right):
 
  - There is one observation that is far right of the graph. This means that its leverage is really high. Also there are few more that are few more that have high leverage.
-
 

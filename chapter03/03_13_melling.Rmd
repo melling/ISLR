@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q3.13"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2
 ---
 
 [ISLR Home](../index.html)
@@ -10,10 +12,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results
 
-## 13a
+# 13a
 
 Setting the seed to keep random values consistent
 ```{r}
@@ -23,7 +24,7 @@ set.seed(1)
 
 x = rnorm(100)
 ```
-## 13b
+# 13b
 
 Creating a vector with values drawn from a random distribution with mean 0, standard deviation 0.25
 
@@ -31,7 +32,7 @@ Creating a vector with values drawn from a random distribution with mean 0, stan
 eps = rnorm(100, 0, 0.25)
 ```
 
-## 13c
+# 13c
 
 Creating the model
 
@@ -43,7 +44,7 @@ Y = -1 + 0.5*x + eps
 - B0 = -1
 - B1 = 0.5
 
-## 13d
+# 13d Plot
 
 ```{r}
 plot(x, Y)
@@ -51,15 +52,17 @@ plot(x, Y)
 
 There is a linear relationship 
 
-## 13e
+# 13e
 
+## Model Summary
 ```{r}
 lm.fit = lm(Y~x)
 summary(lm.fit)
 ```
+
 The coefficients for estimated model are off by a few decimals
 
-## 13f
+# 13f Plot
 
 ```{r}
 plot(x, Y)
@@ -68,7 +71,7 @@ abline(-1, 0.5, col="blue")
 legend(-1, c("Predicted", "Actual"), col=1:2, lwd=2)
 ```
 
-## 13g
+# 13g Fit Model
 
 Fitting a model introducing a quadratic term
 
@@ -79,7 +82,7 @@ summary(lm.poly.fit)
 
 Adding the quadratic term does NOT improve the model much (about 0.002). Also quadratic term is not significant according to t-statistic.
 
-## 13h
+# 13h Generating Data
 
 Generating data randomly for x from normal distribution
 
@@ -103,13 +106,13 @@ Y.less = -1 + 0.5*x.less + eps.less
 lm.less.fit = lm(Y.less ~ x.less)
 ```
 
-### Summary Statistics
+## Model Summary
 
 ```{r}
 summary(lm.less.fit)
 ```
 
-### Plotting the x and y values
+## Plotting the x and y values
 
 ```{r}
 plot(x.less, Y.less)
@@ -127,7 +130,7 @@ legend(-1, c("Predicted", "Actual"), col=1:2, lwd=2)
 
 When the standard deviations of the error terms are small, that means the predictors will vary less from the response giving the model a better accuracy.
 
-## 13i
+# 13i
 
 Generating data randomly for x from normal distribution
 
@@ -149,12 +152,14 @@ Y.more = -1 + 0.5*x.more + eps.more
 
 # Fitting a least square regression
 lm.more.fit = lm(Y.more~x.more)
+```
 
-# Getting the summary statistics
+## Model Summary
+```{r}
 summary(lm.more.fit)
 ```
 
-### Plotting the x and y values
+## Plotting the x and y values
 
 ```{r}
 plot(x.more, Y.more)
@@ -172,7 +177,7 @@ legend(-1, c("Predicted", "Actual"), col=1:2, lwd=2)
 
 When the standard deviations of the error terms are huge, the predictors will vary a lot from the response giving the model a harder time to statistically identify what value it will be.
 
-## 13j Confidence Intervals
+# 13j Confidence Intervals
 
 Getting the confidence intervals for each linear model
 

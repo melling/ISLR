@@ -1,9 +1,10 @@
 ---
 title: "ISLR Q3.9"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2
 ---
-
 [ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
@@ -18,8 +19,7 @@ library(ISLR)
 library(tidyverse)
 ```
 
-
-## 9a
+# 9a Scatterplot Matrix
 
 Produce a scatterplot matrix which includes all of the variables in the data set.
 
@@ -28,7 +28,7 @@ pairs(Auto)
 ```
 
 
-## 9b
+# 9b Correlations Matrix
 
 Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the name variable, which is qualitative.
 
@@ -36,35 +36,35 @@ Compute the matrix of correlations between the variables using the function cor(
 cor(Auto[,!colnames(Auto) %in% c("name")])
 ```
 
-## 9c
+# 9c Multiple Linear Regression: mpg ~ .
 
 (9c) Use the lm() function to perform a multiple linear regression with mpg as the response and all other variables except name as the predictors. Use the summary() function to print the results. Comment on the output. For instance:
 
 Running a MLR on all predictors except for name
+
+## Model: mpg ~ . -name
 ```{r}
-auto.mlr = lm(mpg~.-name, data=Auto)
+auto.mlr = lm(mpg ~ . -name, data=Auto)
+```
+
+## Model Summary
+```{r}
 summary(auto.mlr)
 ```
 
-### i.
-
-Is there a relationship between the predictors and the response?
+## i. Is there a relationship between the predictors and the response?
 
 There are multiple predictors that have relationship with the response because their associated p-value is significant
 
-### ii.
-
-ii. Which predictors appear to have a statistically significant relationship to the response?
+## ii. Which predictors appear to have a statistically significant relationship to the response?
 
 The predictors: displacement, weight, year, and origin have a statistically significant relationship.
 
-### iii.
-
-What does the coefficient for the year variable suggest?
+## iii. What does the coefficient for the year variable suggest?
 
 The coefficient of year suggests that every 4 years, the mpg goes up by 3 
 
-## 9d
+# 9d Diagnostic Plots
 
 (9d) Use the plot() function to produce diagnostic plots of the linear regression fit. 
 
@@ -74,13 +74,14 @@ The coefficient of year suggests that every 4 years, the mpg goes up by 3
 
 ***
 
+## Diagnostic Plots
 ```{r}
 par(mfrow=c(2,2))
 plot(auto.mlr)
 ```
 
 ```{r}
-#qplot(auto.mlr)
+qplot(auto.mlr)
 ```
 
 Non-Linearity: The residual plot shows that there is a U-shape pattern in the residuals which might indicate that the data is non-linear.
@@ -91,7 +92,7 @@ Outliers: There seems to not be any outliers because in the  Scale-Location, all
 
 High Leverage Points: Based on the Residuals vs. Leverage graph, there is no observations that provides a high leverage
 
-## 9e
+# 9e Interaction Effects
 
 Use the * and : symbols to fit linear regression models with interaction effects. 
 
@@ -99,8 +100,8 @@ Do any interactions appear to be statistically significant?
 
 ```{r}
 names(Auto)
-interact.fit = lm(mpg~.-name+horsepower*displacement, data=Auto)
-origin.hp = lm(mpg~.-name+horsepower*origin, data=Auto)
+interact.fit = lm(mpg ~ . -name + horsepower*displacement, data=Auto)
+origin.hp = lm(mpg ~ . -name + horsepower*origin, data=Auto)
 summary(origin.hp)
 ```
 
@@ -110,40 +111,52 @@ Statistically Significant Interaction Terms:
 - horsepower and origin
 
 ```{r}
-inter.fit = lm(mpg~.-name+horsepower:origin+horsepower:weight+horsepower:displacement, data=Auto)
+inter.fit = lm(mpg ~ . -name + horsepower:origin + horsepower:
+                 + horsepower:displacement,
+               data=Auto)
 summary(inter.fit)
 ```
 
 Adding more interactions, decreases the significance of previous significant values
 
-# 9f
+# 9f Transformations
 
-Try a few different transformations of the variables, such as log(X), $$sqrt(X), X^2$$
+Try a few different transformations of the variables, such as log(X), $sqrt(X), X^2$
 
-
+## Transform log(acceleration)
 ```{r}
-summary(lm(mpg~.-name+log(acceleration), data=Auto))
+summary(lm(mpg ~ . -name + log(acceleration), data=Auto))
 ```
 
 log(acceleration) is still very significant but less significant than acceleration
 
-```{r}
-summary(lm(mpg~.-name+log(horsepower), data=Auto))
-```
-log(horsepower) is more significant than horsepower
+## Transform log(horsepower)
 
 ```{r}
-summary(lm(mpg~.-name+I(horsepower^2), data=Auto))
+summary(lm(mpg ~ . -name + log(horsepower), data=Auto))
+```
+
+log(horsepower) is more significant than horsepower
+
+## Transform $horsepower^2$
+
+```{r}
+summary(lm(mpg ~ . -name + I(horsepower^2), data=Auto))
 ```
 Squaring horsepower doesn’t change the significance
 
+## Transform $weight^2$
 ```{r}
-summary(lm(mpg~.-name+I(weight^2), data=Auto))
+summary(lm(mpg~ . -name + I(weight^2), data=Auto))
 ```
-Squaring the weights doesnt change significance
+
+Squaring the weights doesn't change significance
+
+## Transform $cylinders^2$
 
 ```{r}
-lm.fit = lm(mpg~.-name+I(cylinders^2), data=Auto)
+lm.fit = lm(mpg ~ . -name + I(cylinders^2), data=Auto)
+par(mfrow = c(2,2))
 plot(lm.fit)
 ```
 

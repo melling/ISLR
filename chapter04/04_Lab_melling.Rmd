@@ -1,7 +1,9 @@
 ---
 title: "ISLR Chapter 04 Lab - Logistic Regression, LDA, QDA, and KNN"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2  
 ---
 [ISLR Home](../index.html)
 
