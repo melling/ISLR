@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 p170
 
+Suppose we collect data for a group of students in a statistics class with variables X1 = hours studied, X2 = undergrad GPA, and Y = receive an A. We fit a logistic regression and produce estimated coefficient, βˆ0 = −6, βˆ1 = 0.05, βˆ2 = 1
 
  
  See page 134-135
@@ -22,6 +23,8 @@ Y = e^ b0 + b1 * x1
 ```
 
 ## 6a
+
+(a) Estimate the probability that a student who studies for 40 h and has an undergrad GPA of 3.5 gets an A in the class
 
 b0 = -6
 b1 = .05
@@ -38,6 +41,8 @@ y = exp(y0)/(1 + exp(y0))
 y # 0.3775407 = 37.7%
 
 ## 6b
+
+(b) How many hours would the student in part (a) need to study to have a 50 % chance of getting an A in the class?
 
 Use the Logistic Regression Formula 
 
