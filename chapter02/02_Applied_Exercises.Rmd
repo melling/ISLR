@@ -16,7 +16,9 @@ knitr::opts_chunk$set(echo = TRUE)
 getwd()
 ```
 
-## Question 8 p54
+# Question 8 
+
+p54
 
 ## 8a
 ```{r}
