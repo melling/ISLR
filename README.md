@@ -1,9 +1,10 @@
 # ISLR
 Introduction to Statistical Learning: http://www.StatLearning.com
 
-Working through the book and the labs.
+The book is available on the author's site above. 
 
-Get the book: http://faculty.marshall.usc.edu/gareth-james/ISL/index.html
+
+Working through the book and the labs.
 
 [Videos](https://www.r-bloggers.com/2014/09/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/)
 
