@@ -1,15 +1,16 @@
 ---
-title: "Chapter 08 Lab 3 - Bagging and Random Forests"
+title: "ISLR Chapter 08 Lab 3 - Bagging and Random Forests"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2           
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(MASS)
 ```
 
@@ -24,7 +25,7 @@ boston.test.y=Boston[-train, "medv"] # Need to import from other Lab section
 p328
 
 ```{r}
-library(MASS)
+#library(MASS)
 library(randomForest)
 set.seed(1)
 bag.boston=randomForest(medv ~ ., data=Boston, subset=train, mtry=13, importance =TRUE)

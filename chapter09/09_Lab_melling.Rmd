@@ -1,9 +1,9 @@
 ---
 title: "ISLR Chapter 9 Lab - Support Vector Machines"
 output:
-  pdf_document: default
-  html_document: default
-author: "Michael Mellinger"
+  html_document:
+    toc: true
+    depth: 2      
 ---
 
 ```{r setup, include=FALSE}

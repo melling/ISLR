@@ -1,17 +1,17 @@
 ---
-title: "ISRL Chapter 8 Lab 1 - Fitting Classification Trees"
+title: "ISLR Chapter 8 Lab 1 - Fitting Classification Trees"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+p323 (g441)
 
-Chapter 8 p323 (g441)
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tree)
 library(ISLR)
 #attach(Carseats)
@@ -116,7 +116,3 @@ tree.pred=predict(prune.carseats,Carseats.test,type="class")
 table(tree.pred ,High.test)
 
 ```
-
-#View(Carseats)
-
-

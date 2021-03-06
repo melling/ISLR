@@ -1,8 +1,9 @@
 ---
 title: "ISLR Chapter 10 Lab 03 - NCI60 Data Example"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2      
 ---
 
 ```{r setup, include=FALSE}
@@ -11,16 +12,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p407
 
-## 
+```{r message=FALSE, warning=FALSE}
+library(ISLR)
+```
+
+# Get Data
 
 ```{r}
-library(ISLR)
 nci.labs=NCI60$labs
 nci.data=NCI60$data
 dim(nci.data) # 64 rows and 6,830 columns
 ```
 
-examine the cancer types for the cell lines
+## Examine cancer types for the cell lines
 
 ```{r}
 nci.labs[1:4]
@@ -30,7 +34,7 @@ nci.labs[1:4]
 table(nci.labs)
 ```
 
-### PCA on the NCI60 Data
+## PCA on the NCI60 Data
 
 ```{r}
 pr.out=prcomp(nci.data, scale=TRUE)
@@ -44,7 +48,7 @@ Cols=function(vec){
 }
 ```
 
-plot the first few principal component score vectors
+## Plot the first few principal component score vectors
 
 ```{r}
 par(mfrow=c(1,2))
@@ -55,10 +59,13 @@ plot(pr.out$x[,c(1,3)], col=Cols(nci.labs), pch=19, xlab="Z1", ylab="Z3")
 On the whole, cell lines corresponding to a single cancer type do tend to have similar values on the first few principal component score vectors.
 summary of the proportion of variance explained (PVE)
 
+## Summary
+
 ```{r}
 summary(pr.out)
 ```
-plot the variance explained by the first few principal components
+## Plot the variance explained by the first few principal components
+
 ```{r}
 plot(pr.out, main="Variance Explained")
 ```
@@ -74,7 +81,7 @@ plot(pve, type="o", ylab="PVE", xlab="Principal Component", col =" blue ")
 plot(cumsum(pve), type="o", ylab="Cumulative PVE", xlab="Principal Component ", col =" brown3 ")
 ```
 
-## Clustering the Observations of the NCI60 Data
+# Clustering the Observations of the NCI60 Data
 
 this step is optional and should be performed only if we want each gene to be on the same scale.
 ```{r}
@@ -93,7 +100,7 @@ plot(hclust(data.dist, method="single"), labels=nci.labs, main="Single Linkage",
 
 Complete and average linkage tend to yield evenly sized clusters whereas single linkage tends to yield extended clusters to which single leaves are fused one by one.
 
-#### Cut height to 4
+## Cut height to 4
 
 cut the dendrogram at the height that will yield a particular number of clusters
 
@@ -104,6 +111,8 @@ table(hc.clusters,nci.labs)
 ```
 
 All the leukemia cell lines fall in cluster 3, while the breast cancer cell lines are spread out over three different clusters.
+
+## Dendrogram
 
 ```{r}
 par(mfrow=c(1,1))
@@ -116,7 +125,7 @@ Printing the output of hclust gives a useful brief summary of the object
 ```{r}
 hc.out
 ```
-#### Commpare kmeans and hierarchical clustering
+# Commpare kmeans and hierarchical clustering
 
 How do these NCI60 hierarchical clustering results compare to what we get if we perform K-means clustering with K = 4?
 
@@ -131,7 +140,7 @@ We see that the four clusters obtained using hierarchical clustering and K-means
 
 Cluster 2 in K-means clustering is identical to cluster 3 in hierarchical clustering. However, the other clusters differ: for instance, cluster 4 in K-means clustering contains a portion of the observations assigned to cluster 1 by hierarchical clustering, as well as all of the observations assigned to cluster 2 by hierarchical clustering.
 
-perform hierarchical clustering on the first few principal component score vectors
+## Perform hierarchical clustering on first few principal component score vectors
 ```{r}
 hc.out=hclust(dist(pr.out$x[,1:5]))
 plot(hc.out, labels=nci.labs, main="Hier. Clust. on First Five Score Vectors")

@@ -1,10 +1,9 @@
 ---
 title: "ISLR Q9.8"
 output:
-  pdf_document: default
-  html_document: default
-author: "Michael Mellinger"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+  html_document:
+    toc: true
+    depth: 2           
 ---
 
 ```{r setup, include=FALSE}
@@ -14,13 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 This problem involves the OJ data set which is part of the ISLR package.
 Question 9 was the OJ problem in Chapter 8.
 
-```{r include=FALSE}
+```{r message=FALSE, warning=FALSE, include=FALSE}
 library(ISLR)
 library(tidyverse)
 library(e1071)
 ```
 
-### 8a - (p371)
+# 8a
+p371
 
 Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations. (see Q8.9)
 
@@ -37,7 +37,7 @@ oj.train.y = OJ[train,"Purchase"]
 oj.test.y = OJ[-train,"Purchase"]
 ```
 
-### 8b
+# 8b
 
 Fit a support vector classifier to the training data using cost=0.01, with Purchase as the response and the other variables as predictors.
 
@@ -51,35 +51,35 @@ svm.fit = svm(Purchase ~ ., data = oj.train, kernel = "linear", cost = c(0.01))
 summary(svm.fit)
 ```
 
-### 8c
+# 8c
 
 What are the training and test error rates?
 
-### Training Data Confusion Matrix
+## Training Data Confusion Matrix
 ```{r, 8c}
 svm.predict = predict(svm.fit, newdata = oj.train)
 result = table(true=oj.train.y, pred=svm.predict)
 result
 ```
-### Training Data Accuracy
+## Training Data Accuracy
 ```{r}
 (result[1] + result[4]) / sum(result)
 ```
 
 
-### Test Data Confusion Matrix
+## Test Data Confusion Matrix
 ```{r}
 svm.predict = predict(svm.fit, newdata = oj.test)
 result = table(true=oj.test.y, pred=svm.predict)
 result
 ```
 
-### Test Data Accuracy
+## Test Data Accuracy
 ```{r}
 (result[1] + result[4]) / sum(result)
 ```
 
-### 8d Cross-Validation
+# 8d Cross-Validation
 
 Use the tune() function to select an optimal cost. Consider values in the range 0.01 to 10
 
@@ -91,7 +91,7 @@ tune.out = tune(svm, as.factor(Purchase) ~ .,
 summary(tune.out)
 ```
 
-### Best Model
+## Best Model
 
 ```{r}
 best.model <- tune.out$best.model
@@ -103,7 +103,7 @@ best.model$cost
 ```
 
 
-### 8e
+# 8e
 
 Compute the training and test error rates using this new value for cost
 
@@ -118,7 +118,7 @@ result = table(true=oj.train.y, pred=best.model.predict)
 result
 ```
 
-### Best Model Training Data Accuracy
+## Best Model Training Data Accuracy
 ```{r}
 (result[1] + result[4]) / sum(result)
 ```
@@ -137,7 +137,7 @@ Training Data Confusion Matrix
 #result
 ```
 
-### Best Model Test Data Confusion Matrix
+## Best Model Test Data Confusion Matrix
 
 ```{r}
 best.model.predict = predict(best.model, newdata=oj.test)
@@ -145,7 +145,7 @@ result = table(true=oj.test.y, pred=best.model.predict)
 result
 ```
 
-### Accuracy
+## Accuracy
 ```{r}
 (result[1] + result[4]) / sum(result)
 ```
@@ -159,11 +159,11 @@ result
 #(155+71)/270
 ```
 
-### 8f
+# 8f
 
 Repeat parts (b) through (e) using a support vector machine with a radial kernel. Use the default value for gamma
 
-#### 8f-b
+## 8f-b
 
 Parameters: Cost = 0.01
 ```{r}
@@ -171,14 +171,14 @@ svm.fit.radial = svm(Purchase ~ ., data = oj.train, kernel = "radial", cost = c(
 #summary(svm.fit.radial)
 ```
 
-#### 8f-c
+## 8f-c
 
 ### Training Data Confusion Matrix
 ```{r}
 svm.predict = predict(svm.fit.radial, newdata = oj.train)
 table(true=oj.train.y, pred=svm.predict)
 ```
-#### 8f-d
+## 8f-d
 
 ```{r}
 tune.out = tune(svm, as.factor(Purchase) ~ ., 
@@ -188,7 +188,7 @@ tune.out = tune(svm, as.factor(Purchase) ~ .,
 summary(tune.out)
 ```
 
-#### 8f-e
+## 8f-e
 
 Parameters: Cost = 0.1
 ```{r}
@@ -202,11 +202,11 @@ svm.predict = predict(svm.fit, newdata = oj.test)
 table(true=oj.test.y, pred=svm.predict)
 ```
 
-### 8g
+# 8g
 
 Repeat parts (b) through (e) using a support vector machine with a polynomial kernel. Set degree=2
 
-#### 8g-b
+## 8g-b
 
 Parameters: Cost = 0.01
 ```{r}
@@ -215,14 +215,14 @@ svm.fit.radial = svm(Purchase ~ ., data = oj.train, kernel = "polynomial", cost 
 #summary(svm.fit.radial)
 ```
 
-#### 8g-c
+## 8g-c
 
 ### Training Data Confusion Matrix
 ```{r}
 svm.predict = predict(svm.fit.radial, newdata = oj.train)
 table(true=oj.train.y, pred=svm.predict)
 ```
-#### 8g-d
+## 8g-d
 
 ```{r}
 tune.out = tune(svm, as.factor(Purchase) ~ ., 
@@ -233,7 +233,7 @@ tune.out = tune(svm, as.factor(Purchase) ~ .,
 summary(tune.out)
 ```
 
-#### 8g-e
+## 8g-e
 
 Parameters: Cost = 0.1
 ```{r}
@@ -247,7 +247,7 @@ svm.predict = predict(svm.fit, newdata = oj.test)
 table(true=oj.test.y, pred=svm.predict)
 ```
 
-### 8h
+# 8h
 
 Overall, which approach seems to give the best results on this data?
 

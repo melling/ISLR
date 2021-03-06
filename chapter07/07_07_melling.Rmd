@@ -1,0 +1,135 @@
+---
+title: "ISLR Q7.7"
+output:
+  html_document:
+    toc: true
+    depth: 2    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 7a
+
+p299
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) 
+library(ISLR)
+```
+
+```{r}
+attach(Wage)
+glimpse(Wage)
+```
+
+```{r}
+library(skimr)
+skim(Wage)
+```
+
+```{r echo=FALSE}
+pairs(Wage)
+```
+
+```{r}
+plot(jobclass,wage) 
+plot(maritl,wage)
+
+```
+
+```{r}
+# jobclass.fit = lm(wage\~I(jobclass), data = Wage)
+```
+
+## Wage vs Marital Status
+
+```{r}
+g1 <- ggplot(Wage, aes(x = maritl, y = wage, fill = maritl)) + geom_boxplot() + theme(legend.position = "none")
+g1
+```
+
+Married has the highest average salary.
+
+## Wage vs Job Class
+
+```{r}
+g2 <- ggplot(Wage, aes(x = jobclass, y = wage, fill = jobclass)) + geom_boxplot() + theme(legend.position = "none")
+g2
+```
+
+```{r}
+require(gridExtra)
+
+#grid.arrange(g1, g2, g3, g4, g5, g6, g7, g8, ncol = 2)
+grid.arrange(g1, g2, ncol = 2)
+
+```
+
+## Wage vs Race
+
+```{r}
+ggplot(Wage, aes(x = race, y = wage, fill = race)) + geom_boxplot() + theme(legend.position = "none")
+```
+
+## Wage vs Education
+
+```{r}
+ggplot(Wage, aes(x = education, y = wage, fill = education)) + geom_boxplot() + theme(legend.position = "none")
+```
+
+## Wage vs Job Class
+
+```{r}
+ggplot(Wage, aes(x = health_ins, y = wage, fill = health_ins)) + geom_boxplot() + theme(legend.position = "none")
+```
+
+## Wage vs Region
+
+```{r}
+ggplot(Wage, aes(x = region, y = wage, fill = region)) + geom_boxplot() + theme(legend.position = "none")
+```
+
+## Wage vs Age
+
+```{r echo=FALSE}
+Wage$age.cut = cut(age,4)
+ggplot(Wage, aes(x = age.cut, y = wage, fill = age.cut)) + geom_boxplot() + theme(legend.position = "none")
+```
+
+```{r}
+g3 <- ggplot(Wage, aes(x = age, y = wage)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+g3
+```
+
+Just a line. Not points.
+
+```{r}
+g3 <- ggplot(Wage, aes(x = age, y = wage)) +
+  # geom_point(alpha = 0.5) +
+    geom_smooth()
+
+g3
+```
+
+## Misc
+
+```{r}
+# jobclass.fit = lm(wage \~ jobclass + cut(age,4), data = Wage)
+# plot(jobclass.fit) 
+# summary(jobclass.fit) 
+
+#anova(fit1,fit2,fit3)
+#cut(Wage\$jobclass, 4)
+
+```
+
+## Model Summary
+
+```{r}
+model <- lm(wage ~ poly(age, 3, raw = T) + cut(year, breaks = 2002:2009) + maritl + race + education + jobclass + health + health_ins, data = Wage)
+summary(model)
+```

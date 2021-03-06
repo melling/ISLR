@@ -1,0 +1,78 @@
+---
+title: "ISLR Q7.9"
+output:
+  html_document:
+    toc: true
+    depth: 2    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#View(Boston)
+```
+
+p299
+
+9) This question uses the variables dis (the weighted mean of distances to five Boston employment centers) and nox (nitrogen oxides concentration in parts per 10 million) from the Boston data. We will treat dis as the predictor and nox as the response.
+
+##
+
+
+a) Use the poly() function to fit a cubic polynomial regression to predict nox using dis. Report the regression output, and plot the resulting data and polynomial fits.
+
+***
+
+```{r message=FALSE, warning=FALSE}
+library(MASS)
+library(tidyverse)
+library(gridExtra)
+```
+
+```{r}
+g1 <- ggplot(Boston, aes(x = nox, y = dis)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", formula = y ~ x)
+
+g2 <- ggplot(Boston, aes(x = nox, y = dis)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "loess", formula = y ~ x)
+
+
+
+g3 <- ggplot(Boston, aes(x = nox, y = dis)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 4), se = FALSE)
+
+g4 <- ggplot(Boston, aes(x = nox, y = dis)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", 
+              formula = y ~ poly(x, 4),
+              level=0.95, # Default
+              se = TRUE) # Default
+
+
+grid.arrange(g1, g2, g3, g4, ncol = 2)
+
+```
+
+## Fit model: nox = dis^4
+```{r}
+fit = lm(nox ~ poly(dis, 4), data = Boston)
+```
+
+## Diagnostic plots
+```{r}
+par(mfrow=c(2,2))
+plot(fit)
+```
+
+
+## Coefficients
+```{r}
+coef(summary(fit))
+```
+

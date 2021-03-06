@@ -1,14 +1,15 @@
 ---
 title: "ISLR Q8.9 Regression Trees with OJ Data"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2           
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 library(tree)
 ```
@@ -22,7 +23,8 @@ target = OJ$Purchase
 
 Purchase: A factor with levels CH and MM indicating whether the customer purchased Citrus Hill or Minute Maid Orange Juice
 
-## Overview
+# Overview
+
 - Build Tree with Training Data: tree.oj
 - Predict Training Data Error on unpruned tree
 - Prune Tree: prune.oj
@@ -30,7 +32,7 @@ Purchase: A factor with levels CH and MM indicating whether the customer purchas
 - Predict Test Data Error on unpruned tree
 - Predict Test Data Error on pruned tree
 
-## 9a
+# 9a
 
 Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
 
@@ -48,7 +50,7 @@ oj.test.y = OJ[-train,"Purchase"]
 ```
 
 
-## 9b Fit Tree to Training
+# 9b Fit Tree to Training
 
 Fit a tree to the training data, with Purchase as the response and the other variables as predictors. Use the summary() function to produce summary statistics about the tree, and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
 
@@ -58,16 +60,16 @@ summary(tree.oj)
 ```
 Uses only 5 predictors to split the tree.
 
-### Training error rate
+## Training error rate
 
 Training error rate: Misclassification rate: 15.88%  (p324)
 
-### How many terminal nodes does the tree have?
+## How many terminal nodes does the tree have?
 
 terminal nodes: 9
 
 
-## 9c
+# 9c
 
 Type in the name of the tree object in order to get a detailed text output. Pick one of the terminal nodes, and interpret the information displayed.
 
@@ -76,13 +78,13 @@ Type in the name of the tree object in order to get a detailed text output. Pick
 tree.oj
 ```
 
-### Interpret one terminal node
+## Interpret one terminal node
 ```
 "8) LoyalCH < 0.0356415 59   10.14 MM ( 0.01695 0.98305 ) *"
 "9) LoyalCH > 0.0356415 118  116.40 MM ( 0.19492 0.80508 ) *"
 ```
 
-#### Branch 8
+### Branch 8
 ```
 59 - Number observations in that branch
 10.14 - Deviance
@@ -91,13 +93,13 @@ MM - Predicted class
 ```
 This branching (8) looks redundant because MM is always chosen.
 
-#### Branch 9
+### Branch 9
 
 118 - Number observations in that branch
 
 
 
-## 9d Plot Unpruned Tree
+# 9d Plot Unpruned Tree
 
 Create a plot of the tree, and interpret the results.
 
@@ -107,12 +109,12 @@ text(tree.oj, pretty=0)
 }
 ```
 
-### Interpretation of Results
+## Interpretation of Results
 
 9 terminal nodes.  At least least 1 redundant node.
 
 
-## 9e Predict Test Data from Unpruned
+# 9e Predict Test Data from Unpruned
 
 Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test error rate?
 
@@ -134,7 +136,7 @@ oj.test.y = OJ[-train, "Purchase"] # Y target vector
 ```
 
 
-### Confusion Matrix
+## Confusion Matrix
 
 ```{r}
 table(yhat, oj.test.y)
@@ -148,7 +150,7 @@ Calculate Test Error Rate for unpruned tree
 summary(OJ$Purchase)
 ```
 
-## 9f Find Optimal Prune Size
+# 9f Find Optimal Prune Size
 
 Apply the cv.tree() function to the training set in order to determine the optimal tree size.
 
@@ -166,7 +168,7 @@ cv.oj
 7 is the optimal number of terminal nodes. Small misclassification error with 149 ($dev=149)
 
 
-## 9g Plot Tree Size vs Classification Error Rate
+# 9g Plot Tree Size vs Classification Error Rate
 
 Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
 
@@ -182,14 +184,14 @@ plot(cv.oj$size, cv.oj$dev, type="b")
 plot(cv.oj$k,cv.oj$dev, type="b")
 ```
 
-## 9h
+# 9h
 
 Which tree size corresponds to the lowest cross-validated classification error rate?
 
 7 is the optimal.
 
 
-## 9i Prune Training Tree
+# 9i Prune Training Tree
 
 Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
 
@@ -200,7 +202,7 @@ text(prune.oj, pretty=0)
 }
 ```
 
-## 9j Training Error
+# 9j Training Error
 
 Compare the training error rates between the pruned and unpruned trees. Which is higher?
 
@@ -226,12 +228,11 @@ table(oj.train$Purchase, train.predict)
 ```
 Unpruned is overfitting so it gives a better result.
 
-## 9k Test Error
+# 9k Test Error
 
 Compare the test error rates between the pruned and unpruned trees. Which is higher?
 
 Unpruned error from 9e: 0.8296296
-
 
 
 ```{r}

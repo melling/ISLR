@@ -1,6 +1,9 @@
 ---
 title: "ISLR Q10.7"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2      
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +15,7 @@ On the USArrests data, show that this proportionality holds.
 
 Hint: The Euclidean distance can be calculated using the dist() function, and correlations can be calculated using the cor() function.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 set.seed(1)
 ```

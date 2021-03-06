@@ -1,0 +1,112 @@
+---
+title: "ISLR Q7.8"
+output:
+  html_document:
+    toc: true
+    depth: 2    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+p299
+
+# References
+
+- https://www.datanovia.com/en/blog/how-to-plot-a-smooth-line-using-ggplot2/
+
+```{r include=FALSE}
+library(tidyverse) 
+library(ISLR)
+```
+
+```{r}
+glimpse(Auto)
+```
+
+```{r}
+library(skimr)
+skim(Auto)
+```
+
+
+```{r echo=FALSE}
+attach(Auto) 
+pairs(Auto)
+```
+
+```{r}
+names(Auto)
+```
+
+## Cylinders vs MPG
+```{r}
+g1 <- ggplot(Auto, aes(x = cylinders, y = mpg, group = cylinders)) + geom_boxplot() + theme(legend.position = "none")
+g1
+```
+
+## Displacement vs MPG
+```{r}
+ggplot(Auto, aes(x = displacement, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+## Horsepower vs MPG
+
+```{r}
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+## Weight vs MPG
+
+```{r}
+ggplot(Auto, aes(x = weight, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+```{r eval=FALSE, include=FALSE}
+?loess
+```
+
+
+## Acceleration vs MPG
+
+```{r}
+ggplot(Auto, aes(x = acceleration, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "loess", formula = y ~ x)
+```
+
+## Year vs MPG
+
+```{r}
+ggplot(Auto, aes(x = year, y = mpg)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "loess", formula = y ~ x) # Default params
+```
+
+## Origin vs MPG
+
+```{r}
+ggplot(Auto, aes(x = origin, y = mpg, group=origin)) +
+  geom_boxplot()# + theme(legend.position = "none")
+```
+
+Python Code
+```{python}
+print(f"Hello World: {2+2}")
+```
+
+# GAM - Generalize Additive Models
+
+```{r}
+library(gam)
+# gam.fit = gam(mpg ~ cylinders +  s(acceleration,4) + s(weight,4), data = Auto)
+gam.fit = gam(mpg ~ cylinders, data = Auto)
+summary(gam.fit)
+```
+

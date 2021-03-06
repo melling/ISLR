@@ -1,8 +1,9 @@
 ---
-title: "ISRL Chapter 8 Lab 2 - Fitting Regression Trees"
+title: "ISLR Chapter 8 Lab 2 - Fitting Regression Trees"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +15,10 @@ p327
 ```{r}
 library(tree)
 library(MASS)
+```
+
+## Regression tree
+```{r}
 set.seed(1)
 train = sample(1:nrow(Boston), nrow(Boston)/2)
 tree.boston=tree(medv ~ ., Boston, subset=train)
@@ -21,7 +26,7 @@ summary(tree.boston)
 ```
 Fix the plot.new error. [StackOverFlow Answer](https://stackoverflow.com/questions/7154133/plot-new-has-not-been-called-yet)
 
-### Plot the Unpruned Tree
+## Plot the Unpruned Tree
 
 ```{r}
 {plot(tree.boston)
@@ -34,7 +39,7 @@ cv.boston=cv.tree(tree.boston)
 plot(cv.boston$size, cv.boston$dev, type='b')
 ```
 
-### Prune the Tree
+## Prune the Tree
 
 ```{r}
 prune.boston=prune.tree(tree.boston, best=5)
@@ -43,7 +48,7 @@ prune.boston=prune.tree(tree.boston, best=5)
 text(prune.boston, pretty=0)
 }
 ```
-### Predict the Response for the Test Data with Unpruned Tree
+## Predict the Response for the Test Data with Unpruned Tree
 
 ```{r}
 yhat <-  predict(tree.boston, newdata=Boston[-train ,])
@@ -52,6 +57,5 @@ boston.test.y <- Boston[-train, "medv"]
 abline (0 ,1)
 }
 mean((yhat - boston.test.y)^2)
- 
 ```
 

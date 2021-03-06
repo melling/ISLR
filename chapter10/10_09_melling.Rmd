@@ -1,13 +1,16 @@
 ---
 title: "ISLR Q10.9"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2    
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
 
@@ -25,9 +28,7 @@ Consider the USArrests data. We will now perform hierarchical clustering on the 
 - (d) What effect does scaling the variables have on the hierarchical clustering obtained? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed? Provide a justification for your answer.
 
 
-## 9a
-
-Fitting a hierarchical clustering
+# 9a Fitting a hierarchical clustering
 
 ```{r}
 hc.complete = hclust(
@@ -37,7 +38,7 @@ hc.complete = hclust(
 ```
 
 
-### Summary
+## Summary
 ```{r}
 summary(hc.complete)
 hc.complete
@@ -52,7 +53,8 @@ Better Dendrogram
 ```{r}
 ggdendrogram(hc.complete)
 ```
-## 9b
+
+# 9b
 
 Cutting the tree to have only three branches (clusters)
 ```{r}
@@ -80,7 +82,7 @@ Better Dendrogram
 ggdendrogram(hc.complete)
 ```
 
-## 9c
+# 9c
 
 Scaling the features
 ```{r}
@@ -94,13 +96,13 @@ hc.complete.scaled = hclust(
 ```
 
 
-### Dendrogram
+## Dendrogram
 
 ```{r}
 plot(hc.complete.scaled)
 ```
 
-### Better Dendrogram
+## Better Dendrogram
 ```{r}
 ggdendrogram(hc.complete.scaled)
 ```
@@ -109,7 +111,7 @@ ggdendrogram(hc.complete.scaled)
 ggdendrogram(hc.complete.scaled, rotate = TRUE, theme_dendro = FALSE)
 ```
 
-## 9d
+# 9d Cutting to 3 branches
 
 Cutting the tree to have only three branches (clusters)
 

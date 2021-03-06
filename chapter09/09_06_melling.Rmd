@@ -1,8 +1,9 @@
 ---
 title: "ISLR Q9.6"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2      
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +19,7 @@ p370
 At the end of Section 9.6.1 (the Lab), it is claimed that in the case of data that is just barely linearly separable, a support vector classifier with a small value of cost that misclassifies a couple of training observations may perform better on test data than one with a huge value of cost that does not misclassify any training observations. You will now investigate this claim.
 
 
-### 6a
+# 6a Generate Data
 
 Generate two-class data with p = 2 in such a way that the classes are just barely linearly separable.
 
@@ -38,7 +39,7 @@ x.zero.noise = runif(50, 20, 80)
 y.zero.noise = 5/4 * (x.zero.noise - 10) - 0.1
 ```
 
-# Combine all
+## Combine all
 ```{r}
 class.one = seq(1, 550)
 x = c(x.one, x.one.noise, x.zero, x.zero.noise)
@@ -67,7 +68,7 @@ p + geom_point(color='blue', size=3, shape="+") +
   #ylim(-2, 2) + geom_jitter()
 ```
 
-### 6b
+# 6b
 
 Compute the cross-validation error rates for support vector classifiers with a range of cost values.
 
@@ -92,7 +93,7 @@ summary(tune.out)
 ```
 
 
-### 6c
+# 6c
 
 Generate an appropriate test data set, and compute the test errors corresponding to each of the values of cost 
 
@@ -100,7 +101,7 @@ Generate an appropriate test data set, and compute the test errors corresponding
 - How does this compare to the values of cost that yield the fewest training errors and the fewest cross-validation errors?
 
 
-### 6d
+# 6d
 
 Discuss your results.
 

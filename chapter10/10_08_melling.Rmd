@@ -1,6 +1,9 @@
 ---
-title: "ISLR Q9.4"
-output: html_document
+title: "ISLR Q9.4 - Principal Components"
+output:
+  html_document:
+    toc: true
+    depth: 2        
 ---
 
 ```{r setup, include=FALSE}
@@ -24,7 +27,7 @@ These two approaches should give the same results.
 
 Hint: You will only obtain the same results in (a) and (b) if the same data is used in both cases. For instance, if in (a) you performed prcomp() using centered and scaled variables, then you must center and scale the variables before applying Equation 10.3 in (b).
 
-## 10.8a
+# 10.8a
 
 ```{r}
 pr.out=prcomp(USArrests, scale=TRUE)
@@ -41,7 +44,7 @@ pve
 ```
 
 
-## 10.8b
+# 10.8b Loadings
 
 ```{r}
 loadings = pr.out$rotation

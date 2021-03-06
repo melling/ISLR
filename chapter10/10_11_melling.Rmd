@@ -1,0 +1,105 @@
+---
+title: "ISLR Q10.11"
+output:
+  html_document:
+    toc: true
+    depth: 2     
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+#library(ISLR)
+#library(tidyverse)
+```
+
+
+# 11a Read Gene Data
+
+```{r}
+gene = read.csv("Ch10Ex11.csv", header=FALSE)
+
+dim(gene)
+
+summary(gene)
+```
+
+
+## Calculating the correlation-based distance
+```{r}
+gene.corr.dist = as.dist(1-cor(gene))
+
+# Fitting hierarchiacal clustering
+h.clust = hclust(
+  gene.corr.dist
+)
+```
+
+
+## Plotting a dendrogram
+```{r}
+plot(h.clust)
+```
+
+
+COMMENTS: Based on the dendrogram complete linkage seems like it can be classified into two groups.
+
+
+## Fitting hierarchiacal clustering
+```{r}
+h.clust = hclust(
+  gene.corr.dist,
+  method='average'
+)
+```
+
+
+## Plotting a dendrogram
+```{r}
+plot(h.clust)
+```
+
+
+COMMENTS: Average Linkage does not separate into two groups
+
+
+## Fitting hierarchiacal clustering
+```{r}
+h.clust = hclust(
+  gene.corr.dist,
+  method='single'
+)
+```
+
+
+## Plotting a dendrogram
+```{r}
+plot(h.clust)
+```
+
+
+COMMENTS: Single linkage looks like it can separate into two groups but looks 
+wacky.
+
+
+## Fitting hierarchiacal clustering
+```{r}
+h.clust = hclust(
+  gene.corr.dist,
+  method='centroid'
+)
+```
+
+
+## Plotting a dendrogram
+```{r}
+plot(h.clust)
+```
+
+```{r}
+summary(h.clust)
+h.clust
+```
+

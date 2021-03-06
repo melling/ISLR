@@ -1,8 +1,9 @@
 ---
 title: "ISLR Chapter 10 Lab 02 - Clustering"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2         
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 p404
 
-## K-Means Clustering
+# K-Means Clustering
 
 kmeans()
 ```{r}
@@ -20,7 +21,7 @@ x[1:25,1]=x[1:25,1]+3
 x[1:25,2]=x[1:25,2]-4
 ```
 
-#### kmeans, k=2
+## kmeans, k=2
 ```{r}
 km.out=kmeans(x,2,nstart=20)
 km.out$cluster
@@ -29,7 +30,7 @@ The K-means clustering perfectly separated the observations into two clusters
 ```{r}
 plot(x, col=(km.out$cluster + 1), main="K-Means Clustering Results with K=2", xlab="", ylab="", pch=20, cex=2)
 ```
-#### kmeans, k=3
+## kmeans, k=3
 
 ```{r}
 set.seed (4)
@@ -53,7 +54,7 @@ km.out$tot.withinss
 
 We strongly recommend always running K-means clustering with a large value of nstart, such as 20 or 50
 
-## Hierarchical Clustering
+# Hierarchical Clustering
 
 p406
 
@@ -69,7 +70,7 @@ hc.average=hclust(dist(x), method="average")
 hc.single=hclust(dist(x), method="single")
 ```
 
-#### Dendograms
+## Dendograms
 
 ```{r}
 par(mfrow=c(1,3))
@@ -78,7 +79,7 @@ plot(hc.average, main="Average Linkage", xlab="", sub="", cex =.9)
 plot(hc.single, main="Single Linkage", xlab="", sub="", cex =.9)
 ```
 
-#### Cut Tree
+## Cut Tree
 
 To determine the cluster labels for each observation associated with a given cut of the dendrogram, we can use the cutree() function
 ```{r}
@@ -102,7 +103,7 @@ xsc=scale(x)
 plot(hclust(dist(xsc), method="complete"), main="Hierarchical Clustering with Scaled Features ")
 ```
 
-#### Correlation-based distance
+# Correlation-based distance
 
 Only makes sense for data with at least three features since the absolute correlation between any two observations with measurements on two features is always 1.
 

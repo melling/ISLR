@@ -1,8 +1,9 @@
 ---
 title: "ISLR Chapter 10 Lab 01 - Principal Components Analysis"
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    toc: true
+    depth: 2     
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +30,7 @@ Apply the variance to each column
 apply(USArrests, 2, var)
 ```
 
-### Perform principal components analysis
+## Perform principal components analysis
 
 Use the prcomp() function.
 
@@ -58,7 +59,7 @@ There are four distinct principal components. In general min(n - 1, p) informati
 ```{r}
 dim(pr.out$x)
 ```
-#### Plot the first two principal components
+## Plot first two principal components
 
 ```{r}
 biplot(pr.out, scale=0)
@@ -66,7 +67,7 @@ biplot(pr.out, scale=0)
 
 The scale=0 argument to biplot() ensures that the arrows are scaled to represent the loadings; other values for scale give slightly different biplots with different interpretations.
 
-#### Reproduce Figure 10.1
+## Reproduce Figure 10.1
 
 ```{r}
 pr.out$rotation=-pr.out$rotation
@@ -93,7 +94,7 @@ pve
 ```
 We see that the first principal component explains 62.0 % of the variance in the data, the next principal component explains 24.7 % of the variance, and so forth.
 
-### Plot PVE
+## Plot PVE
 
 
 We can plot the PVE explained by each component,

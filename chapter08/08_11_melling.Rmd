@@ -1,20 +1,21 @@
 ---
 title: "ISLR Q8.11 Boosting with Caravan Data"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2           
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 library(gbm)
 ```
 
-## 11a
+# 11a
 
 Create a training set consisting of the first 1,000 observations,
 and a test set consisting of the remaining observations.
@@ -33,12 +34,12 @@ caravan.test = Caravan[-train,]
 caravan.train.y = Caravan[train,"Purchase"]
 caravan.test.y = Caravan[-train,"Purchase"]
 ```
-## 11b
+# 11b
 
 Fit a boosting model to the training set with Purchase as the response and the other variables as predictors.
 
-* Use 1,000 trees, and a shrinkage value of 0.01. 
-* Which predictors appear to be the most important?
+- Use 1,000 trees, and a shrinkage value of 0.01. 
+- Which predictors appear to be the most important?
 
 Bernoulli for classification.  Gaussian for regression.
 ```{r}
@@ -52,23 +53,24 @@ boost.caravan=gbm(Purchase ~ ., data=Caravan[train,],
 summary(boost.caravan)
 ```
 
-Predict the Training Data
+## Predict the Training Data
 ```{r}
 train.predict.prob = predict.gbm(boost.caravan, newdata = Caravan[train,], n.trees = 1000)
 train.predict = ifelse(train.predict.prob > 0.5, 1, 0)
 
 ```
-Confusion Matrix
+
+## Confusion Matrix
 ```{r}
 table(caravan.train.y, train.predict)
 ```
-Calculate Training Classification Accuracy
+## Calculate Training Classification Accuracy
 
 ```{r}
 (941+10)/1000
 ```
 
-## 11c Predict the Test Data
+# 11c Predict the Test Data
 
 Use the boosting model to predict the response on the test data. 
 
@@ -76,6 +78,8 @@ Use the boosting model to predict the response on the test data.
 * Form a confusion matrix.
 * What fraction of the people predicted to make a purchase do in fact make one? **90%**
 * How does this compare with the results obtained from applying KNN or logistic regression to this data set?  **In Chapter 4 Lab, KNN and LR produced much worse results.  < 35% accuracy**
+
+## Predict
 
 ```{r}
 test.predict.prob = predict.gbm(boost.caravan, 
@@ -85,12 +89,12 @@ test.predict.prob = predict.gbm(boost.caravan,
 test.predict = ifelse(test.predict.prob > 0.2, 1, 0)
 ```
 
-Confusion Matrix
+## Confusion Matrix
 ```{r}
 table(caravan.test.y, test.predict)
 ```
 
-Calculate Test Classification Accuracy
+## Calculate Test Classification Accuracy
 ```{r}
 (4336 + 31)/4822 
 ```

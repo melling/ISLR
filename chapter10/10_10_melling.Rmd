@@ -1,20 +1,23 @@
 ---
 title: "ISLR Q10.10"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2     
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 library(tidyverse)
 ```
 
 In this problem, you will generate simulated data, and then perform PCA and K-means clustering on the data.
 
-## 10a
+# 10a Generate Sample Data
 
 Generate a simulated data set with 20 observations in each of three classes (i.e. 60 observations total), and 50 variables.
 
@@ -47,7 +50,7 @@ class
 ```
 
 
-## 10b
+# 10b Plot first two principal component score vectors
 
 Perform PCA on the 60 observations and plot the first two principal component score vectors. Use a different color to indicate the observations in each of the three classes. If the three classes appear separated in this plot, then continue on to part (c). If not, then return to part (a) and modify the simulation so that there is greater separation between the three classes. Do not continue to part (c) until the three classes show at least some separation in the first two principal component score vectors.
 
@@ -64,7 +67,7 @@ plot(pr.out$x[,c(1,2)],col=class, pch=19)
 ```
 
 
-## 10c
+# 10c K-means clustering, K = 3.
 
 Perform K-means clustering of the observations with K = 3. How well do the clusters that you obtained in K-means clustering compare to the true class labels?
 
@@ -90,7 +93,7 @@ plot(data, col=km.out$cluster)
 
 ```
 
-## 10d
+# 10d K-means clustering, K = 2
 
 Perform K-means clustering with K = 2. Describe your results
 
@@ -108,7 +111,7 @@ table(km.out$cluster, class)
 41 misclassified (20+1+18+2)
 
 
-## 10e
+# 10e K-means clustering, K = 4
 
 Now perform K-means clustering with K = 4, and describe your results
 
@@ -123,7 +126,7 @@ table(km.out$cluster)
 ```{r}
 table(km.out$cluster, class)
 ```
-## 10f
+# 10f K-means clustering, K = 3; 2 PCA
 
 Now perform K-means clustering with K = 3 on the first two principal component score vectors, rather than on the raw data. That is, perform K-means clustering on the 60 × 2 matrix of which the first column is the first principal component score vector, and the second column is the second principal component score vector. Comment on the results.
 ```{r}
@@ -142,7 +145,7 @@ table(km.out$cluster)
 table(km.out$cluster, class)
 ```
 
-## 10g
+# 10g Scale, K-means clustering, K = 3
 
 Using the scale() function, perform K-means clustering with K = 3 on the data after scaling each variable to have standard deviation one. How do these results compare to those obtained in (b)? Explain.
 
@@ -155,7 +158,7 @@ km.out$cluster
 plot(data, col=km.out$cluster)
 ```
 
-Much more is misclassied!!!
+Much more is misclassified!!!
 ```{r}
 table(km.out$cluster, class)
 ```

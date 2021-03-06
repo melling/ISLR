@@ -1,8 +1,9 @@
 ---
 title: "ISLR Q9.5"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2        
 ---
 
 ```{r setup, include=FALSE}
@@ -13,7 +14,7 @@ p369
 
 We have seen that we can fit an SVM with a non-linear kernel in order to perform classification using a non-linear decision boundary. We will now see that we can also obtain a non-linear decision boundary by performing logistic regression using non-linear transformations of the features.
 
-### 5a
+# 5a
 Generate a data set with n = 500 and p = 2, such that the observations belong to two classes with a quadratic decision boundary between them. For instance, you can do this as follows:
 
 ```{r}
@@ -24,7 +25,7 @@ y=1*(x1^2 - x2^2 > 0) # Multiply by 1 so we don't get a boolean
 ```
 
 
-### 5b Plot
+# 5b Plot
 ```{r}
 #dat = data.frame(x1=x1, x2= x2, y=as.factor(y))
 dat = data.frame(x1=x1, x2= x2, y=y)
@@ -32,7 +33,7 @@ plot(dat$x1, dat$x2, col=(3-y), pch=4)
 ```
 
 
-### 5c Logistic Regression
+# 5c Logistic Regression
 
 Fit a logistic regression model to the data, using X1 and X2 as predictors.
 
@@ -44,7 +45,7 @@ lr.fit = glm(y~., data = dat, family = binomial)
 summary(lr.fit)
 ```
 
-### 5d Plot
+# 5d Plot
 
 #### Predict Training Data
 ```{r}
@@ -65,7 +66,7 @@ table(preds, dat[,"y"])
 (28+109)/250 # 54% accuracy
 (39+169)/500 # 54% accuracy
 ```
-#### Plot
+## Plot
 
 Note, 3 - preds converts to 3,2 for colors
 
@@ -80,7 +81,7 @@ dat.pos = dat[preds==1,]
 }
 ```
 
-### Prince Solution
+## Prince Solution
 
 Prince used all the data.  Breaking out the training data gave us very different results.
 
@@ -95,7 +96,7 @@ plot(data.pos$x1, data.pos$x2, col = "blue", xlab = "X1", ylab = "X2", pch = "+"
 points(data.neg$x1, data.neg$x2, col = "red", pch = 4)
 ```
 
-### 5e
+# 5e
 
 Now fit a logistic regression model to the data using non-linear functions of X1 and X2 as predictors (e.g. X12, X1 ×X2, log(X2), and so forth)
 
@@ -108,7 +109,7 @@ lr.fit.poly = glm(y~poly(x1,2) + poly(x2,2), data = dat, family = binomial)
 #summary(lr.fit.poly)
 ```
 
-### 5f
+# 5f
 
 Apply this model to the training data in order to obtain a predicted class label for each training observation. Plot the observations, colored according to the predicted class labels. The decision boundary should be obviously non-linear. If it is not, then repeat (a)-(e) until you come up with an example in which the predicted class labels are obviously non-linear.
 
@@ -123,7 +124,7 @@ dat.pos = dat[lm.poly.pred==1,]
 ```
 
 
-### 5g
+# 5g
 
 Fit a support vector classifier to the data with X1 and X2 as predictors. Obtain a class prediction for each training observa- tion. Plot the observations, colored according to the predicted class labels.
 
@@ -144,7 +145,7 @@ dat.pos = dat[svm.pred==1,]
 ```
 
 
-### 5h
+# 5h
 
 Fit a SVM using a non-linear kernel to the data. Obtain a class prediction for each training observation. Plot the observations, colored according to the predicted class labels.
 
