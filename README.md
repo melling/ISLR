@@ -1,7 +1,7 @@
 # ISLR
 Introduction to Statistical Learning: http://www.StatLearning.com
 
-The book is available on the author's site above. 
+The PDF book is available for free on the author's site above. 
 
 
 Working through the book and the labs.
