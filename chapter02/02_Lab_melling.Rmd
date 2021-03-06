@@ -1,8 +1,9 @@
 ---
 title: "ISLR Lab 02 - Introduction to R"
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    toc: true
+    depth: 2    
 ---
 
 ```{r setup, include=FALSE}
@@ -16,10 +17,10 @@ library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
 
 p42
 
-## Basic Commands
+# Basic Commands
 
 ```{r}
-getwd()
+#getwd()
 #setwd("../chapter02/")
 # http://faculty.marshall.usc.edu/gareth-james/ISL/bios.html
 
@@ -32,13 +33,13 @@ length(x)
 length(y)
 ```
 
-### List and Remove objects
+## List and Remove objects
 ```{r}
 ls() # List all objects
 rm(list = ls()) # Remove all objects
 ```
 
-### Matrix
+## Matrix
 ```{r}
 #?matrix
 x = matrix(data=c(1,2,3,4), nrow = 2, ncol = 2)
@@ -50,9 +51,13 @@ x
 matrix(c(1,2,3,4), 2, 2, byrow = TRUE)
 ```
 
+# Square Root
 ```{r}
 sqrt(x)
+```
 
+# Correlation
+```{r}
 x = rnorm(50)
 y = x + rnorm(50, mean = 50, sd = .1)
 y
@@ -73,8 +78,7 @@ sd(y)
 ```
 
 
-
-## Graphics
+# Graphics
 ```{r}
 x=rnorm(100)
 y=rnorm(100)
@@ -82,7 +86,7 @@ y=rnorm(100)
 plot(x,y, xlab = "x-axis", ylab = "y-axis", main = "Title")
 ```
 
-### Save chart as PDF
+## Save chart as PDF
 ```{r}
 pdf("Figure.pdf") # Filename
 plot(x,y,col="green")
@@ -90,7 +94,7 @@ dev.off()
 ```
 
 
-### Sequences
+## Sequences
 
 ```{r}
 x = seq(1,10)
@@ -101,7 +105,7 @@ x = seq(-pi,pi, length = 50)
 x
 ```
 
-### Contour Plot
+## Contour Plot
 
 ```{r}
 y=x
@@ -113,13 +117,13 @@ fa = (f-t(f))/2
 contour(x,y,fa,nlevels = 15)
 ```
 
-### Image() - heatmap
+## Image() - heatmap
 
 ```{r}
 image(x,y,fa)
 ```
 
-### Perspective Plots
+## Perspective Plots
 
 ```{r}
 persp(x,y,fa)
@@ -129,7 +133,7 @@ persp(x,y,fa,theta = 30, phi = 70)
 persp(x,y,fa,theta = 30, phi = 40)
 ```
 
-## Indexing Data
+# Indexing Data
 
 p47
 
@@ -144,7 +148,7 @@ A[1:2,]
 A[1,]
 ```
 
-### Negative sign excludes
+## Negative sign excludes
 
 ```{r}
 A[-c(1,3),] # Exclude rows 1,3
@@ -153,7 +157,7 @@ A[-c(1,3),-c(1,3,4)] # Exclude rows 1,3 and columns 1,3,4
 dim(A)
 ```
 
-## Loading Data
+# Loading Data
 
 ```{r}
 # Loads it incorrectly
@@ -165,7 +169,7 @@ Auto = read.table("../input/Auto.data", header = T, na.strings = "?")
 
 ```
 
-### Load csv
+## Load csv
 
 ```{r}
 Auto = read.csv("../input/Auto.csv", header = T, na.strings = "?", stringsAsFactors = TRUE)
@@ -178,7 +182,7 @@ Auto[1:4,] # First four rows
 names(Auto) # column names
 ```
 
-## Additional Graphical and Numerical Summaries
+# Additional Graphical and Numerical Summaries
 ```{r}
 library(ISLR)
 plot(Auto$cylinders, Auto$mpg, xlim=c(0,10), ylim=c(0,100))
@@ -187,7 +191,7 @@ attach(Auto) # Now Auto dataframe is implied
 plot(Auto$cylinders, Auto$mpg, xlim=c(0,10), ylim=c(0,100))
 ```
 
-## Boxplot
+# Boxplot
 
 ```{r}
 cylinders = as.factor(Auto$cylinders)
@@ -205,33 +209,30 @@ mpg
 ```
 
 
-## histogram
+# histogram
 ```{r}
 hist(mpg)
 hist(mpg, col=2) # 2 = red
 hist(mpg, col=2, breaks = 15)
 ```
-## pairs() scatterplot
+# pairs() scatterplot
 ```{r}
 pairs(Auto) # ???
 pairs(~ mpg + displacement + horsepower + weight + acceleration, Auto)
 ```
 
-```{r}
-
-```
-### Make graph interactive
+# Make graph interactive
 ```{r}
 {plot(horsepower, mpg)
 identify(horsepower, mpg, name)
 }
 ```
-### Summarize Entire Table
+# Summarize Entire Table
 ```{r}
 summary(Auto) 
 ```
 
-### Summarize One value
+# Summarize One value
 ```{r}
 summary(mpg) # One value
 ```

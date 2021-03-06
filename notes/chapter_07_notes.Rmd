@@ -1,10 +1,91 @@
 ---
 title: "ISLR Chapter 07 Notes - Moving Beyond Linearity"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2    
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Topics Covered
+p265 (g280)
+
+# 7.1 Polynomial Regression
+
+p266 (281)
+
+*Polynomial regression* extends the linear model by adding extra predictors, obtained by raising each of the original predictors to a power. For example, a cubic regression uses three variables, X, X2, and X3, as predictors. This approach provides a simple way to provide a non- linear fit to data.
+
+## 7.2 Step Functions
+
+p268 (283)
+
+**Step functions** cut the range of a variable into K distinct regions in order to produce a qualitative variable. This has the effect of fitting a piecewise constant function
+
+## 7.3 Basis Functions
+
+p270 (g285)
+
+## 7.4 Regression Splines
+
+**Regression splines** are more flexible than polynomials and step functions, and in fact are an extension of the two. They involve di- viding the range of X into K distinct regions. Within each region, a polynomial function is fit to the data. However, these polynomials are constrained so that they join smoothly at the region boundaries, or knots. Provided that the interval is divided into enough regions, this can produce an extremely flexible fit.
+
+Unfortunately, splines can have high variance at the outer range of the predictors p274
+
+### 7.4.4 Choosing the Number and Locations of the Knots
+
+### 7.4.5 Comparison to Polynomial Regression
+
+p276 (g291)
+
+## 7.5 Smoothing Splines
+
+p277 (g292)
+
+**Smoothing splines** are similar to regression splines, but arise in a slightly different situation. Smoothing splines result from minimizing a residual sum of squares criterion subject to a smoothness penalty.
+
+## 7.6 Local Regression
+
+p280 (g295)
+
+**Local regression** is similar to splines, but differs in an important way. The regions are allowed to overlap, and indeed they do so in a very smooth way.
+
+## 7.7 Generalized Additive Models
+
+p282 (g297)
+
+**Generalized additive models** allow us to extend the methods above to deal with multiple predictors
+
+### Pros and Cons of GAMs
+
+p285 (g300)
+
+## 7.7.2 GAMs for Classification Problems
+
+# Labs
+
+## 7.8 Lab: Non-linear Modeling p287 (g302)
+
+## Lab Splines p293 (g308)
+
+## Lab GAMs p294 (g309)
+
+# Exercises p297 (g312)
+
+## Q2 p298 (g313)
+
+See equation 7.11 on p277
+
+RSS part is the loss function. The $\lambda g(x)$ part is the penalty term.
+
+$\lambda = 0$ then the penalty has no effect. RSS.
+
+The larger the $\lambda$ the smoother it will be. $\lambda -> \infty$, g will be perfectly smooth.
+
+# References
+
+-   <https://rpubs.com/lmorgan95/ISLR_CH7_Solutions>
+-   <https://rstudio-pubs-static.s3.amazonaws.com/65563_d6411480e07b4aaaad9b484b66210497.html>
