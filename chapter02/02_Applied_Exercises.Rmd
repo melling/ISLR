@@ -106,16 +106,11 @@ pairs(~ PhD + F.Undergrad + P.Undergrad , college)
 
 vi. Continue exploring...
 
-## Question 9: Auto
+# Question 9: Auto
 
-a. Which predictors are quantitative, and which are qualitative.
+## 9a. Which predictors are quantitative, and which are qualitative.
 
-b. range of each quantitative predictor
-
-```{r}
-#View(Auto)
-```
-
+## 9b. range of each quantitative predictor
 
 ```{r, range_examples}
 # attach(Auto)
