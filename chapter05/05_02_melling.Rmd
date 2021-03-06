@@ -9,6 +9,45 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+2. We will now derive the probability that a given observation is part of a bootstrap sample. Suppose that we obtain a bootstrap sample from a set of n observations.
+
+(a) What is the probability that the first bootstrap observation is not the jth observation from the original sample? Justify your answer.
+
+(b) What is the probability that the second bootstrap observation is not the jth observation from the original sample?
+
+(c) Argue that the probability that the jth observation is not in the bootstrap sample is (1 − 1/n)n.
+
+(d) When n = 5, what is the probability that the jth observation is in the bootstrap sample?
+
+(e) When n = 100, what is the probability that the jth observation is in the bootstrap sample?
+    
+198 5.
+Resampling Methods
+
+(f) When n = 10, 000, what is the probability that the jth observa- tion is in the bootstrap sample?
+
+(g) Create a plot that displays, for each integer value of n from 1 to 100,000, the probability that the jth observation is in the bootstrap sample. Comment on what you observe.
+
+(h) We will now investigate numerically the probability that a boot- strap sample of size n = 100 contains the jth observation. Here j = 4. We repeatedly create bootstrap samples, and each time we record whether or not the fourth observation is contained in the bootstrap sample.
+
+```
+> store=rep(NA, 10000) > for(i in 1:10000){
+store[i]=sum(sample(1:100, rep=TRUE)==4)>0 }
+> mean(store)
+
+```
+
+Comment on the results obtained.
+
+3. We now review k-fold cross-validation.
+(a) Explain how k-fold cross-validation is implemented.
+(b) What are the advantages and disadvantages of k-fold cross-
+validation relative to:
+
+i. The validation set approach? 
+
+ii. LOOCV?
+
 # Did not understand question
 
 # https://rpubs.com/lmorgan95/ISLR_CH5_Solutions

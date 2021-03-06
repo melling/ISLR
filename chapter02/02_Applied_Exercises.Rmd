@@ -1,9 +1,13 @@
 ---
 title: "ISLR Chapter 2 Applied Exercises"
 output:
+<<<<<<< HEAD
   html_notebook:
     toc: true
     depth: 2    
+=======
+  html_notebook: default
+>>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 ---
 
 ```{r setup, include=FALSE}
@@ -18,9 +22,16 @@ knitr::opts_chunk$set(echo = TRUE)
 getwd()
 ```
 
+<<<<<<< HEAD
 # Q8 
 p54
 
+=======
+# Question 8 
+
+p54
+
+>>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 ## 8a
 ```{r}
 college = read.csv("College.csv")
@@ -39,7 +50,7 @@ fix function
 rownames(college)=college[,1] ### Set rownames equal to first column
 ```
 
-### Remove first column
+## Remove first column
 
 Remove column 1 because we assigned to rownames.
 ```{r}
@@ -105,16 +116,19 @@ pairs(~ PhD + F.Undergrad + P.Undergrad , college)
 
 vi. Continue exploring...
 
+<<<<<<< HEAD
 # Q9: Auto
 
 a. Which predictors are quantitative, and which are qualitative.
 
 b. range of each quantitative predictor
+=======
+# Question 9: Auto
+>>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 
-```{r}
-#View(Auto)
-```
+## 9a. Which predictors are quantitative, and which are qualitative.
 
+## 9b. range of each quantitative predictor
 
 ```{r, range_examples}
 # attach(Auto)
@@ -159,7 +173,11 @@ sd(acceleration)
 sd(year)
 ```
 
+<<<<<<< HEAD
 # Q10
+=======
+# 10
+>>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 
 ```{r, q10}
 library(MASS)
@@ -193,7 +211,7 @@ pairs(~ crim + age, Boston)
 pairs(~ crim + age + zn, Boston)
 ```
 
-### 10c Answer
+## 10c Answer
 
 Age of the housing, Most likely the older the neighborhood, the more experience/ lower income it has with crime
 

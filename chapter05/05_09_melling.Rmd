@@ -11,6 +11,28 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+9. We will now consider the Boston housing data set, from the MASS library.
+
+(a) Based on this data set, provide an estimate for the population mean of medv. Call this estimate μˆ.
+
+(b) Provide an estimate of the standard error of μˆ. Interpret this result.
+Hint: We can compute the standard error of the sample mean by dividing the sample standard deviation by the square root of the number of observations.
+
+(c) Now estimate the standard error of μˆ using the bootstrap. How does this compare to your answer from (b)?
+
+(d) Based on your bootstrap estimate from (c), provide a 95 % con- fidence interval for the mean of medv. Compare it to the results obtained using t.test(Boston$medv).
+Hint: You can approximate a 95 % confidence interval using the formula [μˆ − 2SE(μˆ), μˆ + 2SE(μˆ)].
+
+(e) Based on this data set, provide an estimate, μˆmed, for the median value of medv in the population.
+
+(f) Wenowwouldliketoestimatethestandarderrorofμˆmed.Unfor- tunately, there is no simple formula for computing the standard error of the median. Instead, estimate the standard error of the median using the bootstrap. Comment on your findings.
+
+(g) Based on this data set, provide an estimate for the tenth per- centile of medv in Boston suburbs. Call this quantity μˆ0.1. (You can use the quantile() function.)
+
+(h) Use the bootstrap to estimate the standard error of μˆ0.1. Com- ment on your findings.
+
+***
+
 ```{r message=FALSE, warning=FALSE}
 library(MASS)
 library(boot)
@@ -22,8 +44,6 @@ names(Boston)
 summary(Boston)
 dim(Boston)
 ```
-
-
 
 # 9a
 

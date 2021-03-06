@@ -11,6 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+In this problem, you will develop a model to predict whether a given car gets high or low gas mileage based on the Auto data set.
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -27,6 +28,10 @@ names(Auto)
 
 # 11a
 
+(a) Create a binary variable, mpg01, that contains a 1 if mpg contains a value above its median, and a 0 if mpg contains a value below its median. You can compute the median using the median() function. Note you may find it helpful to use the data.frame() function to create a single data set containing both mpg01 and the other Auto variables.
+
+***
+
 Creating a mpg01 predictor that returns 1 if greater than median of mpg
 
 Creating a vector that returns 1 if >= median(Auto$mpg) else 0
@@ -36,7 +41,6 @@ mpg01[Auto$mpg >= median(Auto$mpg)] = 1
 
 ```
 
-
 ## Creating a new dataframe combining Auto and mpg01
 ```{r}
 new.auto = data.frame(Auto, mpg01)
@@ -44,6 +48,10 @@ new.auto = data.frame(Auto, mpg01)
 
 
 # 11b
+
+(b) Explore the data graphically in order to investigate the associ- ation between mpg01 and the other features. Which of the other features seem most likely to be useful in predicting mpg01? Scat- terplots and boxplots may be useful tools to answer this ques- tion. Describe your findings
+
+***
 
 Graphically viewing the correlation of mpg01 with other predictors
 pairs(new.auto)
@@ -64,6 +72,10 @@ boxplot(weight~mpg01,data=new.auto, xlab="MPG > Median", ylab="Weight")
 Comments: Based on the bosplots, acceleration might be hard to predict if mpg is higher than median. The values of acceleration are too close to tell apart.
 
 # 11c
+
+(c) Split the data into a training set and a test set.
+
+***
 
 Creating sample size for train data (80% of the data)
 ```{r}
@@ -86,6 +98,10 @@ y.test = test.data$mpg01
 
 
 # 11d
+
+(d) Perform LDA on the training data in order to predict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+***
 
 ## LDA Model
 ```{r}
@@ -113,6 +129,10 @@ mean(lda.class != y.test) # test error rate: 12.7%
 
 # 11e
 
+(e) Perform QDA on the training data in order to predict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+***
+
 ## QDA Model
 ```{r}
 qda.fit = qda(mpg01 ~ displacement + horsepower + weight, data=new.auto, subset = train)
@@ -137,6 +157,10 @@ mean(qda.class != y.test) # test-error rate: 10.1%
 ```
 
 # 11f
+
+(f) Perform logistic regression on the training data in order to pre- dict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+***
 
 ## Fitting data using LR
 ```{r}
@@ -167,6 +191,10 @@ mean(lr.fit.pred != y.test) # test-error rate: 6.33%
 
 
 # 11g
+
+(g) Perform KNN on the training data, with several values of K, in order to predict mpg01. Use only the variables that seemed most associated with mpg01 in (b). What test errors do you obtain? Which value of K seems to perform the best on this data set?
+
+***
 
 ## Getting data ready for KNN
 

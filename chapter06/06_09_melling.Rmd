@@ -17,6 +17,26 @@ library(ISLR)
 
 p263
 
+ In this exercise, we will predict the number of applications received using the other variables in the College data set.
+
+(a) Split the data set into a training set and a test set.
+
+(b) Fit a linear model using least squares on the training set, and
+report the test error obtained.
+
+(c) Fit a ridge regression model on the training set, with λ chosen
+by cross-validation. Report the test error obtained.
+
+(d) Fit a lasso model on the training set, with λ chosen by cross- validation. Report the test error obtained, along with the num-
+ber of non-zero coefficient estimates.
+
+(e) Fit a PCR model on the training set, with M chosen by cross- validation. Report the test error obtained, along with the value of M selected by cross-validation.
+
+(f) Fit a PLS model on the training set, with M chosen by cross- validation. Report the test error obtained, along with the value of M selected by cross-validation.
+
+(g) Comment on the results obtained. How accurately can we pre- dict the number of college applications received? Is there much difference among the test errors resulting from these five ap- proaches?
+
+***
 
 # 9a
 

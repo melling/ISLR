@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q4.9"
+title: "ISLR Q4.9 - Odds"
 output:
   html_document: default
 ---
@@ -11,8 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p170
 
+This problem has to do with odds.
 
-## 9a
+# 9a
+
+(a) On average, what fraction of people with an odds of 0.37 of
+defaulting on their credit card payment will in fact default?
+
 ```
 Given .37 odds
 
@@ -29,7 +34,9 @@ p = .37/1.37
 p # = .27 # 27%
 ```
 
-## 9b
+# 9b
+
+(b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will de- fault?
 
 Given 16%
 ```{r}
