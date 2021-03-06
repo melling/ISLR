@@ -11,6 +11,25 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+8. In this exercise, we will generate simulated data, and will then use this data to perform best subset selection.
+
+(a) Use the rnorm() function to generate a predictor X of length n = 100, as well as a noise vector ε of length n = 100.
+
+(b) Generate a response vector Y of length n = 100 according to the model
+Y = β0 +β1X +β2X2 +β3X3 +ε, where β0, β1, β2, and β3 are constants of your choice.
+
+(c) Use the regsubsets() function to perform best subset selection in order to choose the best model containing the predictors X, X2, . . . , X10. What is the best model obtained according to Cp, BIC, and adjusted R2? Show some plots to provide evidence for your answer, and report the coefficients of the best model ob- tained. Note you will need to use the data.frame() function to create a single data set containing both X and Y .
+2b setting.
+
+(d) Repeat (c), using forward stepwise selection and also using back- wards stepwise selection. How does your answer compare to the results in (c)?
+
+(e) Now fit a lasso model to the simulated data, again using X,X2, . . . , X 10 as predictors. Use cross-validation to select the optimal value of λ. Create plots of the cross-validation error as a function of λ. Report the resulting coefficient estimates, and discuss the results obtained.
+
+(f) Now generate a response vector Y according to the model Y = β0 + β7X7 + ε,
+and perform best subset selection and the lasso. Discuss the results obtained
+
+***
+
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
