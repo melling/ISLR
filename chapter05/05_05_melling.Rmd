@@ -1,0 +1,16 @@
+---
+title: "ISLR Q5.5"
+output:
+  html_document: default
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+library(ISLR)
+
+attach(Default)

@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.12"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2      
 ---
 [ISLR Home](../index.html)
 
@@ -30,7 +32,8 @@ Power()
 
 
 
-## 12b
+# 12b
+
 ```{r}
 Power2 = function(x, a) {
   
@@ -53,7 +56,7 @@ Power2(131,3); 131^3
 ```
 
 
-## 12d
+# 12d
 
 ```{r}
 Power3_old = function(x, a) {
@@ -76,7 +79,7 @@ Power3_old(1:10, 2)
 ```
 
 
-## 12e
+# 12e
 
 ```{r}
 x = 1:10
@@ -89,7 +92,7 @@ Plot log()
 plot(x,y, log = "xy")
 ```
 
-## 12f
+# 12f
 
 ```{r}
 PlotPower = function(x, a) {

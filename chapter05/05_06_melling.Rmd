@@ -1,0 +1,28 @@
+---
+title: "ISLR Q5.6"
+output:
+  html_document:
+    toc: true
+    depth: 2      
+---
+[ISLR Home](../index.html)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(ISLR)
+```
+
+
+# 6a
+
+```{r}
+lr.fit = glm(default ~ income + balance, data=Default, family=binomial)
+summary(lr.fit)
+```
+
+
+
+# 6b boot

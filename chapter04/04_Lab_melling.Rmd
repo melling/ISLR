@@ -13,13 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p155
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
 
 
 
-### Stock Market Data
+# Stock Market Data
 
 ```{r}
 names(Smarket)
@@ -34,7 +34,7 @@ attach(Smarket)
 plot(Smarket$Volume)
 ```
 
-### Logistic Regression
+# Logistic Regression
 
 p156
 
@@ -65,7 +65,7 @@ glm.probs[1:6]
 contrasts(Smarket$Direction)
 ```
 
-### Confusion Matrix
+## Confusion Matrix
 
 ```{r}
 #glm.probs
@@ -77,7 +77,7 @@ summary(glm.pred)
 table(glm.pred, Smarket$Direction)
 ```
 
-# Determine how many correctly and incorrectly classified
+## Determine how many correctly and incorrectly classified
 ```{r}
 (507 + 145) / 1250 # Correct 52.16%
 ```
@@ -102,7 +102,7 @@ Smarket.2005[1:6,]
 head(Smarket.2005, 4)
 ```
 
-### Fit Logistic Regression Model ####
+# Logistic Regression Model
 
 ```{r}
 glm.fit2 = glm(Direction ~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
@@ -124,7 +124,7 @@ mean(glm.pred == Direction.2005)
 mean(glm.pred != Direction.2005) # Compute and test error rate
 ```
 
-### Remove Predictors
+## Remove Predictors
 
 remove +Lag3+Lag4+Lag5+Volume
 
@@ -151,7 +151,8 @@ mean(glm.pred == Direction.2005)
 predict(glm.fit1, newdata = data.frame(Lag1=c(1.2,1.5), Lag2=c(1.1,-0.8)), type = "response")
 ```
 
-## Linear Discriminant Analysis
+# Linear Discriminant Analysis
+
 p161
 
 ```{r}
@@ -188,7 +189,7 @@ sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 # 0 !!!
 ```
 
-## Quadratic Discriminant Analysis
+# Quadratic Discriminant Analysis
 
 p163
 
@@ -212,7 +213,8 @@ table(qda.class,Direction.2005)
 mean(qda.class == Direction.2005) # Accurate 60% of the time
 ```
 
-## K-Nearest Neighbors
+# K-Nearest Neighbors
+
 p163
 
 data(package="ISLR")
@@ -267,5 +269,5 @@ mean(knn.pred == Direction.2005)
 
 detach(Smarket) # Cleanup so we don't have bad references to wrong table
 
-### QDA provides best results so far with an accuracy of 60%
+# QDA provides best results so far with an accuracy of 60%
 

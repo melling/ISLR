@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.10"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2      
 ---
 [ISLR Home](../index.html)
 
@@ -16,20 +18,19 @@ library(tidyverse)
 ```
 
 
-## 10a
+# 10a Weekly Data Summary
 ```{r}
 summary(Weekly)
 ```
 
-### Correlation Pairs
+## Correlation Pairs
 
 ```{r}
 pairs(Weekly)
 ```
 
+# 10b Logistic Regression
 
-
-## 10b: Logistic Regression
 ```{r}
 names(Weekly)
 glm.fit1 = glm(Direction ~ Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data = Weekly, family = binomial)  # binomial for logistic regression
@@ -37,12 +38,12 @@ summary(glm.fit1)
 ```
 
 
-### Answer
+## Answer
 
 Lag2, other predictors appear statistically significant: All Pr(>|z|) > 0.05
 
 
-## 10c: Confusion Matrix
+# 10c Confusion Matrix
 
 ```{r}
 glm.probs = predict(glm.fit1, type = "response")
@@ -51,7 +52,7 @@ summary(Weekly$Direction)
 ```
 
 
-### Confusion Matrix
+## Confusion Matrix
 
 Create prediction table
 ```{r}
@@ -64,8 +65,7 @@ summary(glm.pred)
 ```
 
 
-
-### Produce a confusion matrix
+## Produce a confusion matrix
 
 Diagonals indicate correct predictions. Off-diagonals indicate incorrect predictions.
 ```{r}
@@ -93,7 +93,7 @@ mean(glm.pred != Weekly$Direction) ## Incorrect
 
 ### Saying Up 430 times when it shouldn't?
 
-## 10d
+# 10d
 
 ```{r}
 summary(Weekly$Year)
@@ -120,7 +120,7 @@ mean(glm.pred != Direction.2009) # Compute and test error rate
 ```
 
 
-## 10e: LDA
+# 10e LDA
 
 ### Linear Discriminant Analysis ####
 ```{r message=FALSE, warning=FALSE}
@@ -133,6 +133,10 @@ lda.fit1 = lda(Direction ~ Lag2,
                subset = train)  # train boolean vector
 
 lda.fit1
+```
+
+## Model Summary
+```{r}
 summary(lda.fit1)    
 ```
 
@@ -151,7 +155,8 @@ lda.class = lda.pred$class
 ```
 
 
-### Specificity vs Sensitivity
+## Specificity vs Sensitivity
+
 ```{r}
 table(lda.class, Direction.2009) # Confusion Matrix Predicted vs Truth
 Direction.2009
@@ -173,9 +178,9 @@ sum(lda.pred$posterior[,1] >.9) # Want only over 90% posterior probability
 ```
 
 
-## 10f: QDA
+# 10f: QDA
 
-### Step 1: Train the Model
+## Step 1: Train the Model
 
 ```{r}
 qda.fit = qda(Direction ~ Lag2,
@@ -186,12 +191,12 @@ summary(qda.fit)
 ```
 
 
-### Step 2: Use Trained model to predict Test Data
+## Step 2: Use Trained model to predict Test Data
 ```{r}
 qda.pred = predict(qda.fit, test_data_weekly.2009)
 ```
 
-### Step 3: Evaluate the fit of our Test Data
+## Step 3: Evaluate the fit of our Test Data
 
 ```{r}
 qda.class = qda.pred$class
@@ -202,9 +207,9 @@ mean(qda.class == Direction.2009) # Accurate 58% of the time
 
 
 
-## 10g: KNN
+# 10g: KNN
 
-### K-Nearest Neighbors
+## K-Nearest Neighbors
 
 ```{r}
 library(class)
@@ -233,6 +238,7 @@ dim(test.X)
 
 ```
 
+## KNN Model
 ```{r}
 knn.pred = knn(train.X, test.X, train.Direction, k=1)
 table(knn.pred, Direction.2009)
@@ -241,11 +247,11 @@ mean(knn.pred == Direction.2009) # 50% correct
 ```
 
 
-## 10h
+# 10h
 
 Which of these methods appears to provide the best results on this data?
 
 LDA accurate 62% of the time
 
-## 10i
+# 10i
 

@@ -1,7 +1,9 @@
 ---
 title: "ISLR Lab 04 - Caravan Insurance Data"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2      
 ---
 [ISLR Home](../index.html)
 
@@ -11,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p165
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
 
@@ -29,8 +31,9 @@ summary(Caravan$Purchase)
 summary(Caravan[,1])
 ```
 
-# Now every column of standardized.X has a standard deviation of one and a mean of zero.
+Now every column of standardized.X has a standard deviation of one and a mean of zero.
 
+## Scale Data
 ```{r}
 standardized.X=scale(Caravan [,-86]) # Produces matrix for all columns
 summary(standardized.X[,1])
@@ -45,7 +48,7 @@ var(standardized.X[,2])
 mean(standardized.X[,1])
 ```
 
-#
+## Split Data into Train/Test
 ```{r}
 test=1:1000
 
@@ -57,7 +60,7 @@ train.Y=Caravan$Purchase [-test]
 test.Y=Caravan$Purchase [test]
 ```
 
-## Predict
+# KNN Model
 
 ```{r}
 library(class) # knn
@@ -78,7 +81,7 @@ table(knn.pred,test.Y) # Confusion Matrix
 9/(68+9) # Success rate = 11.7%
 ```
 
-## K=3 ####
+## K=3
 
 ```{r}
 knn.pred=knn(train.X, test.X, train.Y, k=3)
@@ -87,7 +90,7 @@ table(knn.pred,test.Y) # Confusion Matrix
 5/(21 + 5) # Success rate = 19.2%
 ```
 
-## K=5 ####
+## K=5
 
 ```{r}
 knn.pred=knn(train.X, test.X, train.Y, k=5)
@@ -96,7 +99,7 @@ table(knn.pred,test.Y) # Confusion Matrix
 4/(11+4) # Success rate = 26%
 ```
 
-## Fit a logistic regression model to the data
+# Logistic Regression Model
 
 ### 1. Fit
 
@@ -104,13 +107,13 @@ table(knn.pred,test.Y) # Confusion Matrix
 glm.fits=glm(Purchase~.,data=Caravan ,family=binomial, subset=-test)
 ```
 
-### 2. Predict
+## 2. Predict
 
 ```{r}
 glm.probs=predict(glm.fits,Caravan[test,], type="response")
 ```
 
-### 3. Evaluate
+## 3. Evaluate
 
 ```{r}
 glm.pred=rep("No",1000) # The 1000 in test
