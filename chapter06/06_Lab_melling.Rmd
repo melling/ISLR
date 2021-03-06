@@ -1,13 +1,14 @@
 ---
-title: "ISRL Chapter 6 Labs"
+title: "ISLR Chapter 6 Lab"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2    
 ---
-# Chapter 6 Lab
-# p244
 
-## Best Subset Selection 
+p244
+
+# Best Subset Selection 
 
 ```{r}
 library(ISLR)
@@ -73,7 +74,7 @@ plot(regfit.full,scale="bic")
 coef(regfit.full ,6)
 ```
 
-## Forward and Backward Stepwise Selection
+# Forward and Backward Stepwise Selection
 
 ```{r}
 regfit.fwd=regsubsets(Salary~., data=Hitters,nvmax=19, method ="forward")
@@ -88,7 +89,7 @@ coef(regfit.fwd ,7)
 coef(regfit.bwd ,7)
 ```
 
-## Choosing Among Models Using the Validation Set Approach and Cross-Validation
+# Choosing Among Models Using the Validation Set Approach and Cross-Validation
 
 ```{r}
 set.seed(1)
