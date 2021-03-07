@@ -9,14 +9,21 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 p170
 
 This problem has to do with odds.
 
-# 9a
-
 (a) On average, what fraction of people with an odds of 0.37 of
 defaulting on their credit card payment will in fact default?
+
+(b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will de- fault?
+
+
+***
+
+# 9a
 
 ```
 Given .37 odds
@@ -35,8 +42,6 @@ p # = .27 # 27%
 ```
 
 # 9b
-
-(b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will de- fault?
 
 Given 16%
 ```{r}

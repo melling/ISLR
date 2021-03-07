@@ -5,15 +5,20 @@ output:
     toc: true
     depth: 2    
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
+
 p299
 
-# References
+Fit some of the non-linear models investigated in this chapter to the Auto data set. Is there evidence for non-linear relationships in this data set? Create some informative plots to justify your answer.
 
-- https://www.datanovia.com/en/blog/how-to-plot-a-smooth-line-using-ggplot2/
+***
+
 
 ```{r include=FALSE}
 library(tidyverse) 
@@ -110,3 +115,6 @@ gam.fit = gam(mpg ~ cylinders, data = Auto)
 summary(gam.fit)
 ```
 
+# References
+
+- https://www.datanovia.com/en/blog/how-to-plot-a-smooth-line-using-ggplot2/

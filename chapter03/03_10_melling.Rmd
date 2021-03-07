@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.10"
+title: "ISLR Q3.10 - Multiple Regression/Carseats"
 output:
   html_document:
     toc: true
@@ -11,32 +11,45 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 This question should be answered using the Carseats data set.
 
+(a) Fit a multiple regression model to predict Sales using Price, Urban, and US
+
+(b) Provide an interpretation of each coefficient in the model. Be
+careful - some of the variables in the model are qualitative!
+
+(c) Write out the model in equation form, being careful to handle the qualitative variables properly
+
+(d) For which of the predictors can you reject the null hypothesis $H_0 :\beta_j =0$?
+
+(e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome
+
+(f) How well do the models in (a) and (e) fit the data?
+
+(g) Using the model from (e), obtain 95% confidence intervals for the coefficient(s).
+
+(h) Is there evidence of outliers or high leverage observations in the model from (e)?
+
+***
+
 ```{r message=FALSE, warning=FALSE}
-library(MASS)
+#library(MASS)
 library(ISLR)
 ```
 
 
 # 10a $Sales = \beta_0 + \beta_1 Price + \beta_2 Urban + \beta_3 US$
 
-(a) Fit a multiple regression model to predict Sales using Price, Urban, and US
-
-***
 
 ```{r}
 names(Carseats)
 carseat.fit = lm(Sales ~ Price + Urban + US, data=Carseats)
 ```
 
-
 # 10b Interpret Coefficients
 
-(b) Provide an interpretation of each coefficient in the model. Be
-careful - some of the variables in the model are qualitative!
-
-***
 ## Model Summary
 ```{r}
 summary(carseat.fit)
@@ -58,26 +71,14 @@ Consider removing from model
 
 # 10c Model with Qualitative Variables
 
-(c) Write out the model in equation form, being careful to handle the qualitative variables properly
-
-***
-
 Sales = 13.04 - 0.05 * Price + 1.2 * US
 1 if US = Yes ; 0 if US = No
 
 # 10d Reject Predictors/Features
 
-(d) For which of the predictors can you reject the null hypothesis $H_0 :\beta_j =0$?
-
-***
-
 We can reject the null hypothesis for Price and USYes because its p-value is highly significant (<<.05)
 
 # 10e Smaller Model
-
-(e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome
-
-***
 
 ## Model Summary
 ```{r}
@@ -93,25 +94,13 @@ plot(carseat.fit2)
 
 # 10f Compare Models
 
-(f) How well do the models in (a) and (e) fit the data?
-
-***
-
 The models for both (a) and (e) do NOT fit the data well. The $R^2$ statistic for both models show that the model ONLY explains 23% of the variance.  
 
 # 10g 95% Confidence Interval
 
-(g) Using the model from (e), obtain 95% confidence intervals for the coefficient(s).
-
-***
-
 Getting the confidence intervals for each coefficient confint(carseat.fit2)
 
 # 10h Outliers and High Leverage
-
-(h) Is there evidence of outliers or high leverage observations in the model from (e)?
-
-***
 
 ## Diagnostic Plots
 ```{r}

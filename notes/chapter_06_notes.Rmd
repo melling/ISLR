@@ -1,7 +1,11 @@
 ---
 title: "ISLR Chapter 06 Notes - Linear Model Selection and Regularization"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2   
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -23,20 +27,20 @@ p203
   - Partial Least Squares
   
   
-## Choosing the Optimal Model
+# Choosing the Optimal Model
 
-## Shrinkage Methods
+# Shrinkage Methods
 
-### Ridge Regression
+## Ridge Regression
 
 Why Does Ridge Regression Improve Over Least Squares? p217
 
-## Bayesian Interpretation for Ridge Regression and the Lasso
+# Bayesian Interpretation for Ridge Regression and the Lasso
 
 p226
 
-## Selecting the Tuning Parameter
+# Selecting the Tuning Parameter
 
-## Dimension Reduction Methods
+# Dimension Reduction Methods
 
 

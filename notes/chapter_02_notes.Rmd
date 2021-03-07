@@ -2,6 +2,7 @@
 title: "ISLR Chapter 02 Notes - "
 output: html_document
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

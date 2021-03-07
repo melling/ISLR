@@ -5,6 +5,7 @@ output:
     toc: true
     depth: 2           
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

@@ -1,18 +1,18 @@
 ---
 title: "ISLR Chapter 03 Notes - Linear Regression"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2    
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-p
-## Topics Covered
 
-- Simple Linear Regression
-- Multiple Linear Regression
 
-## Linear Regression
+# Linear Regression
 
 Machine Learning: Start with linear regression
 
@@ -20,12 +20,13 @@ Machine Learning: Start with linear regression
 
 “widely used statistical learning method”
 
-### House Prices
+## House Prices
 
 Square feet | Price 
 
-$$y = Mx + b$$
-Written as $$y = \beta_0 + \beta_1x$$
+$y = Mx + b$
+
+Written as $y = \beta_0 + \beta_1x$
 
 y is called response or target 
 x predictor
@@ -45,5 +46,21 @@ Simple Linear one variable
 
 “We typically assume that the error term is independent of X.”
 
-## Multiple Regression
+
+# Multiple Linear Regression
 p71
+
+We usually have more than one predictor. 
+
+ $Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon$
+
+## Estimating the Coefficients
+
+p72
+
+ $\hat{y} = \hat{\beta}_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon$
+
+RSS = 
+
+Choose $\beta$ to $\beta_p$ that minimizes RSS
+p73

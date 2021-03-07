@@ -1,14 +1,26 @@
 ---
-title: "ISLR Q7.6"
+title: "ISLR Q7.6 - /Wage"
 output:
   html_document:
     toc: true
     depth: 2    
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Question
+
+p299
+
+In this exercise, you will further analyze the Wage data set considered throughout this chapter.
+
+(a) Perform polynomial regression to predict wage using age. Use cross-validation to select the optimal degree d for the polyno- mial. What degree was chosen, and how does this compare to the results of hypothesis testing using ANOVA? Make a plot of the resulting polynomial fit to the data.
+
+(b) Fit a step function to predict wage using age, and perform cross- validation to choose the optimal number of cuts. Make a plot of the fit obtained.
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -19,7 +31,7 @@ library(boot)
 # 6a
 
 ```{r}
-# Creating a palceholder for the cv errors
+# Creating a placeholder for the cv errors
 cv.error = rep(0, 5)
 
 # Running a for loop to iterate through each polynomial and fitting data
@@ -30,10 +42,15 @@ for (i in 1:5) {
   # Saving the CV estimate for the fit
   cv.error[i] = cv.glm(Wage, glm.fit)$delta[1]
 }
+```
 
+## Plot CV Error
+
+```{r}
 # Plotting the results of for loop
 plot(c(1:5), cv.error)
 ```
+
 
 Comments:
 
@@ -54,7 +71,11 @@ for (i in 2:5) {
   # Saving the CV estimate for the fit
   cv.error[i] = cv.glm(Wage, glm.fit)$delta[2]
 }
+```
 
+## Plot CV Error
+
+```{r}
 plot(c(2:5), cv.error[2:5], pch=20, cex=0.5, lwd=2)
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.9"
+title: "ISLR Q3.9 - Multiple Linear Regression, Auto"
 output:
   html_document:
     toc: true
@@ -10,6 +10,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
 
 This question involves the use of multiple linear regression on the Auto data set.
 
@@ -80,8 +82,9 @@ par(mfrow=c(2,2))
 plot(auto.mlr)
 ```
 
+## Better Plots
 ```{r}
-qplot(auto.mlr)
+#qplot(auto.mlr)
 ```
 
 Non-Linearity: The residual plot shows that there is a U-shape pattern in the residuals which might indicate that the data is non-linear.
@@ -156,10 +159,16 @@ Squaring the weights doesn't change significance
 
 ```{r}
 lm.fit = lm(mpg ~ . -name + I(cylinders^2), data=Auto)
+```
+
+## Diagnostic Plots
+
+```{r}
 par(mfrow = c(2,2))
 plot(lm.fit)
 ```
 
+## Model Summary
 ```{r}
 summary(lm(mpg~.-name+I(cylinders^2), data=Auto))
 ```

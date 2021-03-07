@@ -5,7 +5,7 @@ output:
     toc: true
     depth: 2    
 ---
-
+[ISLR Home](../index.html)
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -13,7 +13,7 @@ library(MASS)
 ```
 
 
-## 7.8.1 Polynomial Regression and Step Functions
+# Polynomial Regression and Step Functions
 
 Fitting a linear model using a 4th degree polynomial
 ```{r}
@@ -37,7 +37,7 @@ coef(summary(fit2))
 ```
 
 
-# Using I() to fit polynomial
+## Using I() to fit polynomial
 ```{r}
 fit2a = lm(wage ~ age + I(age^2) + I(age^3) + I(age^4), data=Wage)
 coef(fit2a)

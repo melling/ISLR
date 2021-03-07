@@ -1,8 +1,11 @@
 ---
 title: "ISLR Chapter 05 Notes - Resampling Methods"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2   
 ---
-
+[ISLR Home](../index.html)
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -17,19 +20,19 @@ p175
   - Cross-Validation on Classification Problems
 - The Bootstrap
 
-## Cross-Validation
+# Cross-Validation
 
-### Leave-One-Out Cross-Validation LOOCV
+## Leave-One-Out Cross-Validation LOOCV
 
 
-### k-Fold Cross-Validation
+## k-Fold Cross-Validation
 
 p181
 
-#### Bias-Variance Trade-Off for k-Fold Cross-Validation
+### Bias-Variance Trade-Off for k-Fold Cross-Validation
 
-### Cross-Validation on Classification Problems
+## Cross-Validation on Classification Problems
 
-## The Bootstrap
+# The Bootstrap
 
 

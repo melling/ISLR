@@ -11,6 +11,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Question
 
 In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results
 
@@ -100,7 +101,7 @@ eps.less = rnorm(100, 0, 0.05) # epsilon
 Y.less = -1 + 0.5*x.less + eps.less
 ```
 
-### Fitting a least square regression
+### Fit a least square regression
 
 ```{r}
 lm.less.fit = lm(Y.less ~ x.less)

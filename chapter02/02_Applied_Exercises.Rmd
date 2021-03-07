@@ -1,14 +1,11 @@
 ---
 title: "ISLR Chapter 2 Applied Exercises"
 output:
-<<<<<<< HEAD
-  html_notebook:
+  html_document:
     toc: true
     depth: 2    
-=======
-  html_notebook: default
->>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -18,27 +15,18 @@ knitr::opts_chunk$set(echo = TRUE)
 #library(ISLR)
 ```
 
-```{r}
-getwd()
-```
 
-<<<<<<< HEAD
 # Q8 
 p54
 
-=======
-# Question 8 
 
-p54
-
->>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
-## 8a
+# 8a
 ```{r}
 college = read.csv("College.csv")
 # attach(College)
 ```
 
-## 8b
+# 8b
 
 fix function
 
@@ -58,13 +46,13 @@ Remove column 1 because we assigned to rownames.
 college=college[,-1] # 
 ```
 
-## 8c
+# 8c
 
 ```{r}
 summary(college)
 ```
 
-### Correlation Pairs
+## Correlation Pairs
 
 ```{r}
 library(ISLR)
@@ -84,7 +72,7 @@ attach(college)
 plot(Private, Outstate, xlim=c(0,100), ylim=c(0,100))
 ```
 
-### 8c iv
+## 8c iv
 ```{r, elite_colleges}
 Elite=rep("No", nrow(college))
 Elite[college$Top10perc > 50] = "Yes"
@@ -116,19 +104,11 @@ pairs(~ PhD + F.Undergrad + P.Undergrad , college)
 
 vi. Continue exploring...
 
-<<<<<<< HEAD
-# Q9: Auto
+# Q9 Auto
 
 a. Which predictors are quantitative, and which are qualitative.
 
 b. range of each quantitative predictor
-=======
-# Question 9: Auto
->>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
-
-## 9a. Which predictors are quantitative, and which are qualitative.
-
-## 9b. range of each quantitative predictor
 
 ```{r, range_examples}
 # attach(Auto)
@@ -143,7 +123,7 @@ range(Auto$year)
 # range(order)
 ```
 
-## 9c Mean standard deviation for each quantitative predictor
+# 9c Mean standard deviation for each quantitative predictor
 
 ```{r, 9c}
 sd(Auto$mpg)
@@ -156,7 +136,7 @@ sd(Auto$year)
 #View(Auto)
 ```
 
-## 9d
+# 9d
 
 ```{r, 9d}
 auto = Auto
@@ -173,11 +153,7 @@ sd(acceleration)
 sd(year)
 ```
 
-<<<<<<< HEAD
 # Q10
-=======
-# 10
->>>>>>> 0583fe6a736c72d95e1d4e83d7628b004b271ee4
 
 ```{r, q10}
 library(MASS)
@@ -190,7 +166,7 @@ How many rows are in this data set? How many columns? What do the rows and colum
 ```{r, 10a}
 dim(Boston)
 ```
-## 10b
+# 10b
 
 Make some pairwise scatterplots of the predictors (columns) in this data set. Describe your findings.
 
@@ -198,7 +174,7 @@ Make some pairwise scatterplots of the predictors (columns) in this data set. De
 pairs(Boston)
 ```
 
-## 10c
+# 10c
 
 Are any of the predictors associated with per capita crime rate? If so, explain the relationship.
 
@@ -218,7 +194,7 @@ Age of the housing, Most likely the older the neighborhood, the more experience/
 Radial Highways, either criminals has quick getaway or it is so far away from highway that it is not gentrified
 
 
-## 10d
+# 10d
 
 Do any of the suburbs of Boston appear to have particularly high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range of each predictor.
 
@@ -228,7 +204,7 @@ dim(Boston[Boston$tax >= 666,])
 dim(Boston[Boston$ptratio >= 20,])
 ```
 
-## 10e
+# 10e
 
 How many of the suburbs in this data set bound the Charles river?
 
@@ -236,7 +212,7 @@ How many of the suburbs in this data set bound the Charles river?
 dim(Boston[Boston$chas==1,])[1]
 ```
 
-## 10f
+# 10f
 
 What is the median pupil-teacher ratio among the towns in this data set?
 
@@ -244,7 +220,7 @@ What is the median pupil-teacher ratio among the towns in this data set?
 median(Boston$ptratio)
 ```
 
-## 10g
+# 10g
 
 Which suburb of Boston has lowest median value of owner- occupied homes? What are the values of the other predictors for that suburb, and how do those values compare to the overall ranges for those predictors? Comment on your findings.
 
@@ -252,7 +228,7 @@ Which suburb of Boston has lowest median value of owner- occupied homes? What ar
 Boston[Boston$medv == min(Boston$medv),]
 ```
 
-## 10h
+# 10h
 
 In this data set, how many of the suburbs average more than seven rooms per dwelling? More than eight rooms per dwelling? Comment on the suburbs that average more than eight rooms per dwelling.
 

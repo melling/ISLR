@@ -1,14 +1,21 @@
 ---
-title: "ISLR Q8.7 Random Forest"
+title: "ISLR Q8.7 Random Forest/Boston"
 output:
   html_document:
     toc: true
     depth: 2           
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
+
+In the lab, we applied random forests to the Boston data using mtry=6 and using ntree=25 and ntree=500. Create a plot displaying the test error resulting from random forests on this data set for a more comprehensive range of values for mtry and ntree. You can model your plot after Figure 8.10. Describe the results obtained.
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 library(MASS)

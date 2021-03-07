@@ -6,6 +6,7 @@ output:
     depth: 2               
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

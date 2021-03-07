@@ -82,7 +82,7 @@ predict(lm.fit, data.frame(lstat = c(5,10,15)), interval = "prediction") # Predi
 
 ## Plot Points and Regression Line
 ```{r}
-plot(lstat, medv)
+plot(lstat, medv) # Plot points
 abline(lm.fit) # Add Least Squares Regression Line
 
 abline(lm.fit, lwd=3) # Line width

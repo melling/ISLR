@@ -12,7 +12,17 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 This problem involves simple linear regression without an intercept.
+
+(a) Recall that the coefficient estimate $\hat{\beta}$ for the linear regression of Y onto X without an intercept is given by (3.38). Under what circumstance is the coefficient estimate for the regression of X onto Y the same as the coefficient estimate for the regression of Y onto X?
+
+(b) Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is different from the coefficient estimate for the regression of Y onto X
+
+(c) Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is the same as the coefficient estimate for the regression of Y onto X.
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -20,10 +30,6 @@ library(ISLR)
 
 
 # 12a
-
-(a) Recall that the coefficient estimate $\hat{\beta}$ for the linear regression of Y onto X without an intercept is given by (3.38). Under what circumstance is the coefficient estimate for the regression of X onto Y the same as the coefficient estimate for the regression of Y onto X?
-
-***
 
 The coefficent estimate for regression of X onto Y will be the same for coefficent 
 estimate for regression of Y onto X when the there is no irreducible error and 
@@ -38,16 +44,11 @@ x = rnorm(100)
 
 # 12b
 
-(b) Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is different from the coefficient estimate for the regression of Y onto X
-
-***
-
 Equation Y onto X
 
 ```{r}
 y = 2 * x + rnorm(100)
 ```
-
 
 ## Fitting y onto x without intercept
 
@@ -67,10 +68,6 @@ summary(lm.fit.x.y)
 
 # 12c
 
-(c) Generate an example in R with n = 100 observations in which the coefficient estimate for the regression of X onto Y is the same as the coefficient estimate for the regression of Y onto X.
-
-***
-
 Equation
 ```{r}
 y = x
@@ -82,7 +79,6 @@ y = x
 lm.fit.y.x = lm(y ~ 0 + x)
 summary(lm.fit.y.x)
 ```
-
 
 ## Fitting x onto y
 

@@ -1,7 +1,11 @@
 ---
 title: "ISLR Chapter 10 Notes - Unsupervised Learning"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2   
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -14,7 +18,7 @@ Topics Covered
   - K-Means
   - Hierarchical
 
-## Hierarchical clustering
+# Hierarchical clustering
 
 What is a major advantage of Hierarchical clustering over k-means?
 
@@ -47,7 +51,7 @@ Just being close does not mean they’re similar
 
 “cannot draw conclusions about the similarity of two observations based on their proximity along the horizontal axis”
 
-## Linkage
+# Linkage
 
 - Single
 - Complete

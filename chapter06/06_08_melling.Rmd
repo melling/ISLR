@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q6.8"
+title: "ISLR Q6.8 - Best Subset Selection"
 output:
   html_document:
     toc: true
@@ -10,6 +10,10 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+p262
+
+# Question
 
 8. In this exercise, we will generate simulated data, and will then use this data to perform best subset selection.
 
@@ -33,15 +37,6 @@ and perform best subset selection and the lasso. Discuss the results obtained
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
-p262
-
-# Other Solutions:
-- https://rpubs.com/evertonjlima/242626
-- https://rpubs.com/lmorgan95/ISLR_CH6_Solutions
-- https://rstudio-pubs-static.s3.amazonaws.com/295803_0a2bb7a6e2e747cc81682d0c6fed787d.html
-- https://blog.princehonest.com/stat-learning/ch6/8.html
-- https://github.com/ppaquay/IntroStatLearning/blob/master/Chap6.Rmd
-
 
 # 8a Random x vector
 
@@ -86,7 +81,6 @@ plot(reg.summary$bic)
 plot(reg.summary$cp)
 plot(reg.summary$adjr2)
 ```
-
 
 Answer: polynomial 3
 
@@ -176,7 +170,7 @@ plot(bss.fit, scale = "bic")
 ```
 
 
-#  ---
+# $R^2, BIC, CP, Adjusted R^2$
 
 ```{r}
 reg.summary=summary(bss.fit)
@@ -186,7 +180,10 @@ reg.summary$rsq
 reg.summary$bic
 reg.summary$cp
 reg.summary$adjr2
+```
 
+# Plot $R^2, BIC, CP, Adjusted R^2$
+```{r}
 par(mfrow=c(1,1))
 plot(reg.summary$rsq)
 plot(reg.summary$bic)
@@ -194,3 +191,10 @@ plot(reg.summary$cp)
 plot(reg.summary$adjr2)
 ```
 
+# Other Solutions:
+
+- https://rpubs.com/evertonjlima/242626
+- https://rpubs.com/lmorgan95/ISLR_CH6_Solutions
+- https://rstudio-pubs-static.s3.amazonaws.com/295803_0a2bb7a6e2e747cc81682d0c6fed787d.html
+- https://blog.princehonest.com/stat-learning/ch6/8.html
+- https://github.com/ppaquay/IntroStatLearning/blob/master/Chap6.Rmd

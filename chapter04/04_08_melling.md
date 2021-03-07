@@ -2,6 +2,10 @@
 # p170
 #test_question
 
+# Question
+
+***
+
 logistic 20%/30%
 KNN, k=1, 18%/18%
 

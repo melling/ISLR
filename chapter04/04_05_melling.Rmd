@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 p169
 
+# Question
+
 We now examine the differences between LDA and QDA
 
 - (a) If the Bayes decision boundary is linear, do we expect LDA or QDA to perform better on the training set? On the test set?

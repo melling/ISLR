@@ -12,6 +12,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 This problem focuses on the collinearity problem
 
 # 14a

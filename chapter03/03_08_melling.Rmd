@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.8"
+title: "ISLR Q3.8 - Simple Linear Regression/Auto"
 output:
   html_document:
     toc: true
@@ -11,27 +11,33 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
+This question involves the use of simple linear regression on the Auto data set.
+
+(a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example
+
+(b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+
+(c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+
+***
+
 ```{r message=FALSE, warning=FALSE}
 library(MASS)
 library(ISLR)
 ```
 
-This question involves the use of simple linear regression on the Auto data set.
-
 # 8a
-
-(a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example
-
-***
 
 Name of the columns
 ```{r}
 names(Auto)
 ```
 
-Creating a simple linear regression model: mpg ~ horsepower
+Creating a simple linear regression model
 
-## Model
+## Fit Model: mpg ~ horsepower
 ```{r}
 auto.lm = lm(mpg ~ horsepower, data=Auto)
 ```
@@ -64,6 +70,7 @@ The relationship between mpg and horsepower has a negative relationship because 
 ## iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?
 
 iv.
+## Predict
 ```{r}
 predict(auto.lm, data.frame(horsepower=c(98)), interval="prediction")
 ```
@@ -72,6 +79,20 @@ predict(auto.lm, data.frame(horsepower=c(98)), interval="prediction")
 
 (b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
 
+## Plot Regression Line
+```{r}
+attach(Auto)
+plot(horsepower, mpg) # Plot points
+abline(auto.lm) # Add Least Squares Regression Line
+```
+
 # 8c
 
 (c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+
+## Diagnostic Plots
+```{r}
+par(mfrow = c(2,2)) # 4 plots in same picture
+plot(auto.lm)
+```
+

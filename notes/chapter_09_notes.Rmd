@@ -1,10 +1,13 @@
 ---
 title: "ISLR Chapter 09 Notes - Support Vector Machines"
-output: html_document
+output:
+  html_document:
+    toc: true
+    depth: 2   
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Topics Covered

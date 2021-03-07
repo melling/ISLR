@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.15"
+title: "ISLR Q3.15 - Predict per capita crime rate/Boston"
 output:
   html_document:
     toc: true
@@ -11,7 +11,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 This problem involves the Boston data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+(a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
+
+(b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis $H_0 : \beta_j = 0$?
+
+(c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the x-axis, and the multiple regression coefficients from (b) on the y-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regression model is shown on the x-axis, and its coefficient estimate in the multiple linear regression model is shown on the y-axis.
+
+(d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form
+
+$$Y = \beta_0 + \beta_1X + \beta_2 X^2 + \beta_3 X^3 + \epsilon$$
+***
 
 # Notes
 
@@ -29,9 +42,8 @@ I summarize some of what you need to know to better understand linear regression
 - Scale-Location
 - Residuals vs Leverage (bottom right)
 
-
 ```{r message=FALSE, warning=FALSE}
-library(MASS)
+library(MASS) # Boston
 library(tidyverse)
 ```
 
@@ -56,9 +68,6 @@ lm.function = function(predictor) {
 
 # 15a Simple Linear Regression
 
-(a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
-
-***
 
 Fit each feature one at a time and evaluate
 
@@ -245,9 +254,6 @@ plot(lm.medv)
 
 # 15b Multiple Linear Regression
 
-(b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis $H_0 : \beta_j = 0$?
-
-***
 
 ## Fitting on all independent variables
 
@@ -260,10 +266,6 @@ summary(lm.all)
 Based on the MLR, only zn, dis, rad, black, and medv have a significant association with crim (p-value is below 0.05) which means we can reject the null hypothesis
 
 # 15c
-
-(c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the x-axis, and the multiple regression coefficients from (b) on the y-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regression model is shown on the x-axis, and its coefficient estimate in the multiple linear regression model is shown on the y-axis.
-
-***
 
 ## Coefficients
 
@@ -295,9 +297,6 @@ x$coeffients <-  c('Intercept', "RME")
 
 # 15d Non-Linear Association
 
-(d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form
-
-$$Y = \beta_0 + \beta_1X + \beta_2 X^2 + \beta_3 X^3 + \epsilon$$
 
 ***
 
