@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q5.2"
+title: "ISLR Q5.2 - Bootstrap"
 output:
   html_document: default
 ---
@@ -9,7 +9,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-2. We will now derive the probability that a given observation is part of a bootstrap sample. Suppose that we obtain a bootstrap sample from a set of n observations.
+# Question
+
+We will now derive the probability that a given observation is part of a bootstrap sample. Suppose that we obtain a bootstrap sample from a set of n observations.
 
 (a) What is the probability that the first bootstrap observation is not the jth observation from the original sample? Justify your answer.
 

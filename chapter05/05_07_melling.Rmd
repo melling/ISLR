@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q5.7 - /Weekly"
+title: "ISLR Q5.7 - cv.glm(), LOOCV /Weekly"
 output:
   html_document:
     toc: true
@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Question
+
+p199
 
 In Sections 5.3.2 and 5.3.3, we saw that the cv.glm() function can be used in order to compute the LOOCV test error estimate. Alternatively, one could compute those quantities using just the glm() and predict.glm() functions, and a for loop. You will now take this approach in order to compute the LOOCV error for a simple logistic regression model on the Weekly data set. Recall that in the context of classification problems, the LOOCV error is given in (5.4).
 

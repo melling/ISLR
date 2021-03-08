@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q7.6 - /Wage"
+title: "ISLR Q7.6 - Predict Wage/Wage"
 output:
   html_document:
     toc: true
@@ -18,7 +18,7 @@ In this exercise, you will further analyze the Wage data set considered througho
 
 (a) Perform polynomial regression to predict wage using age. Use cross-validation to select the optimal degree d for the polyno- mial. What degree was chosen, and how does this compare to the results of hypothesis testing using ANOVA? Make a plot of the resulting polynomial fit to the data.
 
-(b) Fit a step function to predict wage using age, and perform cross- validation to choose the optimal number of cuts. Make a plot of the fit obtained.
+(b) Fit a step function to predict wage using age, and perform cross-validation to choose the optimal number of cuts. Make a plot of the fit obtained.
 
 ***
 

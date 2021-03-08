@@ -13,7 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Question
 
-5. In Chapter 4, we used logistic regression to predict the probability of default using income and balance on the Default data set. We will now estimate the test error of this logistic regression model using the validation set approach. Do not forget to set a random seed before beginning your analysis.
+p198
+
+In Chapter 4, we used logistic regression to predict the probability of default using income and balance on the Default data set. We will now estimate the test error of this logistic regression model using the validation set approach. Do not forget to set a random seed before beginning your analysis.
 
 (a) Fit a logistic regression model that uses income and balance to predict default.
 
@@ -32,6 +34,8 @@ iv. Compute the validation set error, which is the fraction of the observations 
 
 ***
 
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
-
 attach(Default)
+```
+

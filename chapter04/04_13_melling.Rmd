@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q4.13"
+title: "ISLR Q4.13 - /Boston"
 output:
   html_document: default
 ---
@@ -9,9 +9,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 p173
 
-Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. Describe your findings.
+Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression, LDA, and KNN models using various subsets of the predictors. 
+Describe your findings.
 
 ***
 

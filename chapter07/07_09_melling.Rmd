@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q7.9 - /Boston"
+title: "ISLR Q7.9 - Predict dis /Boston"
 output:
   html_document:
     toc: true

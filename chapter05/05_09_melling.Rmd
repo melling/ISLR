@@ -20,6 +20,7 @@ We will now consider the Boston housing data set, from the MASS library.
 (a) Based on this data set, provide an estimate for the population mean of medv. Call this estimate $\hat{\mu}$.
 
 (b) Provide an estimate of the standard error of $\hat{\mu}$. Interpret this result.
+
 Hint: We can compute the standard error of the sample mean by dividing the sample standard deviation by the square root of the number of observations.
 
 (c) Now estimate the standard error of $\hat{\mu}$ using the bootstrap. How does this compare to your answer from (b)?

@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q5.6"
+title: "ISLR Q5.6 - GLM - TODO /Default"
 output:
   html_document:
     toc: true
@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Question
+
+p199
 
 We continue to consider the use of a logistic regression model to predict the probability of default using income and balance on the Default data set. In particular, we will now compute estimates for the standard errors of the income and balance logistic regression co-efficients in two different ways: (1) using the bootstrap, and (2) using the standard formula for computing the standard errors in the glm() function. Do not forget to set a random seed before beginning your analysis.
 

@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q4.11"
+title: "ISLR Q4.11 - Predict High or Low mpg/Auto"
 output:
   html_document:
     toc: true
@@ -11,7 +11,25 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 In this problem, you will develop a model to predict whether a given car gets high or low gas mileage based on the Auto data set.
+
+(a) Create a binary variable, mpg01, that contains a 1 if mpg contains a value above its median, and a 0 if mpg contains a value below its median. You can compute the median using the median() function. Note you may find it helpful to use the data.frame() function to create a single data set containing both mpg01 and the other Auto variables.
+
+(b) Explore the data graphically in order to investigate the associ- ation between mpg01 and the other features. Which of the other features seem most likely to be useful in predicting mpg01? Scat- terplots and boxplots may be useful tools to answer this ques- tion. Describe your findings.
+
+(c) Split the data into a training set and a test set.
+
+(d) Perform LDA on the training data in order to predict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+(e) Perform QDA on the training data in order to predict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+(f) Perform logistic regression on the training data in order to pre- dict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+
+(g) Perform KNN on the training data, with several values of K, in order to predict mpg01. Use only the variables that seemed most associated with mpg01 in (b). What test errors do you obtain? Which value of K seems to perform the best on this data set?
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -20,7 +38,7 @@ library(class) # knn
 ```
 
 
-Viewing the column names
+Column names
 ```{r}
 names(Auto)
 ```
@@ -69,7 +87,7 @@ boxplot(horsepower~mpg01,data=new.auto, xlab="MPG > Median", ylab="Horsepower")
 boxplot(weight~mpg01,data=new.auto, xlab="MPG > Median", ylab="Weight")
 ```
 
-Comments: Based on the bosplots, acceleration might be hard to predict if mpg is higher than median. The values of acceleration are too close to tell apart.
+Comments: Based on the boxplots, acceleration might be hard to predict if mpg is higher than median. The values of acceleration are too close to tell apart.
 
 # 11c
 

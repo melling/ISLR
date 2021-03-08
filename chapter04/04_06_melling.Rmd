@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q4.6"
+title: "ISLR Q4.6 - Predict Student Grade"
 output:
   html_document:
     toc: true
@@ -17,8 +17,9 @@ p170
 
 Suppose we collect data for a group of students in a statistics class with variables X1 = hours studied, X2 = undergrad GPA, and Y = receive an A. We fit a logistic regression and produce estimated coefficient, $\hat{\beta_0} = −6, \hat{\beta_1} = 0.05, \hat{\beta_2} = 1$.
 
-(a) Estimate the probability that a student who studies for 40 h and has an undergrad GPA of 3.5 gets an A in the class.
-(b) How many hours would the student in part (a) need to study to have a 50 % chance of getting an A in the class?
+(a) Estimate the probability that a student who studies for 40h and has an undergrad GPA of 3.5 gets an A in the class.
+
+(b) How many hours would the student in part (a) need to study to have a 50% chance of getting an A in the class?
 
 ***
  
