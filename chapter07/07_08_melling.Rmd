@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q7.8"
+title: "ISLR Q7.8 - Non-Linear Models/Auto"
 output:
   html_document:
     toc: true
@@ -18,7 +18,6 @@ p299
 Fit some of the non-linear models investigated in this chapter to the Auto data set. Is there evidence for non-linear relationships in this data set? Create some informative plots to justify your answer.
 
 ***
-
 
 ```{r include=FALSE}
 library(tidyverse) 
@@ -101,17 +100,20 @@ ggplot(Auto, aes(x = origin, y = mpg, group=origin)) +
   geom_boxplot()# + theme(legend.position = "none")
 ```
 
-Python Code
-```{python}
-print(f"Hello World: {2+2}")
-```
 
 # GAM - Generalize Additive Models
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(gam)
+```
+
+```{r}
 # gam.fit = gam(mpg ~ cylinders +  s(acceleration,4) + s(weight,4), data = Auto)
 gam.fit = gam(mpg ~ cylinders, data = Auto)
+```
+
+## Model Summary
+```{r}
 summary(gam.fit)
 ```
 

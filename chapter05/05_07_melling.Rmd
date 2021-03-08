@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q5.7"
+title: "ISLR Q5.7 - /Weekly"
 output:
   html_document:
     toc: true
@@ -11,31 +11,29 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r message=FALSE, warning=FALSE}
-library(ISLR)
-```
+# Question
 
-In Sections 5.3.2 and 5.3.3, we saw that the cv.glm() function can be used in order to compute the LOOCV test error estimate. Alterna- tively, one could compute those quantities using just the glm() and
-5.4 Exercises 199
-
-200 5. Resampling Methods
-predict.glm() functions, and a for loop. You will now take this ap- proach in order to compute the LOOCV error for a simple logistic regression model on the Weekly data set. Recall that in the context of classification problems, the LOOCV error is given in (5.4).
+In Sections 5.3.2 and 5.3.3, we saw that the cv.glm() function can be used in order to compute the LOOCV test error estimate. Alternatively, one could compute those quantities using just the glm() and predict.glm() functions, and a for loop. You will now take this approach in order to compute the LOOCV error for a simple logistic regression model on the Weekly data set. Recall that in the context of classification problems, the LOOCV error is given in (5.4).
 
 (a) Fit a logistic regression model that predicts Direction using Lag1 and Lag2.
 
 (b) Fit a logistic regression model that predicts Direction using Lag1 and Lag2 using all but the first observation.
 
-(c) Use the model from (b) to predict the direction of the first obser- vation. You can do this by predicting that the first observation will go up if P(Direction="Up"|Lag1, Lag2) > 0.5. Was this ob- servation correctly classified?
+(c) Use the model from (b) to predict the direction of the first observation. You can do this by predicting that the first observation will go up if P(Direction="Up"|Lag1, Lag2) > 0.5. Was this observation correctly classified?
 
-(d) Writeaforloopfromi=1toi=n,wherenisthenumberof observations in the data set, that performs each of the following steps:
-i. Fit a logistic regression model using all but the ith obser- vation to predict Direction using Lag1 and Lag2.
-ii. Compute the posterior probability of the market moving up for the ith observation.
-iii. Use the posterior probability for the ith observation in order to predict whether or not the market moves up.
-iv. Determine whether or not an error was made in predicting the direction for the ith observation. If an error was made, then indicate this as a 1, and otherwise indicate it as a 0.
+(d) Write a forloop fromi=1 t oi=n, where n is the number of observations in the data set, that performs each of the following steps:
+ i. Fit a logistic regression model using all but the ith observation to predict Direction using Lag1 and Lag2.
+ ii. Compute the posterior probability of the market moving up for the ith observation.
+ iii. Use the posterior probability for the ith observation in order to predict whether or not the market moves up.
+ iv. Determine whether or not an error was made in predicting the direction for the ith observation. If an error was made, then indicate this as a 1, and otherwise indicate it as a 0.
 
 (e) Take the average of the n numbers obtained in (d)iv in order to obtain the LOOCV estimate for the test error. Comment on the results
 
 ***
+
+```{r message=FALSE, warning=FALSE}
+library(ISLR)
+```
 
 ```{r}
 set.seed(1)
@@ -59,8 +57,6 @@ lr.fit.b = glm(Direction ~ Lag1 + Lag2, data=train, family=binomial)
 summary(lr.fit.b)
 ```
 
-
-
 # 7c: Predict
 
 ```{r}
@@ -71,10 +67,7 @@ lr.prob > 0.5 # >0.05 means LR predicts up
 Weekly[1,]$Direction # Actual direction was down Down
 ```
 
-
-# Answer: Predicted incorrectly that it went Up
-
-# 
+Answer: Predicted incorrectly that it went Up
 
 # 7d Predict
 

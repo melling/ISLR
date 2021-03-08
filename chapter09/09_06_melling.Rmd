@@ -11,13 +11,25 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
+p370
+
+At the end of Section 9.6.1 (the Lab), it is claimed that in the case of data that is just barely linearly separable, a support vector classifier with a small value of cost that misclassifies a couple of training observations may perform better on test data than one with a huge value of cost that does not misclassify any training observations. You will now investigate this claim.
+
+(a) Generate two-class data with p = 2 in such a way that the classes are just barely linearly separable.
+
+(b) Compute the cross-validation error rates for support vector classifiers with a range of cost values. How many training errors are misclassified for each value of cost considered, and how does this relate to the cross-validation errors obtained?
+
+(c) Generate an appropriate test data set, and compute the test errors corresponding to each of the values of cost considered. Which value of cost leads to the fewest test errors, and how does this compare to the values of cost that yield the fewest training errors and the fewest cross-validation errors?
+
+(d) Discuss your results.
+
+
 ```{r include=FALSE}
 library(tidyverse)
 library(ggthemes) # https://www.datanovia.com/en/blog/ggplot-themes-gallery/
 ```
-p370
-
-At the end of Section 9.6.1 (the Lab), it is claimed that in the case of data that is just barely linearly separable, a support vector classifier with a small value of cost that misclassifies a couple of training observations may perform better on test data than one with a huge value of cost that does not misclassify any training observations. You will now investigate this claim.
 
 
 # 6a Generate Data

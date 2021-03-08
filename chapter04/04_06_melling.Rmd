@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.6"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2        
 ---
 [ISLR Home](../index.html)
 
@@ -13,12 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p170
 
+Suppose we collect data for a group of students in a statistics class with variables X1 = hours studied, X2 = undergrad GPA, and Y = receive an A. We fit a logistic regression and produce estimated coefficient, $\hat{\beta_0} = −6, \hat{\beta_1} = 0.05, \hat{\beta_2} = 1$.
+
+(a) Estimate the probability that a student who studies for 40 h and has an undergrad GPA of 3.5 gets an A in the class.
+(b) How many hours would the student in part (a) need to study to have a 50 % chance of getting an A in the class?
+
 ***
-
-Suppose we collect data for a group of students in a statistics class with variables X1 = hours studied, X2 = undergrad GPA, and Y = receive an A. We fit a logistic regression and produce estimated coefficient, βˆ0 = −6, βˆ1 = 0.05, βˆ2 = 1
-
  
- See page 134-135
+See page 134-135
 
 Use the Logistic Regression Formula Y=e^x/(1+e^x)  x = b0 + b1*x1 + b2*x2
 ```
@@ -27,9 +31,7 @@ Y = e^ b0 + b1 * x1
     1 + e^ b0 + b1 * x1
 ```
 
-## 6a
-
-(a) Estimate the probability that a student who studies for 40 h and has an undergrad GPA of 3.5 gets an A in the class
+# 6a
 
 b0 = -6
 b1 = .05
@@ -45,9 +47,7 @@ y = exp(y0)/(1 + exp(y0))
 
 y # 0.3775407 = 37.7%
 
-## 6b
-
-(b) How many hours would the student in part (a) need to study to have a 50 % chance of getting an A in the class?
+# 6b
 
 Use the Logistic Regression Formula 
 

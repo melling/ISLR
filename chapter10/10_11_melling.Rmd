@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q10.11"
+title: "ISLR Q10.11 - Gene Expression data set"
 output:
   html_document:
     toc: true
@@ -10,6 +10,16 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
+
+On the book website, www.StatLearning.com, there is a gene expression data set (Ch10Ex11.csv) that consists of 40 tissue samples with measurements on 1,000 genes. The first 20 samples are from healthy patients, while the second 20 are from a diseased group.
+
+(a) Load in the data using read.csv(). You will need to select header=F.
+(b) Apply hierarchical clustering to the samples using correlation- based distance, and plot the dendrogram. Do the genes separate the samples into the two groups? Do your results depend on the type of linkage used?
+(c) Your collaborator wants to know which genes differ the most across the two groups. Suggest a way to answer this question, and apply it here.
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 #library(ISLR)

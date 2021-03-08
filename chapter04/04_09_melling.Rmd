@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.9 - Odds"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 [ISLR Home](../index.html)
 
@@ -15,10 +17,9 @@ p170
 
 This problem has to do with odds.
 
-(a) On average, what fraction of people with an odds of 0.37 of
-defaulting on their credit card payment will in fact default?
+(a) On average, what fraction of people with an odds of 0.37 of defaulting on their credit card payment will in fact default?
 
-(b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will de- fault?
+(b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will default?
 
 
 ***

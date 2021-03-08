@@ -4,13 +4,14 @@ output:
   html_document:
     toc: true
     depth: 2               
-date: "`r format(Sys.time(), '%B %d, %Y')`"
 ---
 [ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
 
 p369
 
@@ -20,7 +21,7 @@ Generate a simulated two-class data set with 100 observations and two features i
  - Which technique performs best on the test data? 
  - Make plots and report training and test error rates in order to back up your assertions
 
-## 
+*** 
 
 ```{r include=FALSE}
 library(tidyverse)
@@ -72,7 +73,7 @@ plot(svmfit.linear, dat)
 summary(svmfit.linear)
 ```
 
-### Confusion Matrix
+## Confusion Matrix
 ```{r}
 svm.predict = predict(svmfit.linear, newdata = dat[train,])
 table(true=dat[train,"y"], pred=svm.predict)
@@ -85,7 +86,7 @@ length(svm.predict)
 ```
 
 
-### Radial, gamma=1, cost=1
+## Radial, gamma=1, cost=1
 ```{r}
 svmfit.radial=svm(y~., data=dat[train,], kernel="radial", gamma=1,
            cost=1)
@@ -103,9 +104,9 @@ table(true=dat[train,"y"], pred=svm.predict.radial)
 ```{r}
 (13+9)/25
 ```
-## Do Predict for Test Data
+# Do Predict for Test Data
 
-### Linear
+## Linear
 ```{r}
 svm.predict.test = predict(svmfit.linear, newdata = dat[-train,])
 table(true=dat[-train,"y"], pred=svm.predict.test)
@@ -118,7 +119,7 @@ table(true=dat[-train,"y"], pred=svm.predict.test)
 plot(svmfit.linear, dat[-train,])
 ```
 
-### Radial Kernel
+## Radial Kernel
 
 ```{r}
 svm.predict.radial.test = predict(svmfit.radial, newdata = dat[-train,])

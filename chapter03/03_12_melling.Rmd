@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.12"
+title: "ISLR Q3.12 - Simple linear regression w/o intercept"
 output:
   html_document:
     toc: true

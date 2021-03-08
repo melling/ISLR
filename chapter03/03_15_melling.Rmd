@@ -24,6 +24,7 @@ This problem involves the Boston data set, which we saw in the lab for this chap
 (d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form
 
 $$Y = \beta_0 + \beta_1X + \beta_2 X^2 + \beta_3 X^3 + \epsilon$$
+
 ***
 
 # Notes
@@ -67,7 +68,6 @@ lm.function = function(predictor) {
 ```
 
 # 15a Simple Linear Regression
-
 
 Fit each feature one at a time and evaluate
 
@@ -254,7 +254,6 @@ plot(lm.medv)
 
 # 15b Multiple Linear Regression
 
-
 ## Fitting on all independent variables
 
 ### Model Summary
@@ -296,9 +295,6 @@ x$coeffients <-  c('Intercept', "RME")
 
 
 # 15d Non-Linear Association
-
-
-***
 
 ## Model: $crim = \beta_0 + \beta_1 (zn) + \beta_2 (zn)^2 + \beta_3 (zn)^3 + \epsilon$
 

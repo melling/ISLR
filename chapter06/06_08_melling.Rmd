@@ -11,11 +11,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-p262
-
 # Question
 
-8. In this exercise, we will generate simulated data, and will then use this data to perform best subset selection.
+p262
+
+In this exercise, we will generate simulated data, and will then use this data to perform best subset selection.
 
 (a) Use the rnorm() function to generate a predictor X of length n = 100, as well as a noise vector ε of length n = 100.
 

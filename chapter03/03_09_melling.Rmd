@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.9 - Multiple Linear Regression, Auto"
+title: "ISLR Q3.9 - Multiple Linear Regression/Auto"
 output:
   html_document:
     toc: true

@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q5.9"
+title: "ISLR Q5.9 - /Boston"
 output:
   html_document:
     toc: true
@@ -11,25 +11,30 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-9. We will now consider the Boston housing data set, from the MASS library.
+# Question
 
-(a) Based on this data set, provide an estimate for the population mean of medv. Call this estimate μˆ.
+p201
 
-(b) Provide an estimate of the standard error of μˆ. Interpret this result.
+We will now consider the Boston housing data set, from the MASS library.
+
+(a) Based on this data set, provide an estimate for the population mean of medv. Call this estimate $\hat{\mu}$.
+
+(b) Provide an estimate of the standard error of $\hat{\mu}$. Interpret this result.
 Hint: We can compute the standard error of the sample mean by dividing the sample standard deviation by the square root of the number of observations.
 
-(c) Now estimate the standard error of μˆ using the bootstrap. How does this compare to your answer from (b)?
+(c) Now estimate the standard error of $\hat{\mu}$ using the bootstrap. How does this compare to your answer from (b)?
 
-(d) Based on your bootstrap estimate from (c), provide a 95 % con- fidence interval for the mean of medv. Compare it to the results obtained using t.test(Boston$medv).
-Hint: You can approximate a 95 % confidence interval using the formula [μˆ − 2SE(μˆ), μˆ + 2SE(μˆ)].
+(d) Based on your bootstrap estimate from (c), provide a 95% confidence interval for the mean of medv. Compare it to the results obtained using t.test(Boston$medv).
+
+Hint: You can approximate a 95% confidence interval using the formula [$\hat{\mu} − 2SE(\hat{\mu}), \hat{\mu} + 2SE(\hat{\mu})$].
 
 (e) Based on this data set, provide an estimate, μˆmed, for the median value of medv in the population.
 
-(f) Wenowwouldliketoestimatethestandarderrorofμˆmed.Unfor- tunately, there is no simple formula for computing the standard error of the median. Instead, estimate the standard error of the median using the bootstrap. Comment on your findings.
+(f) We now would like to estimate the standard error of μˆmed. Unfortunately, there is no simple formula for computing the standard error of the median. Instead, estimate the standard error of the median using the bootstrap. Comment on your findings.
 
-(g) Based on this data set, provide an estimate for the tenth per- centile of medv in Boston suburbs. Call this quantity μˆ0.1. (You can use the quantile() function.)
+(g) Based on this data set, provide an estimate for the tenth percentile of medv in Boston suburbs. Call this quantity $\hat{\mu}_{0.1}$. (You can use the quantile() function.)
 
-(h) Use the bootstrap to estimate the standard error of μˆ0.1. Com- ment on your findings.
+(h) Use the bootstrap to estimate the standard error of $\hat{\mu}_{0.1}$. Comment on your findings.
 
 ***
 
@@ -84,8 +89,6 @@ conf.int = c(bstrap$t0 - (2 * 0.3994119), bstrap$t0 + (2  * 0.3994119))
 
 t.test(Boston$medv)
 ```
-
-
 
 # 9e
 

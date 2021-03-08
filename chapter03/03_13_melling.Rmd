@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q3.13"
+title: "ISLR Q3.13 - Simple Linear Regression with Simulated Data"
 output:
   html_document:
     toc: true
@@ -15,17 +15,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results
 
-# 13a
+# 13a Generate 100 random normal points
 
 Setting the seed to keep random values consistent
 ```{r}
 set.seed(1)
 
 # Creating a vector with values drawn from a random distribution
-
 x = rnorm(100)
 ```
-# 13b
+
+# 13b Epsilon $\epsilon \sim \mathcal{N}(0,0.25)$
 
 Creating a vector with values drawn from a random distribution with mean 0, standard deviation 0.25
 
@@ -33,17 +33,15 @@ Creating a vector with values drawn from a random distribution with mean 0, stan
 eps = rnorm(100, 0, 0.25)
 ```
 
-# 13c
-
-Creating the model
+# 13c Creating the model
 
 ```{r}
 Y = -1 + 0.5*x + eps
 ```
 
 - The length of vector y is 100 
-- B0 = -1
-- B1 = 0.5
+- $\beta_0 = -1$
+- $\beta_1 = 0.5$
 
 # 13d Plot
 

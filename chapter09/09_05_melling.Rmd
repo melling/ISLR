@@ -11,12 +11,33 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 p369
 
 We have seen that we can fit an SVM with a non-linear kernel in order to perform classification using a non-linear decision boundary. We will now see that we can also obtain a non-linear decision boundary by performing logistic regression using non-linear transformations of the features.
 
+(a) Generate a data set with n = 500 and p = 2, such that the observations belong to two classes with a quadratic decision boundary between them. For instance, you can do this as follows:
+
+(b) Plot the observations, colored according to their class labels. Your plot should display X1 on the x-axis, and X2 on the y- axis.
+
+(c) Fit a logistic regression model to the data, using X1 and X2 as predictors.
+
+(d) Apply this model to the training data in order to obtain a pre- dicted class label for each training observation. Plot the ob- servations, colored according to the predicted class labels. The decision boundary should be linear.
+
+(e) Now fit a logistic regression model to the data using non-linear functions of X1 and X2 as predictors (e.g. X12, X1 ×X2, log(X2), and so forth).
+
+(f) Apply this model to the training data in order to obtain a pre- dicted class label for each training observation. Plot the ob- servations, colored according to the predicted class labels. The decision boundary should be obviously non-linear. If it is not, then repeat (a)-(e) until you come up with an example in which the predicted class labels are obviously non-linear.
+
+(g) Fit a support vector classifier to the data with X1 and X2 as predictors. Obtain a class prediction for each training observa- tion. Plot the observations, colored according to the predicted class labels.
+
+(h) Fit a SVM using a non-linear kernel to the data. Obtain a class prediction for each training observation. Plot the observations, colored according to the predicted class labels.
+
+(i) Comment on your results.
+
+***
+
 # 5a
-Generate a data set with n = 500 and p = 2, such that the observations belong to two classes with a quadratic decision boundary between them. For instance, you can do this as follows:
 
 ```{r}
 set.seed(421)
@@ -59,7 +80,7 @@ lr.predict.train.probs = predict(lr.fit, newdata = dat, type = "response")
 preds = ifelse(lr.predict.train.probs > 0.52, 1, 0)
 ```
 
-Confusion Matrix
+## Confusion Matrix
 ```{r}
 table(preds, dat[,"y"])
 ```
@@ -112,8 +133,6 @@ lr.fit.poly = glm(y~poly(x1,2) + poly(x2,2), data = dat, family = binomial)
 
 # 5f
 
-Apply this model to the training data in order to obtain a predicted class label for each training observation. Plot the observations, colored according to the predicted class labels. The decision boundary should be obviously non-linear. If it is not, then repeat (a)-(e) until you come up with an example in which the predicted class labels are obviously non-linear.
-
 ```{r}
 pred.poly = predict(lr.fit.poly, dat, family = binomial)
 lm.poly.pred = ifelse(pred.poly > 0.5, 1, 0)
@@ -126,8 +145,6 @@ dat.pos = dat[lm.poly.pred==1,]
 
 
 # 5g
-
-Fit a support vector classifier to the data with X1 and X2 as predictors. Obtain a class prediction for each training observa- tion. Plot the observations, colored according to the predicted class labels.
 
 ```{r}
 library(e1071)
@@ -148,8 +165,6 @@ dat.pos = dat[svm.pred==1,]
 
 # 5h
 
-Fit a SVM using a non-linear kernel to the data. Obtain a class prediction for each training observation. Plot the observations, colored according to the predicted class labels.
-
 ```{r}
 svm.fit <- svm(y ~ x1 + x2, data = dat.svm, kernel = "radial")
 svm.pred = predict(svm.fit, dat.svm)
@@ -164,5 +179,5 @@ dat.pos = dat[svm.pred==1,]
 ```
 ```
 
-### (i) Comments
+# 5i
 

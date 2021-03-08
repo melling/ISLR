@@ -1,23 +1,27 @@
 ---
-title: "ISLR Q4.5"
+title: "ISLR Q4.5 - Differences between LDA and QDA"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2    
 ---
 [ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-p169
+
 
 # Question
 
+p169
+
 We now examine the differences between LDA and QDA
 
-- (a) If the Bayes decision boundary is linear, do we expect LDA or QDA to perform better on the training set? On the test set?
-- (b) If the Bayes decision boundary is non-linear, do we expect LDA or QDA to perform better on the training set? On the test set?
-- (c) In general, as the sample size n increases, do we expect the test prediction accuracy of QDA relative to LDA to improve, decline, or be unchanged? Why?
-- (d) True or False: Even if the Bayes decision boundary for a given problem is linear, we will probably achieve a superior test er- ror rate using QDA rather than LDA because QDA is flexible enough to model a linear decision boundary. Justify your answer.
+(a) If the Bayes decision boundary is linear, do we expect LDA or QDA to perform better on the training set? On the test set?
+(b) If the Bayes decision boundary is non-linear, do we expect LDA or QDA to perform better on the training set? On the test set?
+(c) In general, as the sample size n increases, do we expect the test prediction accuracy of QDA relative to LDA to improve, decline, or be unchanged? Why?
+(d) True or False: Even if the Bayes decision boundary for a given problem is linear, we will probably achieve a superior test er- ror rate using QDA rather than LDA because QDA is flexible enough to model a linear decision boundary. Justify your answer.
 
 ***
 
@@ -36,17 +40,23 @@ LDA does best on linear. QDA does for modestly non-linear. p154
 
 KNN does best for complicated decision boundaries
 
-## Answers
+# Answers
 
-a) QDA on and Training because it will fit the data better, potentially overfitting
+## 5a) 
+
+QDA on and Training because it will fit the data better, potentially overfitting
 
 LDA Test because of higher variance for QDA on Test data.
 
-b) QDA on both. Explain!!!!!!
+## 5b) 
 
-c) For Test data,
+QDA on both. Explain!!!!!!
 
-QDA will improve more with more training data.
+## 5c) 
 
-d) FALSE It will overfit training data, have higher variance on test data
+For Test data, QDA will improve more with more training data.
+
+## 5d) 
+
+FALSE It will overfit training data, have higher variance on test data
 

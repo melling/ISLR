@@ -13,13 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Question
 
+p299
+
 The Wage data set contains a number of other features not explored in this chapter, such as marital status (maritl), job class (jobclass), and others. Explore the relationships between some of these other predictors and wage, and use non-linear fitting techniques in order to fit flexible models to the data. Create plots of the results obtained, and write a summary of your findings.
 
 ***
 
 # 7a
-
-p299
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse) 

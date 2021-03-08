@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.7"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 [ISLR Home](../index.html)
 
@@ -13,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 p170
 
-Suppose that we wish to predict whether a given stock will issue a dividend this year (“Yes” or “No”) based on X, last year’s percent profit. We examine a large number of companies and discover that the mean value of X for companies that issued a dividend was X ̄ = 10, while the mean for those that didn’t was X ̄ = 0. In addition, the variance of X for these two sets of companies was σˆ2 = 36. Finally, 80 % of companies issued dividends. Assuming that X follows a nor- mal distribution, predict the probability that a company will issue a dividend this year given that its percentage profit was X = 4 last year.
+Suppose that we wish to predict whether a given stock will issue a dividend this year (“Yes” or “No”) based on X, last year’s percent profit. We examine a large number of companies and discover that the mean value of X for companies that issued a dividend was $\bar{X} = 10$, while the mean for those that didn’t was $\bar{X} = 0$. In addition, the variance of X for these two sets of companies was $\sigma^2 = 36$. Finally, 80% of companies issued dividends. Assuming that X follows a normal distribution, predict the probability that a company will issue a dividend this year given that its percentage profit was X = 4 last year.
 
 Hint: Recall that the density function for a normal random variable is f(x) = √ 1 e−(x−μ)2/2σ2 . You will need to use Bayes’ theorem
 
@@ -24,7 +26,7 @@ Hint: Recall that the density function for a normal random variable is f(x) = �
 ```
 Y = Did company pay dividend
 
-X = last years percent
+X = last year's percent
 
 X_bar_yes = 10% implies dividend paid
 X_bar_no = 0% implies dividend NOT paid

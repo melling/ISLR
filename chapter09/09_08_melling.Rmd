@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q9.8"
+title: "ISLR Q9.8 - Support Vector/OJ"
 output:
   html_document:
     toc: true
@@ -11,8 +11,35 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
+p371
+
 This problem involves the OJ data set which is part of the ISLR package.
 Question 9 was the OJ problem in Chapter 8.
+
+(a) Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+
+(b) Fit a support vector classifier to the training data using
+cost=0.01, with Purchase as the response and the other variables as predictors. Use the summary() function to produce summary statistics, and describe the results obtained.
+
+(c) What are the training and test error rates?
+
+(d) Use the tune() function to select an optimal cost. Consider val-
+ues in the range 0.01 to 10.
+
+(e) Compute the training and test error rates using this new value
+for cost.
+
+(f) Repeat parts (b) through (e) using a support vector machine
+with a radial kernel. Use the default value for gamma.
+
+(g) Repeat parts (b) through (e) using a support vector machine
+with a polynomial kernel. Set degree=2.
+
+(h) Overall, which approach seems to give the best results on this data?
+
+***
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(ISLR)
@@ -21,7 +48,7 @@ library(e1071)
 ```
 
 # 8a
-p371
+
 
 Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations. (see Q8.9)
 

@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q8.11 Boosting with Caravan Data"
+title: "ISLR Q8.11 Boosting/Caravan"
 output:
   html_document:
     toc: true
@@ -9,6 +9,17 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
+
+This question uses the Caravan data set.
+
+(a) Create a training set consisting of the first 1,000 observations,
+and a test set consisting of the remaining observations.
+
+(b) Fit a boosting model to the training set with Purchase as the response and the other variables as predictors. Use 1,000 trees, and a shrinkage value of 0.01. Which predictors appear to be the most important?
+
+(c) Use the boosting model to predict the response on the test data. Predict that a person will make a purchase if the estimated prob- ability of purchase is greater than 20 %. Form a confusion ma- trix. What fraction of the people predicted to make a purchase do in fact make one? How does this compare with the results obtained from applying KNN or logistic regression to this data set?
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)

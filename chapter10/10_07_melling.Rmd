@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q10.7"
+title: "ISLR Q10.7 - Hierarchical Clustering/USArrests"
 output:
   html_document:
     toc: true
@@ -11,10 +11,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 In the chapter, we mentioned the use of correlation-based distance and Euclidean distance as dissimilarity measures for hierarchical clustering. It turns out that these two measures are almost equivalent: if each observation has been centered to have mean zero and standard deviation one, and if we let rij denote the correlation between the ith and jth observations, then the quantity $1 − r_{ij}$ is proportional to the squared Euclidean distance between the ith and jth observations.
+
 On the USArrests data, show that this proportionality holds.
 
 Hint: The Euclidean distance can be calculated using the dist() function, and correlations can be calculated using the cor() function.
+
+***
 
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
@@ -24,6 +29,8 @@ set.seed(1)
 ```{r}
 names(USArrests)
 ```
+
+# Scale
 
 ```{r}
 dsc <-  scale(USArrests)
@@ -39,12 +46,12 @@ b <- as.dist(1 - cor(t(dsc)))
 summary(b / a)
 ```
 
-## a
+# a Result
 ```{r}
 a
 ```
 
-## b
+# b Result
 
 ```{r}
 b

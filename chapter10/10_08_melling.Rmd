@@ -11,9 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-library(ISLR)
-```
+# Question
 
 In Section 10.2.3, a formula for calculating PVE (proportion of variance explained) was given in Equation 10.8. We also saw that the PVE can be obtained using the sdev output of the prcomp() function.
 
@@ -27,6 +25,13 @@ Section 10.2.3.
 These two approaches should give the same results.
 
 Hint: You will only obtain the same results in (a) and (b) if the same data is used in both cases. For instance, if in (a) you performed prcomp() using centered and scaled variables, then you must center and scale the variables before applying Equation 10.3 in (b).
+
+***
+
+```{r}
+library(ISLR)
+```
+
 
 # 10.8a
 

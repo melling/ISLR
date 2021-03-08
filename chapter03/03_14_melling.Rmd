@@ -14,7 +14,37 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Question
 
-This problem focuses on the collinearity problem
+This problem focuses on the *collinearity* problem
+
+(a) Perform the following commands in R:
+```
+> set.seed(1)
+> x1=runif(100)
+> x2=0.5*x1+rnorm(100)/10
+> y=2+2*x1+0.3*x2+rnorm(100)
+```
+
+The last line corresponds to creating a linear model in which y is a function of x1 and x2. Write out the form of the linear model. What are the regression coefficients?
+
+(b) What is the correlation between x1 and x2? Create a scatterplot displaying the relationship between the variables.
+
+(c) Using this data, fit a least squares regression to predict y using x1 and x2. Describe the results obtained. What are $\hat{\beta_0}, \hat{\beta_1}$, and $\hat{\beta_2}$? How do these relate to the true $\beta_0, \beta_1$, and $\beta_2$? Can you reject the null hypothesis $H_0: \beta_1 = 0$? How about the null hypothesis $H_0 : \beta_2 = 0$?
+
+(d) Now fit a least squares regression to predict y using only x1. Comment on your results. Can you reject the null hypothesis $H_0: \beta_1 = 0$?
+
+(e) Now fit a least squares regression to predict y using only x2. Comment on your results. Can you reject the null hypothesis $H_0: \beta_1 = 0$?
+
+(f) Do the results obtained in (c)–(e) contradict each other? Explain your answer.
+(g) Now suppose we obtain one additional observation, which was unfortunately mismeasured.
+
+```
+> x1=c(x1, 0.1) 
+> x2=c(x2, 0.8) 
+> y=c(y,6)
+```
+Re-fit the linear models from (c) to (e) using this new data. What effect does this new observation have on the each of the models? In each model, is this observation an outlier? A high-leverage point? Both? Explain your answers.
+
+***
 
 # 14a
 
@@ -37,25 +67,23 @@ Creating a linear model. y is a function of x1 and x2
 y = 2 + 2*x1 + 0.3*x2 + rnorm(100)
 ```
 
-- B0 = 2
-- B1 = 2
-- B2 = 0.3
+- $\beta_0 = -2$
+- $\beta_1 = 2$
+- $\beta_2 = 0.3$
 
-# 14b
-
-## Plotting x1 vs x2
+# 14b Plotting x1 vs x2
 ```{r}
 plot(x1, x2)
 ```
 
 Based on the graph, there is a postive correlation between x1 and x2
 
-## Calculating the correlation between x1 and x2
+## Correlation between x1 and x2
 ```{r}
 cor(x1, x2) # 0.8324
 ```
 
-# 14c
+# 14c Fit Model
 
 Fitting the a Least Squares Regression to predict y given x1 and x2
 ```{r}
@@ -75,15 +103,13 @@ The coefficient estimates for $\hat{\beta_0}$ and $\hat{\beta_1}$ are similar to
 
 However the coefficient estimate for Bhat2 is off by 1.1 units. Its extremely high p-value (0.4671) tells us that we cannot reject the null hypothesis, which means that there is a high chance that there is no relationship between y and x2.
 
-## Use VIF to check for multicollinearity 
+## VIF to check for multicollinearity 
 ```{r}
 library(car)
 vif(lm.fit)
 ```
 
-# 14d
-
-Creating a new model predicting y using only x1
+# 14d Creating a new model predicting y using only x1
 ```{r}
 lm.x1 = lm(y~x1)
 ```
@@ -95,9 +121,7 @@ summary(lm.x1)
 
 We can reject the null hypothesis because the p-value (4.37E-7) is extremely below 0.05.
 
-# 14e
-
-Creating a new model predicting y using only x2
+# 14e Creating a new model predicting y using only x2
 ```{r}
 lm.x2 = lm(y~x2)
 ```
@@ -113,8 +137,7 @@ We can reject the null hypothesis because the p-value (0.0002) is extremely belo
 
 # 14f
 
-In (c), the p-value for Bhat2 was not siginificant but in (e) if we do a LSR model 
-separately, then it does become significant. Also the coefficient for Bhat2 changed by almost 2 units from (c) and (e).
+In (c), the p-value for Bhat2 was not siginificant but in (e) if we do a LSR model separately, then it does become significant. Also the coefficient for Bhat2 changed by almost 2 units from (c) and (e).
 
 # 14g
 

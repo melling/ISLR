@@ -1,7 +1,9 @@
 ---
 title: "ISLR Q4.8"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 [ISLR Home](../index.html)
 
@@ -9,9 +11,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
 p170
 
-Suppose that we take a data set, divide it into equally-sized training and test sets, and then try out two different classification procedures. First we use logistic regression and get an error rate of 20 % on the training data and 30 % on the test data. Next we use 1-nearest neigh- bors (i.e. K = 1) and get an average error rate (averaged over both test and training data sets) of 18%. Based on these results, which method should we prefer to use for classification of new observations? Why?
+Suppose that we take a data set, divide it into equally-sized training and test sets, and then try out two different classification procedures. First we use logistic regression and get an error rate of 20% on the training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. K=1) and get an average error rate (averaged over both test and training data sets) of 18%. Based on these results, which method should we prefer to use for classification of new observations? Why?
+
+***
+
+# Answer TODO
 
 ```
 logistic 20%/30%

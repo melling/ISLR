@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q9.7"
+title: "ISLR Q9.7 - Support Vector/Auto"
 output:
   html_document:
     toc: true
@@ -11,19 +11,42 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
+p371
+
+In this problem, you will use support vector approaches in order to predict whether a given car gets high or low gas mileage based on the Auto data set.
+
+(a) Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars with gas mileage below the median.
+
+(b) Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with dif- ferent values of this parameter. Comment on your results.
+
+(c) Now repeat (b), this time using SVMs with radial and polyno- mial basis kernels, with different values of gamma and degree and cost. Comment on your results.
+
+(d) Make some plots to back up your assertions in (b) and (c).
+
+Hint: In the lab, we used the plot() function for svm objects only in cases with p = 2. When p > 2, you can use the plot() function to create plots displaying pairs of variables at a time. Essentially, instead of typing
+
+```
+> plot(svmfit , dat)
+```
+where svmfit contains your fitted model and dat is a data frame containing your data, you can type
+```
+> plot(svmfit , dat , x1∼x4)
+```
+
+in order to plot just the first and fourth variables. However, you must replace x1 and x4 with the correct variable names. To find out more, type ?plot.svm.
+
+***
+
 ```{r include=FALSE}
 library(ISLR)
 library(tidyverse)
 library(e1071)
 ```
 
-In this problem, you will use support vector approaches in order to predict whether a given car gets high or low gas mileage based on the Auto data set.
 
 # 7a
-
-p371
-
-Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars with gas mileage below the median.
 
 ```{r}
 mpg.median = Auto$mpg %>% median()
@@ -35,11 +58,7 @@ indicator = ifelse(Auto$mpg > mpg.median, 1, 0)
 Auto$mpg_above_median = indicator
 ```
 
-# 7b
-
-Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with different values of this parameter. Comment on your results.
-
-## Linear Kernel
+# 7b Linear Kernel
 
 Hyper ... Parameters: Cost
 ```{r}
@@ -52,11 +71,9 @@ summary(tune.out)
 
 # 7c
 
-Now repeat (b), this time using SVMs with radial and polynomial basis kernels, with different values of gamma and degree and cost. Comment on your results.
-
 **Warning**, if you forget as.factor() the tune() function will hang forever.
 
-#### Radial
+## Radial
 
 Parameters: Cost, Gamma
 ```{r}
@@ -105,8 +122,6 @@ svm.fit.poly = svm(as.factor(mpg_above_median) ~ weight + displacement,
 
 ```
 # 7d
-
-Make some plots to back up your assertions in (b) and (c).
 
 Radial looks the best with the lowest error.
 #?plot.svm

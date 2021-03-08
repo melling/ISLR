@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q10.9"
+title: "ISLR Q10.9 - Hierarchical Clustering on States/USArrests"
 output:
   html_document:
     toc: true
@@ -11,6 +11,19 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Question
+
+Consider the USArrests data. We will now perform hierarchical clustering on the states.
+
+(a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states.
+
+(b) Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
+(c) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
+
+(d) What effect does scaling the variables have on the hierarchical clustering obtained? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed? Provide a justification for your answer.
+
+***
+
 ```{r message=FALSE, warning=FALSE}
 library(ISLR)
 ```
@@ -20,14 +33,6 @@ library(ISLR)
 library(ggdendro) # Better dendrograms
 library(ggplot2)
 ```
-
-Consider the USArrests data. We will now perform hierarchical clustering on the states.
-
-- (a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states.
-- (b) Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
-- (c) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
-- (d) What effect does scaling the variables have on the hierarchical clustering obtained? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed? Provide a justification for your answer.
-
 
 # 9a Fitting a hierarchical clustering
 

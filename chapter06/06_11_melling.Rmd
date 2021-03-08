@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q6.11"
+title: "ISLR Q6.11 - Crime Rate/Boston"
 output:
   html_document:
     toc: true
@@ -11,10 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r message=FALSE, warning=FALSE}
-library(MASS)
-library(leaps)
-```
+# Question
 
 p264
 
@@ -27,6 +24,11 @@ We will now try to predict per capita crime rate in the Boston data set.
 (c) Does your chosen model involve all of the features in the data set? Why or why not?
 
 ***
+
+```{r message=FALSE, warning=FALSE}
+library(MASS)
+library(leaps)
+```
 
 # 11a best subset selection
 

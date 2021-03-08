@@ -1,13 +1,17 @@
 ---
 title: "ISLR Q5.5"
 output:
-  html_document: default
+  html_document:
+    toc: true
+    depth: 2       
 ---
 [ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Question
 
 5. In Chapter 4, we used logistic regression to predict the probability of default using income and balance on the Default data set. We will now estimate the test error of this logistic regression model using the validation set approach. Do not forget to set a random seed before beginning your analysis.
 
