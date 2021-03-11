@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Question
 
+p124
+
 This problem involves simple linear regression without an intercept.
 
 (a) Recall that the coefficient estimate $\hat{\beta}$ for the linear regression of Y onto X without an intercept is given by (3.38). Under what circumstance is the coefficient estimate for the regression of X onto Y the same as the coefficient estimate for the regression of Y onto X?
@@ -50,7 +52,7 @@ Equation Y onto X
 y = 2 * x + rnorm(100)
 ```
 
-## Fitting y onto x without intercept
+## Fit y onto x without intercept: y ~ 0 + x 
 
 ```{r}
 lm.fit.no.intercept = lm(y ~ 0 + x)
@@ -58,7 +60,7 @@ summary(lm.fit.no.intercept)
 ```
 
 
-## Fitting x onto y without intercept
+## Fit x onto y without intercept: x ~ 0 + y
 
 ```{r}
 lm.fit.x.y = lm(x ~ 0 + y)
@@ -73,14 +75,15 @@ Equation
 y = x
 ```
 
-## Fitting y onto x
+
+## Fit y onto x: y ~ 0 + x
 
 ```{r}
 lm.fit.y.x = lm(y ~ 0 + x)
 summary(lm.fit.y.x)
 ```
 
-## Fitting x onto y
+## Fit x onto y: x ~ 0 + y
 
 ```{r}
 lm.fit.x.y = lm(x ~ 0 + y)

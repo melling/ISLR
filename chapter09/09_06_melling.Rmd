@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q9.6"
+title: "ISLR Q9.6 - SVMs with a range of cost values"
 output:
   html_document:
     toc: true

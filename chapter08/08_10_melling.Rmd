@@ -1,10 +1,11 @@
 ---
-title: "ISLR Q8.10 Random Forest - Boosting/Hitters"
+title: "ISLR Q8.10 - Random Forest - Boosting/Hitters"
 output:
   html_document:
     toc: true
     depth: 2           
 ---
+[ISLR Home](../index.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

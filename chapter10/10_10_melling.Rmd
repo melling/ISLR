@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q10.10"
+title: "ISLR Q10.10 - PCA and K-means clustering"
 output:
   html_document:
     toc: true

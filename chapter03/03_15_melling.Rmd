@@ -91,6 +91,11 @@ par(mfrow = c(2,2))
 plot(lm.zn)
 ```
 
+```{r}
+library(car)
+#qqplot(lm.zn)
+```
+
 ## Model: $crim = \beta_0 + \beta_1 indus$
 
 $crim = \beta_0 + \beta_1 indus$
@@ -285,11 +290,21 @@ x = c(coefficients(lm.zn)[2],
 y = coefficients(lm.all)[2:14]
 ```
 
+```{r}
+x
+```
+
+```{r}
+y
+```
+
 ## Plot Coefficients
 ```{r}
 par(mfrow = c(1,1)) # 1 plot
 plot(x, y)
 ```
+
+x and y should match but they don't for nox.
 
 x$coeffients <-  c('Intercept', "RME")
 

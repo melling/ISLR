@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q8.9 Regression Trees with OJ Data"
+title: "ISLR Q8.9 - Regression Trees/OJ"
 output:
   html_document:
     toc: true

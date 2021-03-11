@@ -3,7 +3,7 @@ title: "ISLR Q3.10 - Multiple Regression/Carseats"
 output:
   html_document:
     toc: true
-    toc_depth: 3
+    toc_depth: 2
 ---
 [ISLR Home](../index.html)
 
@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Question
+
+p123
 
 This question should be answered using the Carseats data set.
 
@@ -35,13 +37,10 @@ careful - some of the variables in the model are qualitative!
 ***
 
 ```{r message=FALSE, warning=FALSE}
-#library(MASS)
 library(ISLR)
 ```
 
-
 # 10a $Sales = \beta_0 + \beta_1 Price + \beta_2 Urban + \beta_3 US$
-
 
 ```{r}
 names(Carseats)

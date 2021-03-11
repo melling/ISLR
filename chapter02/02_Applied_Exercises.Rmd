@@ -1,5 +1,5 @@
 ---
-title: "ISLR Chapter 2 Applied Exercises"
+title: "ISLR Chapter 2 - Applied Exercises"
 output:
   html_document:
     toc: true
@@ -54,8 +54,11 @@ summary(college)
 
 ## Correlation Pairs
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ISLR)
+```
+
+```{r}
 pairs(College[,1:10]) # [,1:10] college dataframe didn't work
 ```
 

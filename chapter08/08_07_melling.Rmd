@@ -1,5 +1,5 @@
 ---
-title: "ISLR Q8.7 Random Forest/Boston"
+title: "ISLR Q8.7 - Random Forest/Boston"
 output:
   html_document:
     toc: true
