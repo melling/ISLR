@@ -68,6 +68,7 @@ scatterplotMatrix(auto, smooth = FALSE, main="Scatter Plot Matrix")
 Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the name variable, which is qualitative.
 
 ```{r}
+options(digits=2)
 cor(Auto[,!colnames(Auto) %in% c("name")]) # Skip name column
 ```
 
