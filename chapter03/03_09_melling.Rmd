@@ -54,8 +54,20 @@ pairs(Auto)
 ```{r ggpairs}
 auto <- as_tibble(Auto)
 auto <- select(auto, -name)
+colnames(auto)
+```
+
+### Rename a few columns
+```{r Rename}
+names(auto)[names(auto) == "displacement"] <- "displ"
+names(auto)[names(auto) == "horsepower"] <- "hp"
+names(auto)[names(auto) == "acceleration"] <- "accel"
+```
+
+```{r}
 ggpairs(auto)
 ```
+
 
 ## car Package scatterplotMatrix
 
@@ -69,7 +81,7 @@ Compute the matrix of correlations between the variables using the function cor(
 
 ```{r}
 options(digits=2)
-cor(Auto[,!colnames(Auto) %in% c("name")]) # Skip name column
+cor(auto[,!colnames(auto) %in% c("name")]) # Skip name column
 ```
 
 ## Enhanced Correlation Plot
