@@ -55,7 +55,7 @@ p71
 
 We usually have more than one predictor. 
 
-$Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon \;\;(3.19)$
+$$Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon \;\;(3.19)$$
 
 ## Estimating the Coefficients
 

@@ -176,7 +176,7 @@ mean(qda.class != y.test) # test-error rate: 10.1%
 
 # 11f
 
-(f) Perform logistic regression on the training data in order to pre- dict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
+(f) Perform logistic regression on the training data in order to predict mpg01 using the variables that seemed most associated with mpg01 in (b). What is the test error of the model obtained?
 
 ***
 
